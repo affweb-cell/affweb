@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Etalase Pilihan</title>
+<meta name="description" content="Kumpulan produk pilihan dari Shopee, TikTok Shop, Tokopedia, dan lainnya. Cari, filter, dan langsung beli.">
+<meta property="og:title" content="Etalase Pilihan">
+<meta property="og:description" content="Kumpulan produk pilihan dari Shopee, TikTok Shop, Tokopedia, dan lainnya.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#f26b1d">
+<style>
+:root{
+  --bg:#fff8f3;--card:#ffffff;--text:#2b1d14;--muted:#7a6a5f;--line:#f0e2d6;
+  --accent:#f26b1d;--accent-text:#ffffff;--accent-soft:#ffe9dc;--shadow:0 2px 12px rgba(80,40,10,.07);
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#17120f;--card:#221a15;--text:#f5ece6;--muted:#b3a297;--line:#3a2d25;
+  --accent:#ff8a3d;--accent-text:#1a0e06;--accent-soft:#3a2416;--shadow:none}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.45}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+header.top{padding:22px 0 8px}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:40px;height:40px;border-radius:12px;background:var(--accent);color:var(--accent-text);display:grid;place-items:center;font-weight:800;font-size:20px;flex:none}
+h1{margin:0;font-size:22px;letter-spacing:-.01em}
+.tagline{margin:2px 0 0;color:var(--muted);font-size:14px}
+.sticky{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0 6px;border-bottom:1px solid var(--line)}
+.search{display:flex;align-items:center;gap:8px;background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:0 12px;box-shadow:var(--shadow)}
+.search:focus-within{border-color:var(--accent)}
+.search input{flex:1;border:0;background:transparent;color:var(--text);font-size:16px;padding:12px 0;outline:none;min-width:0}
+.search button{border:0;background:none;color:var(--muted);font-size:18px;cursor:pointer;padding:4px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:10px 0 2px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1.5px solid var(--line);background:var(--card);color:var(--text);border-radius:999px;padding:7px 14px;font-size:14px;cursor:pointer;white-space:nowrap}
+.chip.on{background:var(--accent);border-color:var(--accent);color:var(--accent-text);font-weight:600}
+.chips.plat .chip{font-size:13px;padding:5px 12px}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 0 10px;flex-wrap:wrap}
+.count{color:var(--muted);font-size:14px}
+.tools{display:flex;gap:8px;align-items:center}
+select,.favbtn{border:1.5px solid var(--line);background:var(--card);color:var(--text);border-radius:10px;padding:7px 10px;font-size:14px;cursor:pointer}
+.favbtn.on{border-color:#e0245e;color:#e0245e;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding-bottom:20px}
+@media (min-width:640px){.grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:transform .15s}
+@media (hover:hover){.card:hover{transform:translateY(-2px)}}
+.thumb{position:relative;aspect-ratio:1/1;background:var(--accent-soft)}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.badges{position:absolute;top:8px;left:8px;display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+.badge{background:var(--accent);color:var(--accent-text);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px}
+.badge.new{background:#16a34a;color:#fff}
+.heart{position:absolute;top:6px;right:6px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.92);font-size:17px;cursor:pointer;display:grid;place-items:center;color:#999}
+.heart.on{color:#e0245e}
+.body{padding:10px 12px 12px;display:flex;flex-direction:column;gap:6px;flex:1}
+.plat-tag{align-self:flex-start;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;color:#fff;background:#6b7280}
+.p-shopee{background:#ee4d2d}.p-tiktok{background:#111}.p-tokopedia{background:#03ac0e}.p-lazada{background:#1a1aa6}
+.name{font-size:14px;margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.9em}
+.price{font-weight:800;color:var(--accent);font-size:16px}
+.actions{display:flex;gap:6px;margin-top:auto}
+.buy{flex:1;text-align:center;text-decoration:none;background:var(--accent);color:var(--accent-text);font-weight:700;font-size:13px;padding:9px 6px;border-radius:10px}
+.share{flex:none;width:38px;border:1.5px solid var(--line);border-radius:10px;display:grid;place-items:center;text-decoration:none;font-size:16px}
+.report{font-size:11px;color:var(--muted);text-align:center;text-decoration:underline}
+.more{display:block;margin:4px auto 28px;border:1.5px solid var(--accent);color:var(--accent);background:transparent;font-weight:700;border-radius:12px;padding:11px 22px;font-size:15px;cursor:pointer}
+.empty{text-align:center;color:var(--muted);padding:48px 16px}
+.empty b{display:block;font-size:40px;margin-bottom:6px}
+footer{border-top:1px solid var(--line);padding:20px 0 32px;color:var(--muted);font-size:13px}
+footer p{margin:6px 0}
+.skeleton{background:var(--card);border:1px solid var(--line);border-radius:16px;aspect-ratio:3/4;animation:pulse 1.2s infinite ease-in-out}
+@keyframes pulse{50%{opacity:.5}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <div class="logo" id="logo">E</div>
+      <div>
+        <h1 id="siteName">Etalase Pilihan</h1>
+        <p class="tagline" id="tagline"></p>
+      </div>
+    </div>
+  </header>
+</div>
+
+<div class="sticky">
+  <div class="wrap">
+    <label class="search">
+      <span aria-hidden="true">🔍</span>
+      <input id="q" type="search" placeholder="Cari produk, misal: sepatu, skincare…" autocomplete="off">
+      <button id="clear" type="button" aria-label="Hapus pencarian" hidden>✕</button>
+    </label>
+    <div class="chips" id="cats"></div>
+    <div class="chips plat" id="plats"></div>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="toolbar">
+    <span class="count" id="count">Memuat produk…</span>
+    <div class="tools">
+      <button class="favbtn" id="favBtn" type="button">♡ Favorit</button>
+      <select id="sort" aria-label="Urutkan">
+        <option value="baru">Terbaru</option>
+        <option value="murah">Termurah</option>
+        <option value="mahal">Termahal</option>
+        <option value="az">Nama A–Z</option>
+      </select>
+    </div>
+  </div>
+  <div class="grid" id="grid"></div>
+  <button class="more" id="more" type="button" hidden>Tampilkan lebih banyak</button>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>Pemberitahuan:</b> Link di web ini adalah link affiliate. Saya mungkin mendapat komisi kecil dari pembelian melalui link ini, tanpa biaya tambahan untukmu. Harga dan ketersediaan dapat berubah sewaktu-waktu.</p>
+    <p id="updated"></p>
+    <p>© <span id="year"></span> <span id="footName"></span></p>
+  </div>
+</footer>
+
+<script>
+/* ===================== PENGATURAN (cukup ubah bagian ini) ===================== */
+const CONFIG = {
+  SITE_NAME: "Etalase Pilihan",
+  TAGLINE: "Produk pilihan dari Shopee, TikTok Shop & lainnya",
+  // Tempel link CSV dari Google Sheets (File → Bagikan → Publikasikan ke web → CSV).
+  // Kalau masih kosong, web menampilkan contoh produk.
+  CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vT-Tf2OZ1uEnQf4JQofaY8LCWAO1NmDIWo-nr2InN9vZrCaJW0KLkeUps8ckJZYitdBxCzW66fvB-GQ/pub?gid=880899455&single=true&output=csv",
+  // Diisi nanti di Tahap 6 (link form "Laporkan link rusak"). Boleh dikosongkan.
+  REPORT_URL: "",
+  NEW_DAYS: 7,     // produk dianggap "Baru" selama sekian hari
+  PER_PAGE: 24     // jumlah produk per tampilan sebelum tombol "lebih banyak"
+};
+/* ============================================================================ */
+
+const DEMO = [
+  {id:"1",nama:"Sepatu Sneakers Pria Casual Ringan",link_affiliate:"https://shopee.co.id",gambar:"",harga:"159000",kategori:"Fashion",platform:"Shopee",badge:"Rekomendasi",status:"aktif",tanggal_tambah:"2026-10-27"},
+  {id:"2",nama:"Serum Wajah Niacinamide 30ml",link_affiliate:"https://shop.tiktok.com",gambar:"",harga:"49000",kategori:"Kecantikan",platform:"TikTok Shop",badge:"Promo",status:"aktif",tanggal_tambah:"2026-10-25"},
+  {id:"3",nama:"Earbuds Bluetooth TWS Bass Mantap",link_affiliate:"https://www.tokopedia.com",gambar:"",harga:"129000",kategori:"Elektronik",platform:"Tokopedia",badge:"",status:"aktif",tanggal_tambah:"2026-10-10"},
+  {id:"4",nama:"Rak Dapur Serbaguna 3 Susun",link_affiliate:"https://shopee.co.id",gambar:"",harga:"87500",kategori:"Rumah Tangga",platform:"Shopee",badge:"",status:"aktif",tanggal_tambah:"2026-09-30"},
+  {id:"5",nama:"Kaos Oversize Cotton Combed 24s",link_affiliate:"https://shop.tiktok.com",gambar:"",harga:"65000",kategori:"Fashion",platform:"TikTok Shop",badge:"Terlaris",status:"aktif",tanggal_tambah:"2026-10-20"},
+  {id:"6",nama:"Lampu Meja LED Belajar Lipat",link_affiliate:"https://www.lazada.co.id",gambar:"",harga:"72000",kategori:"Elektronik",platform:"Lazada",badge:"",status:"aktif",tanggal_tambah:"2026-10-05"},
+  {id:"7",nama:"Botol Minum Stainless 1 Liter",link_affiliate:"https://shopee.co.id",gambar:"",harga:"55000",kategori:"Rumah Tangga",platform:"Shopee",badge:"",status:"aktif",tanggal_tambah:"2026-10-28"},
+  {id:"8",nama:"Contoh produk nonaktif (tidak tampil)",link_affiliate:"https://shopee.co.id",gambar:"",harga:"10000",kategori:"Fashion",platform:"Shopee",badge:"",status:"nonaktif",tanggal_tambah:"2026-10-01"}
+];
+
+const FALLBACK = "data:image/svg+xml;utf8," + encodeURIComponent(
+  "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='#f3e6dc'/>" +
+  "<path d='M32 40h36l-3 32H35z' fill='none' stroke='#c9a891' stroke-width='3' stroke-linejoin='round'/>" +
+  "<path d='M42 40v-4a8 8 0 0 1 16 0v4' fill='none' stroke='#c9a891' stroke-width='3'/></svg>");
+
+const $ = id => document.getElementById(id);
+const state = { all: [], q: "", cat: "Semua", plat: "Semua", sort: "baru", fav: false, shown: CONFIG.PER_PAGE };
+const FAV_KEY = "etalase_favorit_v1";
+let favs = new Set();
+try { favs = new Set(JSON.parse(localStorage.getItem(FAV_KEY) || "[]")); } catch (e) {}
+function saveFavs(){ try { localStorage.setItem(FAV_KEY, JSON.stringify([...favs])); } catch (e) {} }
+
+function esc(s){ return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+
+function parseCSV(t){
+  const rows = []; let row = [], f = "", q = false;
+  for (let i = 0; i < t.length; i++){
+    const c = t[i];
+    if (q){
+      if (c === '"'){ if (t[i+1] === '"'){ f += '"'; i++; } else q = false; }
+      else f += c;
+    } else if (c === '"') q = true;
+    else if (c === ",") { row.push(f); f = ""; }
+    else if (c === "\n") { row.push(f); rows.push(row); row = []; f = ""; }
+    else if (c !== "\r") f += c;
+  }
+  if (f || row.length){ row.push(f); rows.push(row); }
+  const head = (rows.shift() || []).map(h => h.trim().toLowerCase().replace(/\s+/g, "_"));
+  return rows.filter(r => r.some(v => v.trim())).map(r => Object.fromEntries(head.map((h, i) => [h, (r[i] || "").trim()])));
+}
+
+function driveImg(u){
+  if (!u) return "";
+  const m = u.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:.*&)?id=|thumbnail\?(?:.*&)?id=)([\w-]{10,})/);
+  return m ? "https://drive.google.com/thumbnail?id=" + m[1] + "&sz=w600" : u;
+}
+
+function parseDate(s){
+  if (!s) return null;
+  let m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+  if (m) return new Date(+m[1], +m[2] - 1, +m[3]);
+  m = s.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})/);
+  if (m){
+    let d = +m[1], mo = +m[2];
+    if (mo > 12 && d <= 12) [d, mo] = [mo, d]; // jaga-jaga format bulan/tanggal (AS)
+    return new Date(+m[3], mo - 1, d);
+  }
+  const d = new Date(s); return isNaN(d) ? null : d;
+}
+
+function platKey(p){
+  p = (p || "").toLowerCase();
+  if (p.includes("shopee")) return "shopee";
+  if (p.includes("tiktok")) return "tiktok";
+  if (p.includes("tokopedia")) return "tokopedia";
+  if (p.includes("lazada")) return "lazada";
+  return "lain";
+}
+
+const OFF = ["nonaktif","non-aktif","tidak aktif","off","hapus","habis"];
+function normalize(rows){
+  const today = new Date(); today.setHours(0,0,0,0);
+  return rows.map((o, i) => {
+    const num = Number(String(o.harga || "").replace(/[^\d]/g, "")) || 0;
+    return {
+      id: o.id || String(i + 1),
+      nama: o.nama || "",
+      link: o.link_affiliate || o.link || "",
+      gambar: driveImg(o.gambar),
+      harga: num,
+      kategori: o.kategori || "Lainnya",
+      platform: o.platform || "Lainnya",
+      badge: o.badge || "",
+      status: (o.status || "aktif").toLowerCase(),
+      tgl: parseDate(o.tanggal_tambah),
+      sampai: parseDate(o.berlaku_sampai),
+      deskripsi: o.deskripsi || ""
+    };
+  }).filter(p => p.nama && p.link && !OFF.includes(p.status) && (!p.sampai || p.sampai >= today));
+}
+
+const rupiah = n => "Rp " + n.toLocaleString("id-ID");
+const isNew = p => p.tgl && (Date.now() - p.tgl.getTime()) / 864e5 <= CONFIG.NEW_DAYS;
+
+function buildChips(el, values, key){
+  el.innerHTML = ["Semua", ...values].map(v =>
+    `<button class="chip${state[key] === v ? " on" : ""}" data-v="${esc(v)}" type="button">${esc(v)}</button>`).join("");
+  el.onclick = e => {
+    const b = e.target.closest(".chip"); if (!b) return;
+    state[key] = b.dataset.v; state.shown = CONFIG.PER_PAGE;
+    el.querySelectorAll(".chip").forEach(c => c.classList.toggle("on", c === b));
+    render();
+  };
+}
+
+function filtered(){
+  const words = state.q.toLowerCase().split(/\s+/).filter(Boolean);
+  let list = state.all.filter(p => {
+    if (state.cat !== "Semua" && p.kategori !== state.cat) return false;
+    if (state.plat !== "Semua" && p.platform !== state.plat) return false;
+    if (state.fav && !favs.has(p.id)) return false;
+    if (!words.length) return true;
+    const hay = (p.nama + " " + p.kategori + " " + p.platform + " " + p.deskripsi + " " + p.badge).toLowerCase();
+    return words.every(w => hay.includes(w));
+  });
+  const s = state.sort;
+  list.sort((a, b) =>
+    s === "murah" ? (a.harga || 1e15) - (b.harga || 1e15) :
+    s === "mahal" ? b.harga - a.harga :
+    s === "az" ? a.nama.localeCompare(b.nama, "id") :
+    (b.tgl ? b.tgl.getTime() : 0) - (a.tgl ? a.tgl.getTime() : 0));
+  return list;
+}
+
+function card(p){
+  const badges = (isNew(p) ? `<span class="badge new">Baru</span>` : "") + (p.badge ? `<span class="badge">${esc(p.badge)}</span>` : "");
+  const wa = "https://wa.me/?text=" + encodeURIComponent(p.nama + " – " + p.link);
+  const report = CONFIG.REPORT_URL ? `<a class="report" href="${esc(CONFIG.REPORT_URL)}" target="_blank" rel="noopener">Laporkan link rusak</a>` : "";
+  const on = favs.has(p.id);
+  return `<article class="card">
+    <div class="thumb">
+      <img src="${esc(p.gambar || FALLBACK)}" alt="${esc(p.nama)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src=FALLBACK">
+      <div class="badges">${badges}</div>
+      <button class="heart${on ? " on" : ""}" data-fav="${esc(p.id)}" type="button" aria-label="Simpan ke favorit">${on ? "♥" : "♡"}</button>
+    </div>
+    <div class="body">
+      <span class="plat-tag p-${platKey(p.platform)}">${esc(p.platform)}</span>
+      <h2 class="name" title="${esc(p.nama)}">${esc(p.nama)}</h2>
+      ${p.harga ? `<div class="price">${rupiah(p.harga)}</div>` : ""}
+      <div class="actions">
+        <a class="buy" href="${esc(p.link)}" target="_blank" rel="noopener sponsored">Beli di ${esc(p.platform)}</a>
+        <a class="share" href="${wa}" target="_blank" rel="noopener" aria-label="Bagikan ke WhatsApp" title="Bagikan ke WhatsApp">↗</a>
+      </div>
+      ${report}
+    </div>
+  </article>`;
+}
+
+function render(){
+  const list = filtered();
+  const grid = $("grid");
+  $("count").textContent = list.length + " produk" + (state.fav ? " favorit" : "");
+  if (!list.length){
+    grid.innerHTML = `<div class="empty" style="grid-column:1/-1"><b>🔎</b>${state.fav ? "Belum ada produk favorit. Ketuk ♡ untuk menyimpan." : "Produk tidak ditemukan. Coba kata kunci lain."}</div>`;
+    $("more").hidden = true; return;
+  }
+  grid.innerHTML = list.slice(0, state.shown).map(card).join("");
+  $("more").hidden = list.length <= state.shown;
+}
+
+function setup(rows){
+  state.all = normalize(rows);
+  const uniq = k => [...new Set(state.all.map(p => p[k]))].sort((a, b) => a.localeCompare(b, "id"));
+  buildChips($("cats"), uniq("kategori"), "cat");
+  buildChips($("plats"), uniq("platform"), "plat");
+  const latest = state.all.reduce((m, p) => p.tgl && (!m || p.tgl > m) ? p.tgl : m, null);
+  if (latest) $("updated").textContent = "Terakhir diperbarui: " + latest.toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" });
+  render();
+}
+
+async function load(){
+  $("grid").innerHTML = Array(6).fill('<div class="skeleton"></div>').join("");
+  if (!CONFIG.CSV_URL){ setup(DEMO); return; }
+  try {
+    const url = CONFIG.CSV_URL + (CONFIG.CSV_URL.includes("?") ? "&" : "?") + "t=" + Date.now();
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(res.status);
+    setup(parseCSV(await res.text()));
+  } catch (e) {
+    $("grid").innerHTML = `<div class="empty" style="grid-column:1/-1"><b>⚠️</b>Produk gagal dimuat. Periksa koneksi lalu muat ulang halaman.</div>`;
+    $("count").textContent = "";
+  }
+}
+
+/* Interaksi */
+document.title = CONFIG.SITE_NAME;
+$("siteName").textContent = CONFIG.SITE_NAME;
+$("footName").textContent = CONFIG.SITE_NAME;
+$("tagline").textContent = CONFIG.TAGLINE;
+$("logo").textContent = CONFIG.SITE_NAME.trim().charAt(0).toUpperCase();
+$("year").textContent = new Date().getFullYear();
+
+let timer;
+$("q").addEventListener("input", e => {
+  clearTimeout(timer);
+  $("clear").hidden = !e.target.value;
+  timer = setTimeout(() => { state.q = e.target.value; state.shown = CONFIG.PER_PAGE; render(); }, 150);
+});
+$("clear").onclick = () => { $("q").value = ""; $("clear").hidden = true; state.q = ""; render(); $("q").focus(); };
+$("sort").onchange = e => { state.sort = e.target.value; render(); };
+$("favBtn").onclick = () => {
+  state.fav = !state.fav; state.shown = CONFIG.PER_PAGE;
+  $("favBtn").classList.toggle("on", state.fav);
+  $("favBtn").textContent = (state.fav ? "♥" : "♡") + " Favorit";
+  render();
+};
+$("more").onclick = () => { state.shown += CONFIG.PER_PAGE; render(); };
+$("grid").addEventListener("click", e => {
+  const h = e.target.closest("[data-fav]"); if (!h) return;
+  const id = h.dataset.fav;
+  favs.has(id) ? favs.delete(id) : favs.add(id);
+  saveFavs();
+  if (state.fav) render();
+  else { h.classList.toggle("on", favs.has(id)); h.textContent = favs.has(id) ? "♥" : "♡"; }
+});
+
+load();
+</script>
+</body>
+</html>
