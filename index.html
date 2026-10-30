@@ -30,10 +30,10 @@
   --navh:0px;
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;background:#000}
 html,body{overflow-x:hidden}
 @supports (overflow:clip){html,body{overflow-x:clip}}
-body{margin:0;background:var(--bg);color:var(--txt);font-family:var(--body);font-size:15px;line-height:1.45;padding-bottom:var(--navh)}
+body{margin:0;background:transparent;color:var(--txt);font-family:var(--body);font-size:15px;line-height:1.45;padding-bottom:var(--navh)}
 @media (max-width:759px){:root{--navh:calc(64px + env(safe-area-inset-bottom))}}
 a{color:inherit;text-decoration:none}
 button,input,select{font-family:inherit;color:inherit}
@@ -286,6 +286,51 @@ dialog.qv[open] .qv-in{animation:qvIn .4s var(--ease)}
 .report{align-self:flex-start;background:none;border:0;padding:0;font-size:11.5px;color:var(--dim);text-decoration:underline;cursor:pointer}
 .report:disabled{text-decoration:none;cursor:default}
 
+
+/* ---------- Latar bergerak ---------- */
+.bgfx{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:#000}
+.bgfx::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:46px 46px;-webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,#000 20%,transparent 75%);animation:gridmove 22s linear infinite}
+@keyframes gridmove{to{background-position:0 46px,46px 0}}
+.bgfx i{position:absolute;border-radius:50%;filter:blur(80px);opacity:.5;will-change:transform}
+.bgfx .o1{width:520px;height:520px;left:-160px;top:-140px;background:radial-gradient(circle,#ff1f3d,transparent 65%);animation:orb1 18s ease-in-out infinite alternate}
+.bgfx .o2{width:460px;height:460px;right:-180px;top:30%;background:radial-gradient(circle,#b8001c,transparent 65%);animation:orb2 22s ease-in-out infinite alternate}
+.bgfx .o3{width:380px;height:380px;left:20%;bottom:-200px;background:radial-gradient(circle,#ff4d6a,transparent 65%);opacity:.32;animation:orb1 26s ease-in-out infinite alternate-reverse}
+@keyframes orb1{to{transform:translate(120px,90px) scale(1.2)}}
+@keyframes orb2{to{transform:translate(-110px,-120px) scale(1.15)}}
+#net{position:absolute;inset:0;width:100%;height:100%;opacity:.75}
+
+/* ---------- Efek sentuh ---------- */
+.rp{position:absolute;border-radius:50%;background:rgba(255,255,255,.32);transform:scale(0);animation:rp .6s ease-out forwards;pointer-events:none;z-index:9}
+.rp.red{background:rgba(255,31,61,.4)}
+@keyframes rp{to{transform:scale(1);opacity:0}}
+.btn,.seg button,.chip,.store,.sorts button,.bnav-m a,.q .ic,.svc,.pf{position:relative;overflow:hidden}
+.slide{overflow:hidden}
+.card:active,.pf:active{transform:scale(.97)!important;transition-duration:.1s}
+.q:active .ic{transform:scale(.9)}
+.chip:active,.store:active,.sorts button:active,.seg button:active{transform:scale(.94)}
+.bnav-m a:active svg{transform:scale(.85)}
+
+/* ---------- Pilih toko ---------- */
+.stores{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:12px -16px 0;padding:2px 16px 4px}
+.stores::-webkit-scrollbar{display:none}
+.store{--c:#ffffff;flex:none;display:inline-flex;align-items:center;gap:9px;padding:7px 14px 7px 7px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(180deg,var(--s2),var(--s1));cursor:pointer;font-weight:700;font-size:13px;color:var(--txt);transition:border-color .25s,box-shadow .25s,transform .2s,background .25s}
+.store .lg{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:13px;color:#fff;background:var(--c);box-shadow:0 4px 12px -4px var(--c)}
+.store .lg svg{width:16px;height:16px}
+.store .ct{font-size:11px;font-weight:700;color:var(--mut);background:var(--s3);border-radius:999px;padding:2px 7px}
+.store:hover{border-color:var(--c)}
+.store.on{border-color:var(--c);background:linear-gradient(180deg,color-mix(in srgb,var(--c) 22%,var(--s2)),var(--s1));box-shadow:0 8px 22px -12px var(--c),inset 0 0 0 1px var(--c)}
+.store.on .ct{background:var(--c);color:#fff}
+.store.all{--c:var(--red)}
+.store.all .lg{background:var(--s3);color:var(--txt);box-shadow:none}
+.store.all.on .lg{background:var(--red);color:#fff}
+.sorts{display:flex;gap:4px;background:var(--s1);border:1px solid var(--line);border-radius:12px;padding:3px;overflow-x:auto;scrollbar-width:none;max-width:100%}
+.sorts::-webkit-scrollbar{display:none}
+.sorts button{flex:none;border:0;background:none;color:var(--mut);font-size:12px;font-weight:700;padding:7px 10px;border-radius:9px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:background .25s,color .25s}
+.sorts button svg{width:14px;height:14px}
+.sorts button.on{background:var(--s3);color:var(--txt)}
+.sorts button.on svg{color:var(--red)}
+@media (max-width:520px){.toolbar{flex-direction:column;align-items:stretch;gap:10px}.sorts{width:100%}.sorts button{flex:1;justify-content:center;padding:8px 4px}}
+
 /* ---------- Efek ---------- */
 .rv{opacity:0;translate:0 16px}
 .rv.in{opacity:1;translate:0 0;transition:opacity .55s var(--ease),translate .55s var(--ease)}
@@ -297,10 +342,12 @@ dialog.qv[open] .qv-in{animation:qvIn .4s var(--ease)}
   *,*::before,*::after{animation:none!important;transition:none!important}
   .rv{opacity:1;translate:none}
   .slide .tx > *{opacity:1;transform:none}
+  #net{display:none}
 }
 </style>
 </head>
 <body>
+<div class="bgfx" aria-hidden="true"><i class="o1"></i><i class="o2"></i><i class="o3"></i><canvas id="net"></canvas></div>
 
 <header class="top" id="top">
   <div class="wrap">
@@ -359,16 +406,14 @@ dialog.qv[open] .qv-in{animation:qvIn .4s var(--ease)}
       <button type="button" data-ptab="link" role="tab"><span data-i="link"></span>Link Affiliate</button>
     </div>
     <div class="chips" id="cats"></div>
+    <div class="stores" id="stores" role="group" aria-label="Pilih toko"></div>
     <div class="toolbar">
       <span class="count" id="count">Memuat…</span>
-      <div class="tools">
-        <select id="plat" aria-label="Toko"></select>
-        <select id="sort" aria-label="Urutkan">
-          <option value="baru">Terbaru</option>
-          <option value="laris">Terlaris</option>
-          <option value="murah">Termurah</option>
-          <option value="mahal">Termahal</option>
-        </select>
+      <div class="sorts" id="sorts" role="group" aria-label="Urutkan">
+        <button type="button" data-sort="baru" class="on"><span data-i="clock"></span>Terbaru</button>
+        <button type="button" data-sort="laris"><span data-i="fire"></span>Terlaris</button>
+        <button type="button" data-sort="murah"><span data-i="down"></span>Termurah</button>
+        <button type="button" data-sort="mahal"><span data-i="up"></span>Termahal</button>
       </div>
     </div>
     <div class="grid" id="grid"></div>
@@ -410,6 +455,11 @@ const CONFIG = {
   CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vT-Tf2OZ1uEnQf4JQofaY8LCWAO1NmDIWo-nr2InN9vZrCaJW0KLkeUps8ckJZYitdBxCzW66fvB-GQ/pub?gid=880899455&single=true&output=csv",
   API_URL: "https://script.google.com/macros/s/AKfycbx9k2qVOURsMnlfizJtJQa3220mWDuNdqCumMGdKur8fc3ij4UqzOjDqNVNeZTX20I0KA/exec",   // hitung klik & laporan link rusak
   BANNER_DETIK: 5,
+  // Banner yang tampil kalau di Sheets belum ada baris tipe "iklan"
+  BANNER_BAWAAN: [
+    { label: "Jasa", judul: "Bikin Website & Project IoT", teks: "Konsultasi gratis lewat WhatsApp.", link: "#jasa" },
+    { label: "Belanja", judul: "Produk Pilihan dari Toko Favorit", teks: "Shopee, TikTok Shop, Tokopedia, dan lainnya.", link: "#produk/link" }
+  ],
   NEW_DAYS: 7,
   PER_PAGE: 20
 };
@@ -459,6 +509,10 @@ const ICON = {
   fire: S(`<path d="M12 22c4 0 7-2.7 7-6.8 0-3.5-2.3-5.7-3.8-7.4-.4 1.7-1.3 3-2.7 3.7.3-3.6-1.4-6.8-4.5-8.5.2 3.3-1.6 5.3-3 7.1C3.9 11.5 5 14 5 15.2 5 19.3 8 22 12 22z" ${st}/>`),
   star: S(`<path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z" ${st}/>`),
   spark: S(`<path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8" ${st}/>`),
+  clock: S(`<circle cx="12" cy="12" r="9" ${st}/><path d="M12 7v5l3 2" ${st}/>`),
+  up: S(`<path d="M12 19V5M6 11l6-6 6 6" ${st}/>`),
+  down: S(`<path d="M12 5v14M6 13l6 6 6-6" ${st}/>`),
+  store: S(`<path d="M4 9l1.5-5h13L20 9M4 9h16v11H4zM9 20v-6h6v6" ${st}/>`),
   tag: S(`<path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z" ${st}/><circle cx="7.5" cy="7.5" r="1.5" fill="currentColor"/>`),
   image: S(`<rect x="3" y="4" width="18" height="16" rx="2" ${st}/><circle cx="9" cy="10" r="2" ${st}/><path d="M21 16l-5-5-9 9" ${st}/>`),
   code: S(`<path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14" ${st}/>`),
@@ -664,6 +718,18 @@ function renderProduk(){
   $("loadmore").hidden = list.length <= state.shown;
   reveal(g);
 }
+// Warna & inisial tiap toko (bukan logo resmi)
+function brand(name){
+  const s = (name || "").toLowerCase();
+  if (s.includes("shopee")) return { c: "#ee4d2d", t: "S" };
+  if (s.includes("tiktok")) return { c: "#fe2c55", t: "T" };
+  if (s.includes("tokopedia")) return { c: "#03ac0e", t: "T" };
+  if (s.includes("lazada")) return { c: "#f57224", t: "L" };
+  if (s.includes("blibli")) return { c: "#0095da", t: "B" };
+  if (s.includes("bukalapak")) return { c: "#e31e52", t: "B" };
+  if (s.includes("amazon")) return { c: "#ff9900", t: "A" };
+  return { c: "#7c7c88", t: esc((name || "?").trim().charAt(0).toUpperCase()) };
+}
 function buildFilters(){
   const ps = pool();
   const tally = k => [...ps.reduce((m, p) => m.set(p[k], (m.get(p[k]) || 0) + 1), new Map())];
@@ -673,8 +739,12 @@ function buildFilters(){
     (cats.length > 1 ? ["Semua", ...cats] : []).map(v => `<button class="chip${v === state.cat ? " on" : ""}" data-cat="${esc(v)}" type="button">${esc(v)}</button>`).join("");
   const shops = tally("platform").map(c => c[0]).filter(Boolean).sort();
   if (!shops.includes(state.plat)) state.plat = "Semua";
-  $("plat").innerHTML = `<option value="Semua">Semua toko</option>` + shops.map(v => `<option${v === state.plat ? " selected" : ""}>${esc(v)}</option>`).join("");
-  $("plat").hidden = shops.length < 2;
+  const cnt = Object.fromEntries(tally("platform"));
+  $("stores").innerHTML = shops.length < 2 ? "" :
+    `<button class="store all${state.plat === "Semua" ? " on" : ""}" data-plat="Semua" type="button"><span class="lg">${ICON.store}</span>Semua toko<span class="ct">${ps.length}</span></button>` +
+    shops.map(v => { const b = brand(v); return `<button class="store${v === state.plat ? " on" : ""}" data-plat="${esc(v)}" type="button" style="--c:${b.c}"><span class="lg">${b.t}</span>${esc(v)}<span class="ct">${cnt[v]}</span></button>`; }).join("");
+  $("stores").hidden = shops.length < 2;
+  $("sorts").querySelectorAll("[data-sort]").forEach(b => b.classList.toggle("on", b.dataset.sort === state.sort));
   $("segProduk").querySelectorAll("[data-ptab]").forEach(b => { b.classList.toggle("on", b.dataset.ptab === state.ptab); b.setAttribute("aria-selected", b.dataset.ptab === state.ptab); });
 }
 
@@ -697,7 +767,8 @@ function renderJasa(){
 /* ---------- Beranda ---------- */
 function renderBeranda(){
   const shop = state.all.filter(isShop);
-  renderBanner(state.all.filter(p => p.tipe === "iklan"));
+  const iklan = state.all.filter(p => p.tipe === "iklan");
+  renderBanner(iklan.length ? iklan : (CONFIG.BANNER_BAWAAN || []).map(b => ({ nama: b.judul, desk: b.teks || "", badge: b.label || "", link: b.link || "", img: "", imgL: "", harga: 0 })));
   const jasa = state.all.filter(p => p.tipe === "jasa" || p.tipe === "portofolio");
   const hasJ = k => jasa.some(p => jasaKey(p.kategori) === k);
   const q = [
@@ -834,6 +905,8 @@ document.addEventListener("click", e => {
     if (v.startsWith("@")){ const el = $(v.slice(1)); if (el) el.scrollIntoView({ behavior: reduce ? "auto" : "smooth" }); return; }
     location.hash = v; return;
   }
+  const sp = t.closest("[data-plat]"); if (sp){ state.plat = sp.dataset.plat; state.shown = CONFIG.PER_PAGE; buildFilters(); renderProduk(); return; }
+  const so = t.closest("[data-sort]"); if (so){ state.sort = so.dataset.sort; buildFilters(); renderProduk(); return; }
   const pt = t.closest("[data-ptab]"); if (pt){ state.fav = false; location.hash = "#produk/" + pt.dataset.ptab; return; }
   const jt = t.closest("[data-jtab]"); if (jt){ location.hash = "#jasa/" + jt.dataset.jtab; return; }
   if (t.closest("[data-favf]")){ state.fav = !state.fav; state.shown = CONFIG.PER_PAGE; buildFilters(); renderProduk(); return; }
@@ -864,13 +937,62 @@ $("q").addEventListener("input", e => {
 });
 $("q").addEventListener("keydown", e => { if (e.key === "Enter"){ e.preventDefault(); $("q").blur(); } });
 $("clear").onclick = () => { $("q").value = ""; $("clear").hidden = true; state.q = ""; renderProduk(); $("q").focus(); };
-$("sort").onchange = e => { state.sort = e.target.value; renderProduk(); };
-$("plat").onchange = e => { state.plat = e.target.value; state.shown = CONFIG.PER_PAGE; renderProduk(); };
+
 $("loadmore").onclick = () => { state.shown += CONFIG.PER_PAGE; renderProduk(); };
 
 /* ---------- Animasi masuk ---------- */
 const io = "IntersectionObserver" in window ? new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting){ x.target.classList.add("in"); io.unobserve(x.target); } }), { rootMargin: "0px 0px -5% 0px" }) : null;
 function reveal(root){ root.querySelectorAll(".rv:not(.in)").forEach(el => io ? io.observe(el) : el.classList.add("in")); }
+
+
+/* ---------- Efek sentuh: gelombang + getar halus ---------- */
+const RIPPLE = ".card,.btn,.seg button,.chip,.store,.sorts button,.bnav-m a,.q,.svc,.pf,.slide,.menu a,.arw";
+document.addEventListener("pointerdown", e => {
+  if (reduce) return;
+  let el = e.target.closest(RIPPLE); if (!el) return;
+  if (el.classList.contains("q")) el = el.querySelector(".ic");
+  const r = el.getBoundingClientRect(), s = Math.max(r.width, r.height) * 2.2, d = document.createElement("span");
+  d.className = "rp" + (el.matches(".card,.svc,.pf,.chip,.store,.sorts button,.bnav-m a,.menu a,.arw,.ic") ? " red" : "");
+  d.style.width = d.style.height = s + "px";
+  d.style.left = (e.clientX - r.left - s / 2) + "px"; d.style.top = (e.clientY - r.top - s / 2) + "px";
+  el.appendChild(d); setTimeout(() => d.remove(), 650);
+}, { passive: true });
+const buzz = ms => { try { if (navigator.vibrate) navigator.vibrate(ms); } catch (e) {} };
+document.addEventListener("click", e => { if (e.target.closest("[data-fav]")) buzz(12); else if (e.target.closest(".bnav-m a,.seg button,.store,[data-go]")) buzz(6); }, true);
+
+/* ---------- Latar: titik-titik terhubung yang bergerak ---------- */
+(function(){
+  const cv = $("net"); if (!cv || reduce) return;
+  const ctx = cv.getContext("2d"), dpr = Math.min(devicePixelRatio || 1, 2);
+  let W, H, pts = [], run = true, mx = -999, my = -999;
+  function size(){
+    W = innerWidth; H = innerHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = Math.round(Math.min(60, W * H / 22000));
+    pts = Array.from({ length: n }, () => ({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .3, vy: (Math.random() - .5) * .3, r: Math.random() * 1.5 + .5 }));
+  }
+  function draw(){
+    if (!run) return;
+    ctx.clearRect(0, 0, W, H);
+    for (let i = 0; i < pts.length; i++){
+      const a = pts[i]; a.x += a.vx; a.y += a.vy;
+      if (a.x < 0 || a.x > W) a.vx *= -1; if (a.y < 0 || a.y > H) a.vy *= -1;
+      for (let j = i + 1; j < pts.length; j++){
+        const b = pts[j], d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (d < 120){ ctx.strokeStyle = `rgba(255,31,61,${(1 - d / 120) * .22})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+      }
+      const md = Math.hypot(a.x - mx, a.y - my);
+      if (md < 150){ ctx.strokeStyle = `rgba(255,255,255,${(1 - md / 150) * .3})`; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mx, my); ctx.stroke(); }
+      ctx.fillStyle = md < 150 ? "rgba(255,255,255,.9)" : "rgba(255,31,61,.7)";
+      ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, 6.283); ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  size(); draw();
+  addEventListener("resize", () => { clearTimeout(size.t); size.t = setTimeout(size, 200); });
+  addEventListener("pointermove", e => { mx = e.clientX; my = e.clientY; }, { passive: true });
+  addEventListener("pointerdown", e => { mx = e.clientX; my = e.clientY; }, { passive: true });
+  document.addEventListener("visibilitychange", () => { const was = run; run = !document.hidden; if (run && !was) draw(); });
+})();
 
 /* ---------- Mulai ---------- */
 $("siteName").textContent = CONFIG.SITE_NAME; $("footName").textContent = CONFIG.SITE_NAME; $("year").textContent = new Date().getFullYear();
