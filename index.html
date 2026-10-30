@@ -23,6 +23,7 @@
 :root{
   --bg:#000; --s1:#0f0f12; --s2:#17171b; --s3:#222228; --line:#27272e;
   --red:#ff1f3d; --red2:#c2001e; --glow:rgba(255,31,61,.42);
+  --amber:#ffb020; --cyan:#22d3ee; --violet:#8b5cf6; --green:#22c55e; --pink:#f472b6;
   --txt:#f5f5f7; --mut:#a0a0ab; --dim:#686872;
   --display:"Bricolage Grotesque",system-ui,sans-serif;
   --body:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -112,16 +113,20 @@ svg{flex:none}
 .quick{display:grid;grid-template-columns:repeat(4,1fr);gap:14px 8px;margin-top:22px}
 @media (min-width:760px){.quick{grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px}}
 .q{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;font-size:12px;font-weight:600;color:var(--mut);cursor:pointer;background:none;border:0;padding:0}
-.q .ic{width:56px;height:56px;border-radius:18px;display:grid;place-items:center;background:var(--s2);border:1px solid var(--line);color:var(--red);transition:transform .35s var(--ease),background .25s,color .25s,border-color .25s}
+.q .ic{--c:var(--red);width:56px;height:56px;border-radius:18px;display:grid;place-items:center;background:var(--s2);background:linear-gradient(160deg,color-mix(in srgb,var(--c) 22%,var(--s2)),var(--s1));border:1px solid var(--line);border-color:color-mix(in srgb,var(--c) 30%,var(--line));color:var(--c);transition:transform .35s var(--ease),background .25s,color .25s,border-color .25s}
 .q .ic svg{width:26px;height:26px}
-.q:hover .ic,.q:active .ic{transform:translateY(-3px);background:var(--red);border-color:var(--red);color:#fff}
+.q:hover .ic,.q:active .ic{transform:translateY(-3px);background:var(--c);border-color:var(--c);color:#fff;box-shadow:0 10px 24px -10px var(--c)}
 .q:hover{color:var(--txt)}
+
+.rk.r1{background:linear-gradient(135deg,#ffe28a,#ffb020 55%,#e08600);color:#2a1600;box-shadow:0 4px 14px -4px var(--amber)}
+.rk.r2{background:linear-gradient(135deg,#ffffff,#c9ced6 55%,#8d95a1);color:#1a1d22}
+.rk.r3{background:linear-gradient(135deg,#ffc9a3,#cd7f32 55%,#8a4b17);color:#2a1300}
 
 /* ---------- Bagian ---------- */
 section{padding-top:30px}
 .sh{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
 .sh h2{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:21px;letter-spacing:-.02em;margin:0}
-.mk{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:rgba(255,31,61,.14);color:var(--red)}
+.mk{--c:var(--red);width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:rgba(255,31,61,.14);background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--c)}
 .mk svg{width:17px;height:17px}
 .more{display:inline-flex;align-items:center;gap:2px;font-size:13px;font-weight:700;color:var(--red);background:none;border:0;cursor:pointer;padding:6px 0;white-space:nowrap}
 .more svg{width:16px;height:16px;transition:transform .2s}
@@ -147,7 +152,7 @@ section{padding-top:30px}
 .ph{position:relative;aspect-ratio:1/1;background:var(--s3);overflow:hidden}
 .ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s var(--ease),opacity .35s}
 img.ld{opacity:0}
-.rk{position:absolute;left:0;top:0;z-index:2;min-width:30px;height:30px;padding:0 8px;display:grid;place-items:center;background:var(--red);color:#fff;font-family:var(--display);font-weight:800;font-size:15px;border-radius:0 0 12px 0}
+.rk{position:absolute;left:0;top:0;z-index:2;min-width:30px;height:30px;padding:0 8px;display:grid;place-items:center;background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;font-family:var(--display);font-weight:800;font-size:15px;border-radius:0 0 12px 0}
 .lab{position:absolute;left:8px;bottom:8px;z-index:2;background:rgba(0,0,0,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:6px}
 .lab.new{background:var(--red)}
 .heart{position:absolute;top:6px;right:6px;z-index:3;width:32px;height:32px;border-radius:50%;border:0;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#fff;display:grid;place-items:center;cursor:pointer}
@@ -175,7 +180,7 @@ img.ld{opacity:0}
 .seg{display:flex;background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:4px;gap:4px;margin-top:16px}
 .seg button{flex:1;border:0;background:none;padding:11px 10px;border-radius:10px;font-weight:700;font-size:14px;color:var(--mut);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:background .25s,color .25s}
 .seg button svg{width:18px;height:18px}
-.seg button.on{background:var(--red);color:#fff;box-shadow:0 6px 18px -6px var(--glow)}
+.seg button.on{background:linear-gradient(135deg,var(--red),#ff5a3c);color:#fff;box-shadow:0 6px 18px -6px var(--glow)}
 @media (min-width:760px){.seg{max-width:520px}}
 .chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:12px -16px 0;padding:0 16px}
 .chips::-webkit-scrollbar{display:none}
@@ -293,43 +298,65 @@ dialog.qv[open] .qv-in{animation:qvIn .4s var(--ease)}
 @keyframes gridmove{to{background-position:0 46px,46px 0}}
 .bgfx i{position:absolute;border-radius:50%;filter:blur(80px);opacity:.5;will-change:transform}
 .bgfx .o1{width:520px;height:520px;left:-160px;top:-140px;background:radial-gradient(circle,#ff1f3d,transparent 65%);animation:orb1 18s ease-in-out infinite alternate}
-.bgfx .o2{width:460px;height:460px;right:-180px;top:30%;background:radial-gradient(circle,#b8001c,transparent 65%);animation:orb2 22s ease-in-out infinite alternate}
-.bgfx .o3{width:380px;height:380px;left:20%;bottom:-200px;background:radial-gradient(circle,#ff4d6a,transparent 65%);opacity:.32;animation:orb1 26s ease-in-out infinite alternate-reverse}
+.bgfx .o2{width:460px;height:460px;right:-180px;top:30%;background:radial-gradient(circle,#7c3aed,transparent 65%);opacity:.38;animation:orb2 22s ease-in-out infinite alternate}
+.bgfx .o3{width:380px;height:380px;left:20%;bottom:-200px;background:radial-gradient(circle,#0891b2,transparent 65%);opacity:.28;animation:orb1 26s ease-in-out infinite alternate-reverse}
 @keyframes orb1{to{transform:translate(120px,90px) scale(1.2)}}
 @keyframes orb2{to{transform:translate(-110px,-120px) scale(1.15)}}
 #net{position:absolute;inset:0;width:100%;height:100%;opacity:.75}
 
-/* ---------- Efek sentuh ---------- */
-.rp{position:absolute;border-radius:50%;background:rgba(255,255,255,.32);transform:scale(0);animation:rp .6s ease-out forwards;pointer-events:none;z-index:9}
-.rp.red{background:rgba(255,31,61,.4)}
-@keyframes rp{to{transform:scale(1);opacity:0}}
-.btn,.seg button,.chip,.store,.sorts button,.bnav-m a,.q .ic,.svc,.pf{position:relative;overflow:hidden}
+/* ---------- Efek sentuh: kilau + percikan + cahaya ---------- */
+.btn,.seg button,.chip,.dd,.opt,.bnav-m a,.q .ic,.svc,.pf{position:relative;overflow:hidden}
 .slide{overflow:hidden}
+.sw{position:absolute;inset:-2px;z-index:9;pointer-events:none;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.28) 48%,rgba(255,255,255,.05) 56%,transparent 70%);transform:translateX(-110%);animation:sw .6s cubic-bezier(.3,.7,.3,1) forwards}
+@keyframes sw{to{transform:translateX(110%)}}
+.spk{position:fixed;z-index:90;width:3px;height:10px;border-radius:3px;pointer-events:none;transform:translate(-50%,-50%) rotate(var(--a)) translateY(-6px);animation:spk .55s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes spk{to{transform:translate(-50%,-50%) rotate(var(--a)) translateY(-30px) scaleY(.3);opacity:0}}
+.tap{box-shadow:0 0 0 1.5px var(--tc,#ff1f3d),0 12px 30px -10px var(--tc,#ff1f3d)!important;transition:box-shadow .15s!important}
 .card:active,.pf:active{transform:scale(.97)!important;transition-duration:.1s}
 .q:active .ic{transform:scale(.9)}
-.chip:active,.store:active,.sorts button:active,.seg button:active{transform:scale(.94)}
+.chip:active,.dd:active,.seg button:active,.opt:active{transform:scale(.96)}
 .bnav-m a:active svg{transform:scale(.85)}
 
-/* ---------- Pilih toko ---------- */
-.stores{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:12px -16px 0;padding:2px 16px 4px}
-.stores::-webkit-scrollbar{display:none}
-.store{--c:#ffffff;flex:none;display:inline-flex;align-items:center;gap:9px;padding:7px 14px 7px 7px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(180deg,var(--s2),var(--s1));cursor:pointer;font-weight:700;font-size:13px;color:var(--txt);transition:border-color .25s,box-shadow .25s,transform .2s,background .25s}
-.store .lg{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:13px;color:#fff;background:var(--c);box-shadow:0 4px 12px -4px var(--c)}
-.store .lg svg{width:16px;height:16px}
-.store .ct{font-size:11px;font-weight:700;color:var(--mut);background:var(--s3);border-radius:999px;padding:2px 7px}
-.store:hover{border-color:var(--c)}
-.store.on{border-color:var(--c);background:linear-gradient(180deg,color-mix(in srgb,var(--c) 22%,var(--s2)),var(--s1));box-shadow:0 8px 22px -12px var(--c),inset 0 0 0 1px var(--c)}
-.store.on .ct{background:var(--c);color:#fff}
-.store.all{--c:var(--red)}
-.store.all .lg{background:var(--s3);color:var(--txt);box-shadow:none}
-.store.all.on .lg{background:var(--red);color:#fff}
-.sorts{display:flex;gap:4px;background:var(--s1);border:1px solid var(--line);border-radius:12px;padding:3px;overflow-x:auto;scrollbar-width:none;max-width:100%}
-.sorts::-webkit-scrollbar{display:none}
-.sorts button{flex:none;border:0;background:none;color:var(--mut);font-size:12px;font-weight:700;padding:7px 10px;border-radius:9px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:background .25s,color .25s}
-.sorts button svg{width:14px;height:14px}
-.sorts button.on{background:var(--s3);color:var(--txt)}
-.sorts button.on svg{color:var(--red)}
-@media (max-width:520px){.toolbar{flex-direction:column;align-items:stretch;gap:10px}.sorts{width:100%}.sorts button{flex:1;justify-content:center;padding:8px 4px}}
+/* ---------- Menu pilihan Toko & Urutkan ---------- */
+.toolbar{flex-wrap:wrap}
+.dds{display:flex;gap:8px;min-width:0}
+.dd{--c:var(--red);display:flex;align-items:center;gap:9px;padding:6px 10px 6px 6px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(180deg,var(--s2),var(--s1));cursor:pointer;min-width:0;text-align:left;transition:border-color .25s,box-shadow .25s,transform .15s}
+.dd:hover,.dd[aria-expanded="true"]{border-color:var(--c);box-shadow:0 0 0 3px rgba(255,31,61,.15);box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 22%,transparent)}
+.dd .ic{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;flex:none;background:var(--c);color:#fff;font-family:var(--display);font-weight:800;font-size:14px;box-shadow:0 6px 14px -6px var(--c)}
+.dd .ic svg{width:17px;height:17px}
+.dd .tx{min-width:0}
+.dd .tx small{display:block;font-size:10px;font-weight:600;color:var(--dim);line-height:1.2}
+.dd .tx b{display:block;font-size:13px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px}
+.dd .chev{width:16px;height:16px;color:var(--mut);transition:transform .3s var(--ease)}
+.dd[aria-expanded="true"] .chev{transform:rotate(180deg);color:var(--txt)}
+@media (max-width:520px){.toolbar{flex-direction:column;align-items:stretch;gap:10px}.dds{width:100%}.dd{flex:1}.dd .tx b{max-width:none}}
+.dd-back{position:fixed;inset:0;z-index:79;background:rgba(0,0,0,.25)}
+@media (max-width:759px){.dd-back{background:rgba(0,0,0,.6);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);animation:fadeIn .25s}}
+@keyframes fadeIn{from{opacity:0}}
+.dd-pop{position:fixed;z-index:80;width:270px;max-height:min(420px,70vh);overflow:auto;background:rgba(20,20,25,.97);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:18px;padding:8px;box-shadow:0 30px 60px -20px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.03);transform-origin:top left;animation:popIn .25s var(--ease)}
+@keyframes popIn{from{opacity:0;transform:translateY(-6px) scale(.96)}}
+.dd-pop h4{margin:4px 8px 8px;font-family:var(--display);font-size:15px;display:flex;align-items:center;justify-content:space-between}
+.dd-pop h4 span{font-family:var(--body);font-size:11px;color:var(--dim);font-weight:600}
+.dd-pop .grab{display:none}
+@media (max-width:759px){
+  .dd-pop{left:0!important;right:0;top:auto!important;bottom:0;width:auto;max-height:75vh;border-radius:24px 24px 0 0;padding:6px 12px calc(16px + env(safe-area-inset-bottom));animation:sheetUp .35s var(--ease)}
+  .dd-pop .grab{display:block;width:42px;height:5px;border-radius:5px;background:var(--s3);margin:6px auto 10px}
+}
+@keyframes sheetUp{from{transform:translateY(100%)}}
+.opt{--c:var(--red);display:flex;align-items:center;gap:12px;width:100%;border:0;background:none;padding:9px 10px;border-radius:12px;cursor:pointer;text-align:left;font-weight:600;font-size:14px;transition:background .2s}
+.opt:hover{background:var(--s2)}
+.opt .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:none;background:rgba(255,255,255,.06);background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--c);font-family:var(--display);font-weight:800;font-size:14px;transition:background .2s,color .2s}
+.opt .ic svg{width:18px;height:18px}
+.opt .nm2{flex:1;min-width:0}
+.opt .nm2 small{display:block;font-size:11px;color:var(--dim);font-weight:500}
+.opt .ct{font-size:11px;font-weight:700;color:var(--mut);background:var(--s3);border-radius:999px;padding:2px 8px}
+.opt .ok{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--line);flex:none}
+.opt .ok svg{width:12px;height:12px;opacity:0}
+.opt.on{background:rgba(255,31,61,.1);background:color-mix(in srgb,var(--c) 12%,transparent)}
+.opt.on .ic{background:var(--c);color:#fff;box-shadow:0 6px 14px -6px var(--c)}
+.opt.on .ok{background:var(--c);border-color:var(--c)}
+.opt.on .ok svg{opacity:1;color:#fff}
+.opt + .opt{margin-top:2px}
 
 /* ---------- Efek ---------- */
 .rv{opacity:0;translate:0 16px}
@@ -376,19 +403,19 @@ dialog.qv[open] .qv-in{animation:qvIn .4s var(--ease)}
     <nav class="quick" id="quick" aria-label="Pintasan"></nav>
 
     <section id="secTop" hidden>
-      <div class="sh"><h2><span class="mk" data-i="fire"></span>Terlaris</h2><div class="right"><div class="arrows" data-for="rTop"></div></div></div>
+      <div class="sh"><h2><span class="mk" data-i="fire" style="--c:var(--amber)"></span>Terlaris</h2><div class="right"><div class="arrows" data-for="rTop"></div></div></div>
       <div class="rail" id="rTop"></div>
     </section>
     <section id="secRek" hidden>
-      <div class="sh"><h2><span class="mk" data-i="star"></span>Rekomendasi</h2><div class="right"><div class="arrows" data-for="rRek"></div></div></div>
+      <div class="sh"><h2><span class="mk" data-i="star" style="--c:var(--violet)"></span>Rekomendasi</h2><div class="right"><div class="arrows" data-for="rRek"></div></div></div>
       <div class="rail" id="rRek"></div>
     </section>
     <section id="secNew" hidden>
-      <div class="sh"><h2><span class="mk" data-i="spark"></span>Baru masuk</h2><div class="right"><div class="arrows" data-for="rNew"></div><a class="more" href="#produk">Semua<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div>
+      <div class="sh"><h2><span class="mk" data-i="spark" style="--c:var(--cyan)"></span>Baru masuk</h2><div class="right"><div class="arrows" data-for="rNew"></div><a class="more" href="#produk">Semua<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div>
       <div class="rail" id="rNew"></div>
     </section>
     <section id="secVid" hidden>
-      <div class="sh"><h2><span class="mk" data-i="play"></span>Video tutorial</h2><div class="right"><div class="arrows" data-for="rVid"></div><a class="more" id="vidAll" target="_blank" rel="noopener" hidden>Channel<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div>
+      <div class="sh"><h2><span class="mk" data-i="play" style="--c:var(--pink)"></span>Video tutorial</h2><div class="right"><div class="arrows" data-for="rVid"></div><a class="more" id="vidAll" target="_blank" rel="noopener" hidden>Channel<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div>
       <div class="rail wide" id="rVid"></div>
     </section>
 
@@ -406,14 +433,11 @@ dialog.qv[open] .qv-in{animation:qvIn .4s var(--ease)}
       <button type="button" data-ptab="link" role="tab"><span data-i="link"></span>Link Affiliate</button>
     </div>
     <div class="chips" id="cats"></div>
-    <div class="stores" id="stores" role="group" aria-label="Pilih toko"></div>
     <div class="toolbar">
       <span class="count" id="count">Memuat…</span>
-      <div class="sorts" id="sorts" role="group" aria-label="Urutkan">
-        <button type="button" data-sort="baru" class="on"><span data-i="clock"></span>Terbaru</button>
-        <button type="button" data-sort="laris"><span data-i="fire"></span>Terlaris</button>
-        <button type="button" data-sort="murah"><span data-i="down"></span>Termurah</button>
-        <button type="button" data-sort="mahal"><span data-i="up"></span>Termahal</button>
+      <div class="dds">
+        <button class="dd" id="ddPlat" data-dd="plat" type="button" aria-haspopup="listbox" aria-expanded="false"></button>
+        <button class="dd" id="ddSort" data-dd="sort" type="button" aria-haspopup="listbox" aria-expanded="false"></button>
       </div>
     </div>
     <div class="grid" id="grid"></div>
@@ -428,7 +452,7 @@ dialog.qv[open] .qv-in{animation:qvIn .4s var(--ease)}
       <div class="svc-grid" id="svc"></div>
     </section>
     <section>
-      <div class="sh"><h2><span class="mk" data-i="image"></span>Contoh hasil</h2></div>
+      <div class="sh"><h2><span class="mk" data-i="image" style="--c:var(--cyan)"></span>Contoh hasil</h2></div>
       <div class="porto" id="porto"></div>
     </section>
     <div class="cta-bar" id="ctaJasa" hidden><b>Punya ide lain?</b><a class="btn btn-red btn-sm" id="ctaJasaBtn" target="_blank" rel="noopener"></a></div>
@@ -436,6 +460,8 @@ dialog.qv[open] .qv-in{animation:qvIn .4s var(--ease)}
 </main>
 
 <nav class="bnav-m" id="bnav" aria-label="Navigasi"></nav>
+<div class="dd-back" id="ddBack" hidden></div>
+<div class="dd-pop" id="ddPop" role="listbox" hidden></div>
 <dialog class="qv" id="qv" aria-label="Detail"><div class="qv-in" id="qvIn"></div></dialog>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -509,6 +535,7 @@ const ICON = {
   fire: S(`<path d="M12 22c4 0 7-2.7 7-6.8 0-3.5-2.3-5.7-3.8-7.4-.4 1.7-1.3 3-2.7 3.7.3-3.6-1.4-6.8-4.5-8.5.2 3.3-1.6 5.3-3 7.1C3.9 11.5 5 14 5 15.2 5 19.3 8 22 12 22z" ${st}/>`),
   star: S(`<path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z" ${st}/>`),
   spark: S(`<path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8" ${st}/>`),
+  chevd: `<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
   clock: S(`<circle cx="12" cy="12" r="9" ${st}/><path d="M12 7v5l3 2" ${st}/>`),
   up: S(`<path d="M12 19V5M6 11l6-6 6 6" ${st}/>`),
   down: S(`<path d="M12 5v14M6 13l6 6 6-6" ${st}/>`),
@@ -633,7 +660,7 @@ function card(p, i, rank){
   const on = favs.has(p.id);
   const lab = isNew(p) ? '<span class="lab new">Baru</span>' : p.badge && !rank ? `<span class="lab">${esc(p.badge)}</span>` : "";
   return `<article class="card${p.tipe === "ebook" ? " book" : ""} rv" data-open="${esc(p.id)}" tabindex="0">
-    <div class="ph">${img(p.img, p.nama)}${rank ? `<span class="rk">${rank}</span>` : ""}${lab}
+    <div class="ph">${img(p.img, p.nama)}${rank ? `<span class="rk r${rank}">${rank}</span>` : ""}${lab}
       <button class="heart${on ? " on" : ""}" data-fav="${esc(p.id)}" type="button" aria-pressed="${on}" aria-label="Simpan ke favorit">${ICON.heart}</button></div>
     <div class="bd"><p class="nm">${esc(p.nama)}</p>${p.harga ? `<span class="pr"><small>Rp</small>${ribu(p.harga)}</span>` : ""}<span class="src s-${shopKey(p)}"><i></i>${esc(srcLabel(p))}</span></div>
   </article>`;
@@ -718,6 +745,48 @@ function renderProduk(){
   $("loadmore").hidden = list.length <= state.shown;
   reveal(g);
 }
+/* ---------- Menu pilihan (Toko & Urutkan) ---------- */
+const SORTS = {
+  baru:  ["Terbaru",  ICON.clock, "#22d3ee", "Yang paling baru ditambahkan"],
+  laris: ["Terlaris", ICON.fire, "#ffb020", "Paling sering dibeli"],
+  murah: ["Termurah", ICON.down, "#22c55e", "Harga dari yang terendah"],
+  mahal: ["Termahal", ICON.up, "#8b5cf6", "Harga dari yang tertinggi"]
+};
+const dd = { shops: [], cnt: {}, total: 0, open: null };
+function openDD(kind){
+  const btn = $(kind === "plat" ? "ddPlat" : "ddSort"), pop = $("ddPop");
+  if (dd.open === kind) return closeDD();
+  closeDD();
+  const check = `<span class="ok">${ICON.check}</span>`;
+  let html = `<div class="grab"></div>`;
+  if (kind === "plat"){
+    html += `<h4>Pilih toko <span>${dd.total} produk</span></h4>` +
+      `<button class="opt${state.plat === "Semua" ? " on" : ""}" data-plat="Semua" type="button" role="option" style="--c:#ff1f3d"><span class="ic">${ICON.store}</span><span class="nm2">Semua toko<small>Tampilkan semuanya</small></span><span class="ct">${dd.total}</span>${check}</button>` +
+      dd.shops.map(v => { const b = brand(v); return `<button class="opt${v === state.plat ? " on" : ""}" data-plat="${esc(v)}" type="button" role="option" style="--c:${b.c}"><span class="ic">${b.t}</span><span class="nm2">${esc(v)}</span><span class="ct">${dd.cnt[v]}</span>${check}</button>`; }).join("");
+  } else {
+    html += `<h4>Urutkan</h4>` + Object.entries(SORTS).map(([k, s]) =>
+      `<button class="opt${k === state.sort ? " on" : ""}" data-sort="${k}" type="button" role="option" style="--c:${s[2]}"><span class="ic">${s[1]}</span><span class="nm2">${s[0]}<small>${s[3]}</small></span>${check}</button>`).join("");
+  }
+  pop.innerHTML = html; pop.hidden = false; $("ddBack").hidden = false;
+  if (innerWidth >= 760){
+    const r = btn.getBoundingClientRect(), w = 270;
+    let left = Math.min(r.left, innerWidth - w - 12), top = r.bottom + 8;
+    pop.style.left = Math.max(12, left) + "px"; pop.style.top = top + "px";
+    const ph = pop.offsetHeight;
+    if (top + ph > innerHeight - 12) pop.style.top = Math.max(12, r.top - ph - 8) + "px";
+  }
+  btn.setAttribute("aria-expanded", "true"); dd.open = kind;
+}
+function closeDD(){
+  if (!dd.open) return;
+  $("ddPop").hidden = true; $("ddBack").hidden = true;
+  ["ddPlat", "ddSort"].forEach(id => $(id).setAttribute("aria-expanded", "false"));
+  dd.open = null;
+}
+addEventListener("keydown", e => { if (e.key === "Escape") closeDD(); });
+addEventListener("resize", closeDD);
+addEventListener("scroll", () => { if (innerWidth >= 760) closeDD(); }, { passive: true });
+
 // Warna & inisial tiap toko (bukan logo resmi)
 function brand(name){
   const s = (name || "").toLowerCase();
@@ -739,12 +808,13 @@ function buildFilters(){
     (cats.length > 1 ? ["Semua", ...cats] : []).map(v => `<button class="chip${v === state.cat ? " on" : ""}" data-cat="${esc(v)}" type="button">${esc(v)}</button>`).join("");
   const shops = tally("platform").map(c => c[0]).filter(Boolean).sort();
   if (!shops.includes(state.plat)) state.plat = "Semua";
-  const cnt = Object.fromEntries(tally("platform"));
-  $("stores").innerHTML = shops.length < 2 ? "" :
-    `<button class="store all${state.plat === "Semua" ? " on" : ""}" data-plat="Semua" type="button"><span class="lg">${ICON.store}</span>Semua toko<span class="ct">${ps.length}</span></button>` +
-    shops.map(v => { const b = brand(v); return `<button class="store${v === state.plat ? " on" : ""}" data-plat="${esc(v)}" type="button" style="--c:${b.c}"><span class="lg">${b.t}</span>${esc(v)}<span class="ct">${cnt[v]}</span></button>`; }).join("");
-  $("stores").hidden = shops.length < 2;
-  $("sorts").querySelectorAll("[data-sort]").forEach(b => b.classList.toggle("on", b.dataset.sort === state.sort));
+  dd.shops = shops; dd.cnt = Object.fromEntries(tally("platform")); dd.total = ps.length;
+  const sb = state.plat === "Semua" ? { c: "#ff1f3d", t: ICON.store } : brand(state.plat), so = SORTS[state.sort];
+  $("ddPlat").hidden = shops.length < 2;
+  $("ddPlat").style.setProperty("--c", sb.c);
+  $("ddPlat").innerHTML = `<span class="ic">${sb.t}</span><span class="tx"><small>Toko</small><b>${esc(state.plat === "Semua" ? "Semua toko" : state.plat)}</b></span>${ICON.chevd}`;
+  $("ddSort").style.setProperty("--c", so[2]);
+  $("ddSort").innerHTML = `<span class="ic">${so[1]}</span><span class="tx"><small>Urutkan</small><b>${so[0]}</b></span>${ICON.chevd}`;
   $("segProduk").querySelectorAll("[data-ptab]").forEach(b => { b.classList.toggle("on", b.dataset.ptab === state.ptab); b.setAttribute("aria-selected", b.dataset.ptab === state.ptab); });
 }
 
@@ -772,16 +842,16 @@ function renderBeranda(){
   const jasa = state.all.filter(p => p.tipe === "jasa" || p.tipe === "portofolio");
   const hasJ = k => jasa.some(p => jasaKey(p.kategori) === k);
   const q = [
-    ["Produk Saya", ICON.bag, state.all.some(isOwn), "#produk/saya"],
-    ["Link Affiliate", ICON.link, state.all.some(p => p.tipe === "link"), "#produk/link"],
-    ["Jasa Web", ICON.code, hasJ("web"), "#jasa/web"],
-    ["Jasa IoT", ICON.wifi, hasJ("iot"), "#jasa/iot"],
-    ["Produk IoT", ICON.chip, state.all.some(p => p.tipe === "iot"), "#produk/saya/iot"],
-    ["Ebook", ICON.book, state.all.some(p => p.tipe === "ebook"), "#produk/saya/ebook"],
-    ["Tutorial", ICON.video, state.all.some(p => p.tipe === "video"), "@secVid"],
-    ["Chat", ICON.whatsapp, !!waNum(), "@wa"]
+    ["Produk Saya", ICON.bag, state.all.some(isOwn), "#produk/saya", "#ff1f3d"],
+    ["Link Affiliate", ICON.link, state.all.some(p => p.tipe === "link"), "#produk/link", "#22d3ee"],
+    ["Jasa Web", ICON.code, hasJ("web"), "#jasa/web", "#8b5cf6"],
+    ["Jasa IoT", ICON.wifi, hasJ("iot"), "#jasa/iot", "#22c55e"],
+    ["Produk IoT", ICON.chip, state.all.some(p => p.tipe === "iot"), "#produk/saya/iot", "#ffb020"],
+    ["Ebook", ICON.book, state.all.some(p => p.tipe === "ebook"), "#produk/saya/ebook", "#f472b6"],
+    ["Tutorial", ICON.video, state.all.some(p => p.tipe === "video"), "@secVid", "#38bdf8"],
+    ["Chat", ICON.whatsapp, !!waNum(), "@wa", "#25d366"]
   ].filter(x => x[2]);
-  $("quick").innerHTML = q.map(([t, ic, , go]) => `<button class="q rv" data-go="${go}" type="button"><span class="ic">${ic}</span>${t}</button>`).join("");
+  $("quick").innerHTML = q.map(([t, ic, , go, c]) => `<button class="q rv" data-go="${go}" type="button" style="--tc:${c}"><span class="ic" style="--c:${c}">${ic}</span>${t}</button>`).join("");
   reveal($("quick"));
   fill("rTop", shop.filter(p => laris(p) > 0).sort((a, b) => laris(b) - laris(a)).slice(0, 10), (p, i) => card(p, i, i + 1));
   fill("rRek", shop.filter(p => hasBadge(p, "rekomendasi") || hasBadge(p, "pilihan")), card);
@@ -905,8 +975,10 @@ document.addEventListener("click", e => {
     if (v.startsWith("@")){ const el = $(v.slice(1)); if (el) el.scrollIntoView({ behavior: reduce ? "auto" : "smooth" }); return; }
     location.hash = v; return;
   }
-  const sp = t.closest("[data-plat]"); if (sp){ state.plat = sp.dataset.plat; state.shown = CONFIG.PER_PAGE; buildFilters(); renderProduk(); return; }
-  const so = t.closest("[data-sort]"); if (so){ state.sort = so.dataset.sort; buildFilters(); renderProduk(); return; }
+  const ddb = t.closest("[data-dd]"); if (ddb){ openDD(ddb.dataset.dd); return; }
+  const sp = t.closest("[data-plat]"); if (sp){ state.plat = sp.dataset.plat; state.shown = CONFIG.PER_PAGE; setTimeout(closeDD, 160); buildFilters(); renderProduk(); return; }
+  const so = t.closest("[data-sort]"); if (so){ state.sort = so.dataset.sort; setTimeout(closeDD, 160); buildFilters(); renderProduk(); return; }
+  if (t.closest("#ddBack")){ closeDD(); return; }
   const pt = t.closest("[data-ptab]"); if (pt){ state.fav = false; location.hash = "#produk/" + pt.dataset.ptab; return; }
   const jt = t.closest("[data-jtab]"); if (jt){ location.hash = "#jasa/" + jt.dataset.jtab; return; }
   if (t.closest("[data-favf]")){ state.fav = !state.fav; state.shown = CONFIG.PER_PAGE; buildFilters(); renderProduk(); return; }
@@ -945,20 +1017,28 @@ const io = "IntersectionObserver" in window ? new IntersectionObserver(es => es.
 function reveal(root){ root.querySelectorAll(".rv:not(.in)").forEach(el => io ? io.observe(el) : el.classList.add("in")); }
 
 
-/* ---------- Efek sentuh: gelombang + getar halus ---------- */
-const RIPPLE = ".card,.btn,.seg button,.chip,.store,.sorts button,.bnav-m a,.q,.svc,.pf,.slide,.menu a,.arw";
+/* ---------- Efek sentuh: kilau, percikan warna, dan cahaya tepi ---------- */
+const TAPS = ".card,.btn,.seg button,.chip,.dd,.opt,.bnav-m a,.q,.svc,.pf,.slide,.menu a,.arw";
+const SPARK = ["#ff1f3d", "#ffb020", "#22d3ee", "#8b5cf6", "#ffffff"];
 document.addEventListener("pointerdown", e => {
   if (reduce) return;
-  let el = e.target.closest(RIPPLE); if (!el) return;
-  if (el.classList.contains("q")) el = el.querySelector(".ic");
-  const r = el.getBoundingClientRect(), s = Math.max(r.width, r.height) * 2.2, d = document.createElement("span");
-  d.className = "rp" + (el.matches(".card,.svc,.pf,.chip,.store,.sorts button,.bnav-m a,.menu a,.arw,.ic") ? " red" : "");
-  d.style.width = d.style.height = s + "px";
-  d.style.left = (e.clientX - r.left - s / 2) + "px"; d.style.top = (e.clientY - r.top - s / 2) + "px";
-  el.appendChild(d); setTimeout(() => d.remove(), 650);
+  let el = e.target.closest(TAPS); if (!el) return;
+  const host = el.classList.contains("q") ? el.querySelector(".ic") : el;
+  // 1. kilau cahaya menyapu permukaan
+  const sw = document.createElement("span"); sw.className = "sw"; host.appendChild(sw); setTimeout(() => sw.remove(), 650);
+  // 2. cahaya di tepi
+  host.classList.add("tap"); setTimeout(() => host.classList.remove("tap"), 320);
+  // 3. percikan warna dari titik sentuh
+  const n = el.matches(".card,.q,.svc,.pf,.slide") ? 8 : 6, off = Math.random() * 45;
+  for (let i = 0; i < n; i++){
+    const s = document.createElement("span"); s.className = "spk";
+    s.style.left = e.clientX + "px"; s.style.top = e.clientY + "px";
+    s.style.background = SPARK[i % SPARK.length]; s.style.setProperty("--a", (off + i * 360 / n) + "deg");
+    document.body.appendChild(s); setTimeout(() => s.remove(), 600);
+  }
 }, { passive: true });
 const buzz = ms => { try { if (navigator.vibrate) navigator.vibrate(ms); } catch (e) {} };
-document.addEventListener("click", e => { if (e.target.closest("[data-fav]")) buzz(12); else if (e.target.closest(".bnav-m a,.seg button,.store,[data-go]")) buzz(6); }, true);
+document.addEventListener("click", e => { if (e.target.closest("[data-fav]")) buzz(12); else if (e.target.closest(".bnav-m a,.seg button,.opt,.dd,[data-go]")) buzz(6); }, true);
 
 /* ---------- Latar: titik-titik terhubung yang bergerak ---------- */
 (function(){
@@ -968,7 +1048,8 @@ document.addEventListener("click", e => { if (e.target.closest("[data-fav]")) bu
   function size(){
     W = innerWidth; H = innerHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     const n = Math.round(Math.min(60, W * H / 22000));
-    pts = Array.from({ length: n }, () => ({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .3, vy: (Math.random() - .5) * .3, r: Math.random() * 1.5 + .5 }));
+    const PC = ["rgba(255,31,61,.75)", "rgba(255,31,61,.75)", "rgba(139,92,246,.75)", "rgba(34,211,238,.7)", "rgba(255,176,32,.7)"];
+    pts = Array.from({ length: n }, () => ({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .3, vy: (Math.random() - .5) * .3, r: Math.random() * 1.5 + .5, c: PC[Math.floor(Math.random() * PC.length)] }));
   }
   function draw(){
     if (!run) return;
@@ -982,7 +1063,7 @@ document.addEventListener("click", e => { if (e.target.closest("[data-fav]")) bu
       }
       const md = Math.hypot(a.x - mx, a.y - my);
       if (md < 150){ ctx.strokeStyle = `rgba(255,255,255,${(1 - md / 150) * .3})`; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mx, my); ctx.stroke(); }
-      ctx.fillStyle = md < 150 ? "rgba(255,255,255,.9)" : "rgba(255,31,61,.7)";
+      ctx.fillStyle = md < 150 ? "rgba(255,255,255,.9)" : a.c;
       ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, 6.283); ctx.fill();
     }
     requestAnimationFrame(draw);
@@ -996,7 +1077,7 @@ document.addEventListener("click", e => { if (e.target.closest("[data-fav]")) bu
 
 /* ---------- Mulai ---------- */
 $("siteName").textContent = CONFIG.SITE_NAME; $("footName").textContent = CONFIG.SITE_NAME; $("year").textContent = new Date().getFullYear();
-document.querySelectorAll("[data-i]").forEach(m => m.outerHTML = m.classList.contains("mk") ? `<span class="mk">${ICON[m.dataset.i]}</span>` : ICON[m.dataset.i]);
+document.querySelectorAll("[data-i]").forEach(m => m.outerHTML = m.classList.contains("mk") ? `<span class="mk"${m.getAttribute("style") ? ` style="${m.getAttribute("style")}"` : ""}>${ICON[m.dataset.i]}</span>` : ICON[m.dataset.i]);
 $("socs").innerHTML = Object.entries(CONFIG.SOSMED).filter(([, u]) => u).map(([k, u]) => `<a class="soc" href="${esc(u)}" target="_blank" rel="noopener" aria-label="${k}">${ICON[k]}</a>`).join("") +
   (waNum() ? `<a class="soc" href="${esc(wa("Halo!"))}" target="_blank" rel="noopener" aria-label="WhatsApp">${ICON.whatsapp}</a>` : "");
 $("socs").hidden = !$("socs").innerHTML;
