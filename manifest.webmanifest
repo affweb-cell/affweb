@@ -1,7 +1,7 @@
 {
   "name": "Etalase Pilihan",
   "short_name": "Etalase",
-  "description": "Produk pilihan dari Shopee, TikTok Shop, Tokopedia, dan lainnya.",
+  "description": "Produk IoT, ebook, link produk pilihan, serta jasa website dan IoT.",
   "lang": "id",
   "start_url": "./",
   "scope": "./",
@@ -9,8 +9,21 @@
   "background_color": "#000000",
   "theme_color": "#000000",
   "icons": [
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }
