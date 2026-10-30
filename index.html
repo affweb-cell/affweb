@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Etalase Pilihan</title>
-<meta name="description" content="Produk IoT, jasa web dan IoT, ebook, video tutorial, dan link produk pilihan.">
+<meta name="description" content="Produk IoT, ebook, link produk pilihan, serta jasa pembuatan website dan IoT.">
 <meta property="og:title" content="Etalase Pilihan">
-<meta property="og:description" content="Produk IoT, jasa web dan IoT, ebook, video tutorial, dan link produk pilihan.">
+<meta property="og:description" content="Produk IoT, ebook, link produk pilihan, serta jasa pembuatan website dan IoT.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="id_ID">
 <meta name="theme-color" content="#000000">
@@ -30,7 +30,7 @@
   --navh:0px;
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:80px}
+html{-webkit-text-size-adjust:100%}
 html,body{overflow-x:hidden}
 @supports (overflow:clip){html,body{overflow-x:clip}}
 body{margin:0;background:var(--bg);color:var(--txt);font-family:var(--body);font-size:15px;line-height:1.45;padding-bottom:var(--navh)}
@@ -38,34 +38,40 @@ body{margin:0;background:var(--bg);color:var(--txt);font-family:var(--body);font
 a{color:inherit;text-decoration:none}
 button,input,select{font-family:inherit;color:inherit}
 img{max-width:100%}
+svg{flex:none}
 [hidden]{display:none!important}
 :focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:10px}
 ::selection{background:var(--red);color:#fff}
 .wrap{max-width:1180px;margin:0 auto;padding:0 16px}
-svg{flex:none}
 
 /* ---------- Header ---------- */
-.top{position:sticky;top:0;z-index:30;background:rgba(0,0,0,.82);backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);border-bottom:1px solid transparent;transition:border-color .3s}
-.top.lifted{border-color:var(--line)}
+.top{position:sticky;top:0;z-index:30;background:rgba(0,0,0,.85);backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);border-bottom:1px solid var(--line)}
 .top .wrap{display:flex;align-items:center;gap:12px;padding-top:max(10px,env(safe-area-inset-top));padding-bottom:10px}
-.logo{display:flex;align-items:center;gap:9px;font-family:var(--display);font-weight:800;font-size:18px;white-space:nowrap}
+.logo{display:flex;align-items:center;gap:9px;font-family:var(--display);font-weight:800;font-size:18px;white-space:nowrap;cursor:pointer}
 .logo svg{width:34px;height:34px}
 .logo span{display:none}
-@media (min-width:760px){.logo span{display:inline}}
-.search{flex:1;display:flex;align-items:center;gap:8px;background:var(--s2);border:1px solid var(--line);border-radius:12px;padding:0 6px 0 12px;transition:border-color .2s,box-shadow .2s;min-width:0}
+@media (min-width:1000px){.logo span{display:inline}}
+.menu{display:none;gap:4px}
+@media (min-width:760px){.menu{display:flex}}
+.menu a{position:relative;padding:9px 14px;border-radius:10px;font-weight:700;font-size:14px;color:var(--mut);transition:color .2s,background .2s}
+.menu a:hover{color:var(--txt);background:var(--s2)}
+.menu a.on{color:var(--txt)}
+.menu a.on::after{content:"";position:absolute;left:14px;right:14px;bottom:2px;height:3px;border-radius:3px;background:var(--red)}
+.search{flex:1;display:flex;align-items:center;gap:8px;background:var(--s2);border:1px solid var(--line);border-radius:12px;padding:0 6px 0 12px;min-width:0;transition:border-color .2s,box-shadow .2s}
 .search:focus-within{border-color:var(--red);box-shadow:0 0 0 3px rgba(255,31,61,.18)}
 .search svg{width:18px;height:18px;color:var(--mut)}
 .search input{flex:1;min-width:0;border:0;background:none;font-size:15px;padding:11px 0;outline:none}
 .search input::placeholder{color:var(--dim)}
 .search input::-webkit-search-cancel-button{display:none}
 .clear{border:0;background:var(--s3);width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:12px}
-.iconbtn{position:relative;width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:var(--s2);display:grid;place-items:center;cursor:pointer;flex:none;transition:border-color .2s}
-.iconbtn:hover{border-color:var(--red)}
-.iconbtn svg{width:20px;height:20px}
-.iconbtn .n{position:absolute;top:-5px;right:-5px;background:var(--red);color:#fff;font-size:10px;font-weight:700;min-width:18px;height:18px;border-radius:9px;display:grid;place-items:center;padding:0 4px}
-.iconbtn.on{background:var(--red);border-color:var(--red)}
-.hide-m{display:none}
-@media (min-width:760px){.hide-m{display:grid}}
+.top .chatbtn{display:none}
+@media (min-width:760px){.top .chatbtn.ok{display:inline-flex}}
+
+/* ---------- Halaman ---------- */
+.page{display:none;min-height:calc(100dvh - 64px - var(--navh));padding-bottom:30px}
+.page.on{display:block;animation:pageIn .45s var(--ease)}
+@keyframes pageIn{from{opacity:0;transform:translateY(12px)}}
+.ptitle{font-family:var(--display);font-weight:800;font-size:26px;letter-spacing:-.02em;margin:20px 0 12px}
 
 /* ---------- Banner iklan ---------- */
 .banner{position:relative;margin-top:14px;border-radius:20px;overflow:hidden;background:var(--s1);aspect-ratio:16/9;touch-action:pan-y;user-select:none}
@@ -97,12 +103,12 @@ svg{flex:none}
 .dot.done i{transform:none}
 .banner.paused .dot.on i{animation-play-state:paused}
 @keyframes fill{to{transform:none}}
-.bnav{position:absolute;top:50%;z-index:3;width:40px;height:40px;margin-top:-20px;border-radius:50%;border:0;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#fff;cursor:pointer;display:none;place-items:center;opacity:0;transition:opacity .25s}
+.bnav{position:absolute;top:50%;z-index:3;width:40px;height:40px;margin-top:-20px;border-radius:50%;border:0;background:rgba(0,0,0,.5);color:#fff;cursor:pointer;display:none;place-items:center;opacity:0;transition:opacity .25s}
 .bnav svg{width:18px;height:18px}
 .bnav.l{left:12px}.bnav.r{right:12px}
 @media (hover:hover) and (min-width:760px){.bnav{display:grid}.banner:hover .bnav{opacity:1}}
 
-/* ---------- Ikon kategori ---------- */
+/* ---------- Ikon pintas ---------- */
 .quick{display:grid;grid-template-columns:repeat(4,1fr);gap:14px 8px;margin-top:22px}
 @media (min-width:760px){.quick{grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px}}
 .q{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;font-size:12px;font-weight:600;color:var(--mut);cursor:pointer;background:none;border:0;padding:0}
@@ -112,21 +118,20 @@ svg{flex:none}
 .q:hover{color:var(--txt)}
 
 /* ---------- Bagian ---------- */
-section{padding-top:34px}
-.sh{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
-.sh h2{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.02em;margin:0}
-.sh h2 .mk{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:rgba(255,31,61,.14);color:var(--red)}
-.sh h2 .mk svg{width:17px;height:17px}
+section{padding-top:30px}
+.sh{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.sh h2{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:21px;letter-spacing:-.02em;margin:0}
+.mk{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:rgba(255,31,61,.14);color:var(--red)}
+.mk svg{width:17px;height:17px}
 .more{display:inline-flex;align-items:center;gap:2px;font-size:13px;font-weight:700;color:var(--red);background:none;border:0;cursor:pointer;padding:6px 0;white-space:nowrap}
 .more svg{width:16px;height:16px;transition:transform .2s}
 .more:hover svg{transform:translateX(3px)}
+.right{display:flex;align-items:center;gap:10px}
 .arrows{display:none;gap:6px}
 @media (hover:hover) and (min-width:760px){.arrows{display:flex}}
 .arw{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--s1);cursor:pointer;display:grid;place-items:center;transition:background .2s,border-color .2s}
 .arw:hover{background:var(--red);border-color:var(--red)}
 .arw svg{width:16px;height:16px}
-.sh .right{display:flex;align-items:center;gap:10px}
-
 .rail{display:grid;grid-auto-flow:column;grid-auto-columns:42%;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 -16px;padding:2px 16px 8px;scroll-padding-left:16px}
 .rail::-webkit-scrollbar{display:none}
 @media (min-width:600px){.rail{grid-auto-columns:30%}}
@@ -135,12 +140,9 @@ section{padding-top:34px}
 .rail.wide{grid-auto-columns:78%}
 @media (min-width:600px){.rail.wide{grid-auto-columns:46%}}
 @media (min-width:900px){.rail.wide{grid-auto-columns:calc((100% - 30px) / 4)}}
-.rail.svc-rail{grid-auto-columns:82%}
-@media (min-width:600px){.rail.svc-rail{grid-auto-columns:48%}}
-@media (min-width:900px){.rail.svc-rail{grid-auto-columns:calc((100% - 20px) / 3)}}
 
-/* ---------- Kartu produk ---------- */
-.card{position:relative;display:flex;flex-direction:column;background:var(--s1);border:1px solid var(--line);border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .3s var(--ease),border-color .3s,box-shadow .3s;min-width:0;text-align:left;padding:0}
+/* ---------- Kartu ---------- */
+.card{position:relative;display:flex;flex-direction:column;background:var(--s1);border:1px solid var(--line);border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .3s var(--ease),border-color .3s,box-shadow .3s;min-width:0;text-align:left}
 @media (hover:hover){.card:hover{transform:translateY(-4px);border-color:rgba(255,31,61,.55);box-shadow:0 18px 40px -22px var(--glow)}.card:hover .ph img{transform:scale(1.06)}}
 .ph{position:relative;aspect-ratio:1/1;background:var(--s3);overflow:hidden}
 .ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s var(--ease),opacity .35s}
@@ -161,61 +163,31 @@ img.ld{opacity:0}
 .src{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--dim);margin-top:auto;padding-top:2px}
 .src i{width:7px;height:7px;border-radius:50%;background:var(--dim)}
 .s-shopee i{background:#ee4d2d}.s-tiktok i{background:#25f4ee;box-shadow:1.5px 0 0 #fe2c55}.s-tokopedia i{background:#03ac0e}.s-lazada i{background:#f57224}.s-own i{background:var(--red);box-shadow:0 0 6px var(--red)}
-
-/* Ebook */
 .book .ph{aspect-ratio:3/4}
 .book .ph::before{content:"";position:absolute;inset:0 auto 0 0;width:8%;z-index:1;background:linear-gradient(90deg,rgba(0,0,0,.5),rgba(255,255,255,.12) 60%,transparent)}
-
-/* Video */
 .vid .ph{aspect-ratio:16/9}
-.play{position:absolute;inset:0;margin:auto;z-index:2;width:46px;height:46px;border-radius:50%;background:var(--red);display:grid;place-items:center;box-shadow:0 0 0 0 rgba(255,31,61,.55);animation:pulse 2.4s infinite}
+.play{position:absolute;inset:0;margin:auto;z-index:2;width:46px;height:46px;border-radius:50%;background:var(--red);display:grid;place-items:center;animation:pulse 2.4s infinite}
 .play svg{width:18px;height:18px;margin-left:3px;color:#fff}
-@keyframes pulse{70%{box-shadow:0 0 0 14px rgba(255,31,61,0)}100%{box-shadow:0 0 0 0 rgba(255,31,61,0)}}
-.vid .lab{left:8px;top:8px;bottom:auto}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,31,61,.55)}70%{box-shadow:0 0 0 14px rgba(255,31,61,0)}100%{box-shadow:0 0 0 0 rgba(255,31,61,0)}}
+.vid .lab{top:8px;bottom:auto}
 
-/* Jasa */
-.svc{position:relative;display:flex;flex-direction:column;gap:10px;background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:18px;overflow:hidden;transition:border-color .3s}
-.svc:hover{border-color:rgba(255,31,61,.55)}
-.svc.hot{border-color:rgba(255,31,61,.6);background:radial-gradient(140% 100% at 100% 0%,rgba(255,31,61,.18),transparent 55%),var(--s1)}
-.svc .tp{display:flex;align-items:center;gap:10px}
-.svc .ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:rgba(255,31,61,.14);color:var(--red)}
-.svc .ic svg{width:22px;height:22px}
-.svc .cat{font-size:11px;font-weight:700;color:var(--mut)}
-.svc .bdg{margin-left:auto;font-size:10.5px;font-weight:700;background:var(--red);color:#fff;padding:4px 9px;border-radius:999px}
-.svc h3{font-family:var(--display);font-weight:800;font-size:19px;line-height:1.15;margin:0}
-.svc ul{list-style:none;margin:0;padding:0;display:grid;gap:5px}
-.svc li{display:flex;gap:8px;font-size:13px;color:var(--mut)}
-.svc li svg{width:15px;height:15px;color:var(--red);margin-top:2px}
-.svc .ft{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-top:auto;padding-top:6px}
-.svc .from{font-size:11px;color:var(--dim)}
-.svc .amt{font-family:var(--display);font-weight:800;font-size:20px;line-height:1.1}
-.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:0 -16px 12px;padding:0 16px}
-.tabs::-webkit-scrollbar{display:none}
-.tab{flex:none;border:1px solid var(--line);background:var(--s1);font-size:13px;font-weight:600;padding:7px 14px;border-radius:999px;cursor:pointer;white-space:nowrap;transition:background .2s,border-color .2s,color .2s}
-.tab:hover{border-color:var(--dim)}
-.tab.on{background:var(--red);border-color:var(--red);color:#fff}
-
-/* Tombol */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:0;border-radius:12px;padding:11px 16px;font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap;position:relative;overflow:hidden;transition:transform .15s,filter .2s,border-color .2s}
-.btn:active{transform:scale(.97)}
-.btn svg{width:17px;height:17px}
-.btn-red{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;box-shadow:0 8px 22px -10px var(--glow)}
-.btn-red:hover{filter:brightness(1.1)}
-.btn-ghost{background:var(--s2);border:1px solid var(--line)}
-.btn-ghost:hover{border-color:var(--red)}
-.btn-sm{padding:9px 13px;font-size:13px;border-radius:10px}
-
-/* ---------- Jelajahi ---------- */
-.filters{position:sticky;top:var(--toph,62px);z-index:20;background:rgba(0,0,0,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);margin:0 -16px;padding:8px 16px 6px}
-.toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 0 12px}
+/* ---------- Tab & filter ---------- */
+.seg{display:flex;background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:4px;gap:4px;margin-top:16px}
+.seg button{flex:1;border:0;background:none;padding:11px 10px;border-radius:10px;font-weight:700;font-size:14px;color:var(--mut);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:background .25s,color .25s}
+.seg button svg{width:18px;height:18px}
+.seg button.on{background:var(--red);color:#fff;box-shadow:0 6px 18px -6px var(--glow)}
+@media (min-width:760px){.seg{max-width:520px}}
+.chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:12px -16px 0;padding:0 16px}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--s1);font-size:12.5px;font-weight:600;color:var(--mut);padding:6px 12px;border-radius:999px;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:5px;transition:all .2s}
+.chip svg{width:13px;height:13px}
+.chip.on{background:#fff;border-color:#fff;color:#000}
+.chip.fav.on{background:var(--red);border-color:var(--red);color:#fff}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:14px 0 12px}
 .count{font-size:13px;color:var(--mut)}
 .count b{color:var(--txt)}
-select{appearance:none;-webkit-appearance:none;border:1px solid var(--line);background:var(--s1) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23a0a0ab' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 10px center;border-radius:10px;padding:8px 28px 8px 11px;font-size:13px;cursor:pointer}
 .tools{display:flex;gap:6px}
-.chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:6px -16px 0;padding:0 16px}
-.chips::-webkit-scrollbar{display:none}
-.chip{flex:none;border:0;background:none;font-size:12.5px;font-weight:600;color:var(--mut);padding:5px 10px;border-radius:8px;cursor:pointer;white-space:nowrap}
-.chip.on{background:var(--s3);color:var(--txt)}
+select{appearance:none;-webkit-appearance:none;border:1px solid var(--line);background:var(--s1) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23a0a0ab' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 10px center;border-radius:10px;padding:8px 28px 8px 11px;font-size:13px;cursor:pointer}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 @media (min-width:600px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (min-width:900px){.grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}}
@@ -229,30 +201,63 @@ select{appearance:none;-webkit-appearance:none;border:1px solid var(--line);back
 .ghost .ln.s{width:45%;margin-bottom:14px}
 @keyframes shim{to{background-position:-200% 0}}
 
+/* ---------- Jasa ---------- */
+.svc-grid{display:grid;gap:12px}
+@media (min-width:700px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1000px){.svc-grid{grid-template-columns:repeat(3,1fr)}}
+.svc{position:relative;display:flex;flex-direction:column;gap:10px;background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:18px;transition:border-color .3s,transform .3s var(--ease)}
+.svc:hover{border-color:rgba(255,31,61,.55);transform:translateY(-3px)}
+.svc.hot{border-color:rgba(255,31,61,.6);background:radial-gradient(140% 100% at 100% 0%,rgba(255,31,61,.18),transparent 55%),var(--s1)}
+.svc .tp{display:flex;align-items:center;gap:10px}
+.svc .ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:rgba(255,31,61,.14);color:var(--red)}
+.svc .ic svg{width:22px;height:22px}
+.svc .bdg{margin-left:auto;font-size:10.5px;font-weight:700;background:var(--red);color:#fff;padding:4px 9px;border-radius:999px}
+.svc h3{font-family:var(--display);font-weight:800;font-size:19px;line-height:1.15;margin:0}
+.svc ul{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+.svc li{display:flex;gap:8px;font-size:13px;color:var(--mut)}
+.svc li svg{width:15px;height:15px;color:var(--red);margin-top:2px}
+.svc .ft{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-top:auto;padding-top:6px}
+.svc .from{font-size:11px;color:var(--dim)}
+.svc .amt{font-family:var(--display);font-weight:800;font-size:20px;line-height:1.1}
+.porto{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (min-width:760px){.porto{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}}
+.pf{display:flex;flex-direction:column;background:var(--s1);border:1px solid var(--line);border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .3s var(--ease),border-color .3s}
+.pf:hover{transform:translateY(-4px);border-color:rgba(255,31,61,.55)}
+.pf .ph{aspect-ratio:4/3}
+.pf:hover .ph img{transform:scale(1.06)}
+.pf .bd h3{font-family:var(--display);font-size:15px;line-height:1.25;margin:0}
+.cta-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:30px;padding:16px 18px;border-radius:18px;background:radial-gradient(120% 140% at 100% 0%,rgba(255,31,61,.3),transparent 60%),var(--s1);border:1px solid var(--line)}
+.cta-bar b{font-family:var(--display);font-size:17px}
+.none{padding:30px 16px;text-align:center;color:var(--dim);border:1px dashed var(--line);border-radius:16px;font-size:14px}
+
+/* ---------- Tombol ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:0;border-radius:12px;padding:11px 16px;font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap;transition:transform .15s,filter .2s,border-color .2s}
+.btn:active{transform:scale(.97)}
+.btn svg{width:17px;height:17px}
+.btn-red{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;box-shadow:0 8px 22px -10px var(--glow)}
+.btn-red:hover{filter:brightness(1.1)}
+.btn-ghost{background:var(--s2);border:1px solid var(--line)}
+.btn-ghost:hover{border-color:var(--red)}
+.btn-sm{padding:9px 13px;font-size:13px;border-radius:10px}
+
 /* ---------- Footer ---------- */
-footer{margin-top:44px;border-top:1px solid var(--line);padding:26px 0 30px;text-align:center}
+.foot{margin-top:40px;border-top:1px solid var(--line);padding:24px 0 6px;text-align:center}
 .socs{display:flex;justify-content:center;gap:10px}
 .soc{width:44px;height:44px;border-radius:14px;border:1px solid var(--line);background:var(--s1);display:grid;place-items:center;transition:background .25s,border-color .25s,transform .25s var(--ease)}
 .soc:hover{background:var(--red);border-color:var(--red);transform:translateY(-3px)}
 .soc svg{width:20px;height:20px}
-footer p{margin:16px auto 0;font-size:11.5px;color:var(--dim);max-width:60ch}
+.foot p{margin:14px auto 0;font-size:11.5px;color:var(--dim);max-width:60ch}
 
 /* ---------- Navigasi bawah (HP) ---------- */
-.bnav-m{position:fixed;left:0;right:0;bottom:0;z-index:40;display:grid;grid-template-columns:repeat(5,1fr);background:rgba(10,10,12,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.bnav-m{position:fixed;left:0;right:0;bottom:0;z-index:40;display:grid;grid-template-columns:repeat(4,1fr);background:rgba(10,10,12,.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
 @media (min-width:760px){.bnav-m{display:none}}
-.bnav-m a,.bnav-m button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;height:64px;font-size:10.5px;font-weight:600;color:var(--mut);background:none;border:0;cursor:pointer;position:relative}
-.bnav-m svg{width:22px;height:22px}
-.bnav-m .on{color:var(--txt)}
-.bnav-m .on::before{content:"";position:absolute;top:0;left:30%;right:30%;height:2px;background:var(--red);border-radius:2px}
-.bnav-m .wa{color:#fff}
-.bnav-m .wa span.c{width:46px;height:46px;margin-top:-22px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--red),var(--red2));box-shadow:0 8px 20px -6px var(--glow);border:3px solid #000}
-.bnav-m .n{position:absolute;top:8px;left:calc(50% + 4px);background:var(--red);color:#fff;font-size:9px;min-width:16px;height:16px;border-radius:8px;display:grid;place-items:center;padding:0 4px}
-.wa-fab{position:fixed;right:22px;bottom:22px;z-index:40;display:none;align-items:center;gap:8px;background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;font-weight:700;font-size:14px;padding:12px 18px 12px 14px;border-radius:999px;box-shadow:0 12px 30px -8px var(--glow);transition:transform .25s var(--ease)}
-.wa-fab:hover{transform:translateY(-3px)}
-.wa-fab svg{width:22px;height:22px}
-@media (min-width:760px){.wa-fab.ok{display:inline-flex}}
+.bnav-m a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;height:64px;font-size:11px;font-weight:600;color:var(--mut);position:relative;transition:color .2s}
+.bnav-m svg{width:23px;height:23px;transition:transform .3s var(--ease)}
+.bnav-m a.on{color:var(--txt)}
+.bnav-m a.on svg{color:var(--red);transform:translateY(-2px)}
+.bnav-m a.on::before{content:"";position:absolute;top:0;left:32%;right:32%;height:3px;background:var(--red);border-radius:0 0 3px 3px}
 
-/* ---------- Detail produk ---------- */
+/* ---------- Detail ---------- */
 dialog.qv{border:0;padding:0;margin:auto;background:transparent;color:var(--txt);width:min(860px,calc(100% - 24px));max-height:calc(100dvh - 24px);overflow:visible}
 dialog.qv::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .qv-in{position:relative;background:var(--s1);border:1px solid var(--line);border-radius:22px;overflow:auto;max-height:calc(100dvh - 24px);display:grid}
@@ -266,7 +271,6 @@ dialog.qv[open] .qv-in{animation:qvIn .4s var(--ease)}
 }
 @keyframes sheet{from{transform:translateY(100%)}}
 .qv-ph{position:relative;background:var(--s3);aspect-ratio:1/1}
-.qv-ph.v{aspect-ratio:16/9}
 .qv-ph img{width:100%;height:100%;object-fit:cover;display:block}
 .qv-b{padding:18px 18px 20px;display:flex;flex-direction:column;gap:10px}
 @media (min-width:760px){.qv-b{padding:26px}}
@@ -283,8 +287,8 @@ dialog.qv[open] .qv-in{animation:qvIn .4s var(--ease)}
 .report:disabled{text-decoration:none;cursor:default}
 
 /* ---------- Efek ---------- */
-.rv{opacity:0;translate:0 18px}
-.rv.in{opacity:1;translate:0 0;transition:opacity .6s var(--ease),translate .6s var(--ease)}
+.rv{opacity:0;translate:0 16px}
+.rv.in{opacity:1;translate:0 0;transition:opacity .55s var(--ease),translate .55s var(--ease)}
 .toast{position:fixed;left:50%;bottom:calc(var(--navh) + 18px);transform:translate(-50%,16px);background:var(--s2);border:1px solid var(--line);border-left:3px solid var(--red);padding:10px 16px;border-radius:12px;font-size:13.5px;font-weight:600;opacity:0;pointer-events:none;transition:.3s var(--ease);z-index:60;white-space:nowrap}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 .burst{position:fixed;width:7px;height:7px;border-radius:50%;background:var(--red);pointer-events:none;z-index:70;animation:burst .65s var(--ease) forwards}
@@ -293,7 +297,6 @@ dialog.qv[open] .qv-in{animation:qvIn .4s var(--ease)}
   *,*::before,*::after{animation:none!important;transition:none!important}
   .rv{opacity:1;translate:none}
   .slide .tx > *{opacity:1;transform:none}
-  html{scroll-behavior:auto}
 }
 </style>
 </head>
@@ -301,60 +304,61 @@ dialog.qv[open] .qv-in{animation:qvIn .4s var(--ease)}
 
 <header class="top" id="top">
   <div class="wrap">
-    <a class="logo" href="#" aria-label="Beranda">
+    <a class="logo" href="#beranda" aria-label="Beranda">
       <svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="120" fill="#ff1f3d"/><g transform="rotate(-12 256 256)"><path d="M150 196h232a20 20 0 0 1 20 20v80a20 20 0 0 1-20 20H150l-56-60z" fill="#000"/><circle cx="150" cy="256" r="16" fill="#ff1f3d"/><rect x="200" y="236" width="150" height="16" rx="8" fill="#ff1f3d"/><rect x="200" y="266" width="96" height="16" rx="8" fill="#ff1f3d" opacity=".55"/></g></svg>
       <span id="siteName"></span>
     </a>
+    <nav class="menu" id="menu" aria-label="Menu utama">
+      <a href="#beranda" data-pg="beranda">Beranda</a>
+      <a href="#produk" data-pg="produk">Produk</a>
+      <a href="#jasa" data-pg="jasa">Jasa</a>
+    </nav>
     <label class="search">
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
-      <input id="q" type="search" placeholder="Cari produk, jasa, ebook…" autocomplete="off" aria-label="Cari">
+      <input id="q" type="search" placeholder="Cari produk…" autocomplete="off" aria-label="Cari produk">
       <button class="clear" id="clear" type="button" aria-label="Hapus pencarian" hidden>✕</button>
     </label>
-    <button class="iconbtn hide-m" id="favTop" type="button" aria-label="Favorit"></button>
+    <a class="btn btn-red chatbtn" id="chatTop" target="_blank" rel="noopener"></a>
   </div>
 </header>
 
-<main class="wrap" id="home">
-  <div class="banner" id="banner" hidden aria-roledescription="carousel" aria-label="Promo"></div>
-  <nav class="quick" id="quick" aria-label="Kategori"></nav>
+<main class="wrap">
+  <!-- ================= BERANDA ================= -->
+  <div class="page" id="pg-beranda">
+    <div class="banner" id="banner" hidden aria-roledescription="carousel" aria-label="Promo"></div>
+    <nav class="quick" id="quick" aria-label="Pintasan"></nav>
 
-  <section id="terlaris" hidden>
-    <div class="sh"><h2><span class="mk" data-i="fire"></span>Terlaris</h2><div class="right"><div class="arrows" data-for="rTop"></div></div></div>
-    <div class="rail" id="rTop"></div>
-  </section>
+    <section id="secTop" hidden>
+      <div class="sh"><h2><span class="mk" data-i="fire"></span>Terlaris</h2><div class="right"><div class="arrows" data-for="rTop"></div></div></div>
+      <div class="rail" id="rTop"></div>
+    </section>
+    <section id="secRek" hidden>
+      <div class="sh"><h2><span class="mk" data-i="star"></span>Rekomendasi</h2><div class="right"><div class="arrows" data-for="rRek"></div></div></div>
+      <div class="rail" id="rRek"></div>
+    </section>
+    <section id="secNew" hidden>
+      <div class="sh"><h2><span class="mk" data-i="spark"></span>Baru masuk</h2><div class="right"><div class="arrows" data-for="rNew"></div><a class="more" href="#produk">Semua<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div>
+      <div class="rail" id="rNew"></div>
+    </section>
+    <section id="secVid" hidden>
+      <div class="sh"><h2><span class="mk" data-i="play"></span>Video tutorial</h2><div class="right"><div class="arrows" data-for="rVid"></div><a class="more" id="vidAll" target="_blank" rel="noopener" hidden>Channel<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div>
+      <div class="rail wide" id="rVid"></div>
+    </section>
 
-  <section id="rekomendasi" hidden>
-    <div class="sh"><h2><span class="mk" data-i="star"></span>Rekomendasi</h2><div class="right"><div class="arrows" data-for="rRek"></div></div></div>
-    <div class="rail" id="rRek"></div>
-  </section>
-
-  <section id="jasa" hidden>
-    <div class="sh"><h2><span class="mk" data-i="tool"></span>Jasa</h2><div class="right"><div class="arrows" data-for="rSvc"></div></div></div>
-    <div class="tabs" id="svcTabs"></div>
-    <div class="rail svc-rail" id="rSvc"></div>
-  </section>
-
-  <section id="iot" hidden>
-    <div class="sh"><h2><span class="mk" data-i="chip"></span>Produk IoT</h2><div class="right"><div class="arrows" data-for="rIot"></div><button class="more" data-jenis="iot" type="button">Semua<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
-    <div class="rail" id="rIot"></div>
-  </section>
-
-  <section id="ebook" hidden>
-    <div class="sh"><h2><span class="mk" data-i="book"></span>Ebook</h2><div class="right"><div class="arrows" data-for="rBook"></div><button class="more" data-jenis="ebook" type="button">Semua<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
-    <div class="rail" id="rBook"></div>
-  </section>
-
-  <section id="video" hidden>
-    <div class="sh"><h2><span class="mk" data-i="play"></span>Video tutorial</h2><div class="right"><div class="arrows" data-for="rVid"></div><a class="more" id="vidAll" target="_blank" rel="noopener" hidden>Channel<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div>
-    <div class="rail wide" id="rVid"></div>
-  </section>
-
-  <section id="toko">
-    <div class="sh"><h2><span class="mk" data-i="grid"></span>Jelajahi</h2></div>
-    <div class="filters" id="filters">
-      <div class="tabs" id="jenisTabs" style="margin-bottom:0"></div>
-      <div class="chips" id="cats"></div>
+    <div class="foot">
+      <div class="socs" id="socs"></div>
+      <p>Sebagian link produk adalah link affiliate. Harga dan stok mengikuti toko masing-masing.</p>
+      <p style="margin-top:6px">© <span id="year"></span> <span id="footName"></span></p>
     </div>
+  </div>
+
+  <!-- ================= PRODUK ================= -->
+  <div class="page" id="pg-produk">
+    <div class="seg" id="segProduk" role="tablist" aria-label="Jenis produk">
+      <button type="button" data-ptab="saya" role="tab"><span data-i="bag"></span>Produk Saya</button>
+      <button type="button" data-ptab="link" role="tab"><span data-i="link"></span>Link Affiliate</button>
+    </div>
+    <div class="chips" id="cats"></div>
     <div class="toolbar">
       <span class="count" id="count">Memuat…</span>
       <div class="tools">
@@ -369,19 +373,24 @@ dialog.qv[open] .qv-in{animation:qvIn .4s var(--ease)}
     </div>
     <div class="grid" id="grid"></div>
     <button class="btn btn-ghost loadmore" id="loadmore" type="button" hidden>Muat lebih banyak</button>
-  </section>
+  </div>
+
+  <!-- ================= JASA ================= -->
+  <div class="page" id="pg-jasa">
+    <div class="seg" id="segJasa" role="tablist" aria-label="Jenis jasa"></div>
+    <section style="padding-top:20px">
+      <div class="sh"><h2><span class="mk" data-i="tag"></span>Paket</h2></div>
+      <div class="svc-grid" id="svc"></div>
+    </section>
+    <section>
+      <div class="sh"><h2><span class="mk" data-i="image"></span>Contoh hasil</h2></div>
+      <div class="porto" id="porto"></div>
+    </section>
+    <div class="cta-bar" id="ctaJasa" hidden><b>Punya ide lain?</b><a class="btn btn-red btn-sm" id="ctaJasaBtn" target="_blank" rel="noopener"></a></div>
+  </div>
 </main>
 
-<footer>
-  <div class="wrap">
-    <div class="socs" id="socs"></div>
-    <p>Sebagian link produk adalah link affiliate. Harga dan stok mengikuti toko masing-masing.</p>
-    <p style="margin-top:6px">© <span id="year"></span> <span id="footName"></span></p>
-  </div>
-</footer>
-
 <nav class="bnav-m" id="bnav" aria-label="Navigasi"></nav>
-<a class="wa-fab" id="waFab" target="_blank" rel="noopener"></a>
 <dialog class="qv" id="qv" aria-label="Detail"><div class="qv-in" id="qvIn"></div></dialog>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -400,31 +409,32 @@ const CONFIG = {
 
   CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vT-Tf2OZ1uEnQf4JQofaY8LCWAO1NmDIWo-nr2InN9vZrCaJW0KLkeUps8ckJZYitdBxCzW66fvB-GQ/pub?gid=880899455&single=true&output=csv",
   API_URL: "",           // link Web App Apps Script (hitung klik & laporan link rusak)
-  BANNER_DETIK: 5,       // lama tiap iklan tampil
+  BANNER_DETIK: 5,
   NEW_DAYS: 7,
   PER_PAGE: 20
 };
 /* ==================================================================================== */
 
 const DEMO = [
-  {tipe:"iklan",nama:"Jasa Bikin Website Toko",deskripsi:"Siap online dalam hitungan hari, tampil rapi di HP.",badge:"Promo",harga:"750000",link:"#jasa"},
+  {tipe:"iklan",nama:"Jasa Bikin Website Toko",deskripsi:"Siap online cepat, tampil rapi di HP.",badge:"Promo",harga:"750000",link:"#jasa/web"},
   {tipe:"iklan",nama:"Smart Plug WiFi",deskripsi:"Kontrol lampu dan alat listrik dari HP.",badge:"Produk baru",link:"i1"},
-  {tipe:"iklan",nama:"Ebook Belajar IoT dari Nol",deskripsi:"Dari LED berkedip sampai kirim data ke HP.",badge:"Terlaris",link:"e1"},
-  {tipe:"jasa",id:"j1",nama:"Website Toko & Company Profile",harga:"750000",kategori:"Jasa Web",badge:"Paling dipilih",deskripsi:"Tampil rapi di HP;Tombol pesan WhatsApp;Revisi 2 kali"},
-  {tipe:"jasa",id:"j2",nama:"Project IoT Custom",harga:"500000",kategori:"Jasa IoT",deskripsi:"ESP32 atau Arduino;Pantau lewat HP;Kode diserahkan"},
-  {tipe:"jasa",id:"j3",nama:"Bimbingan Tugas Akhir IoT",harga:"300000",kategori:"Jasa IoT",deskripsi:"Didampingi sampai alat jalan;Penjelasan cara kerja"},
-  {tipe:"jasa",id:"j4",nama:"Landing Page Bisnis",harga:"400000",kategori:"Jasa Web",deskripsi:"Satu halaman promosi;Siap untuk iklan"},
-  {tipe:"iot",id:"i1",nama:"Smart Plug WiFi Kontrol dari HP",harga:"185000",kategori:"Rumah Pintar",badge:"Terlaris",tanggal_tambah:"2026-10-28",deskripsi:"Nyalakan dan matikan alat listrik dari HP, lengkap dengan jadwal otomatis."},
-  {tipe:"iot",id:"i2",nama:"Monitor Suhu & Kelembapan",harga:"145000",kategori:"Sensor",badge:"Rekomendasi",tanggal_tambah:"2026-10-22"},
-  {tipe:"iot",id:"i3",nama:"Kit Belajar ESP32 Lengkap",harga:"235000",kategori:"Kit Belajar",tanggal_tambah:"2026-10-12",klik:"40"},
-  {tipe:"iot",id:"i4",nama:"Sensor Gerak PIR Notifikasi HP",harga:"120000",kategori:"Sensor",tanggal_tambah:"2026-10-05"},
-  {tipe:"ebook",id:"e1",nama:"Belajar IoT dari Nol dengan ESP32",harga:"49000",kategori:"Ebook IoT",badge:"Terlaris",tanggal_tambah:"2026-10-18"},
-  {tipe:"ebook",id:"e2",nama:"Bikin Website Toko Tanpa Coding",harga:"39000",kategori:"Ebook Web",badge:"Rekomendasi",tanggal_tambah:"2026-10-02"},
-  {tipe:"ebook",id:"e3",nama:"50 Project Arduino untuk Pemula",harga:"59000",kategori:"Ebook IoT",tanggal_tambah:"2026-09-20"},
+  {tipe:"iklan",nama:"Project IoT Sesuai Kebutuhanmu",deskripsi:"Monitoring, otomatisasi, sampai tugas akhir.",badge:"Jasa IoT",link:"#jasa/iot"},
+  {tipe:"jasa",id:"j1",nama:"Website Toko & Company Profile",harga:"750000",kategori:"Web",badge:"Paling dipilih",deskripsi:"Tampil rapi di HP;Tombol pesan WhatsApp;Revisi 2 kali"},
+  {tipe:"jasa",id:"j2",nama:"Landing Page Bisnis",harga:"400000",kategori:"Web",deskripsi:"Satu halaman promosi;Siap untuk iklan"},
+  {tipe:"jasa",id:"j3",nama:"Project IoT Custom",harga:"500000",kategori:"IoT",badge:"Paling dipilih",deskripsi:"ESP32 atau Arduino;Pantau lewat HP;Kode diserahkan"},
+  {tipe:"jasa",id:"j4",nama:"Bimbingan Tugas Akhir IoT",harga:"300000",kategori:"IoT",deskripsi:"Didampingi sampai alat jalan;Penjelasan cara kerja"},
+  {tipe:"portofolio",id:"p1",nama:"Website Katalog Toko Kue",kategori:"Web",deskripsi:"Katalog produk dengan tombol pesan WhatsApp, diperbarui lewat Google Sheets.",link:"https://example.com"},
+  {tipe:"portofolio",id:"p2",nama:"Company Profile Bengkel",kategori:"Web"},
+  {tipe:"portofolio",id:"p3",nama:"Monitoring Kolam Ikan",kategori:"IoT",deskripsi:"Sensor suhu dan pH air terhubung ke HP."},
+  {tipe:"portofolio",id:"p4",nama:"Smart Door Lock RFID",kategori:"IoT"},
+  {tipe:"iot",id:"i1",nama:"Smart Plug WiFi Kontrol dari HP",harga:"185000",kategori:"Produk IoT",badge:"Terlaris",tanggal_tambah:"2026-10-28",deskripsi:"Nyalakan dan matikan alat listrik dari HP."},
+  {tipe:"iot",id:"i2",nama:"Monitor Suhu & Kelembapan",harga:"145000",kategori:"Produk IoT",badge:"Rekomendasi",tanggal_tambah:"2026-10-22"},
+  {tipe:"iot",id:"i3",nama:"Kit Belajar ESP32 Lengkap",harga:"235000",kategori:"Produk IoT",tanggal_tambah:"2026-10-12",klik:"40"},
+  {tipe:"ebook",id:"e1",nama:"Belajar IoT dari Nol dengan ESP32",harga:"49000",kategori:"Ebook",badge:"Terlaris",tanggal_tambah:"2026-10-18"},
+  {tipe:"ebook",id:"e2",nama:"Bikin Website Toko Tanpa Coding",harga:"39000",kategori:"Ebook",badge:"Rekomendasi",tanggal_tambah:"2026-10-02"},
   {tipe:"video",nama:"Cara Install Arduino IDE dan Driver ESP32",link:"https://www.youtube.com/watch?v=dQw4w9WgXcQ"},
   {tipe:"video",nama:"Lampu Otomatis dengan Sensor LDR",link:"https://www.tiktok.com/@akun/video/1"},
   {tipe:"video",nama:"Kirim Data Sensor ke Google Sheets",link:"https://youtu.be/dQw4w9WgXcQ"},
-  {tipe:"video",nama:"Bikin Website Katalog Gratis",link:"https://youtu.be/dQw4w9WgXcQ"},
   {id:"l1",tipe:"link",nama:"Multimeter Digital Elektronika",link:"https://shop.tiktok.com",harga:"89000",kategori:"Alat Elektronika",platform:"TikTok Shop",badge:"Terlaris",tanggal_tambah:"2026-10-25"},
   {id:"l2",tipe:"link",nama:"Solder Listrik 60W Set Lengkap",link:"https://www.tokopedia.com",harga:"75000",kategori:"Alat Elektronika",platform:"Tokopedia",badge:"Rekomendasi",tanggal_tambah:"2026-10-10"},
   {id:"l3",tipe:"link",nama:"Sepatu Sneakers Pria Casual",link:"https://shopee.co.id",harga:"159000",kategori:"Fashion",platform:"Shopee",tanggal_tambah:"2026-10-27"},
@@ -444,16 +454,18 @@ const ICON = {
   check: S(`<path d="M5 12.5l4.5 4.5L19 7.5" ${st} stroke-width="2.6"/>`),
   play: S(`<path d="M7 4.5v15l12-7.5z" fill="currentColor"/>`),
   home: S(`<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z" ${st}/>`),
-  grid: S(`<rect x="3" y="3" width="7" height="7" rx="2" ${st}/><rect x="14" y="3" width="7" height="7" rx="2" ${st}/><rect x="3" y="14" width="7" height="7" rx="2" ${st}/><rect x="14" y="14" width="7" height="7" rx="2" ${st}/>`),
+  bag: S(`<path d="M5 8h14l-1 13H6zM9 8V6a3 3 0 0 1 6 0v2" ${st}/>`),
+  tool: S(`<path d="M14.7 6.3a4 4 0 0 0 5 5L21 13l-8 8-3-3 1.7-1.3a4 4 0 0 0-5-5L3 8l5-5 3 3z" ${st}/>`),
   fire: S(`<path d="M12 22c4 0 7-2.7 7-6.8 0-3.5-2.3-5.7-3.8-7.4-.4 1.7-1.3 3-2.7 3.7.3-3.6-1.4-6.8-4.5-8.5.2 3.3-1.6 5.3-3 7.1C3.9 11.5 5 14 5 15.2 5 19.3 8 22 12 22z" ${st}/>`),
   star: S(`<path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z" ${st}/>`),
-  tool: S(`<path d="M14.7 6.3a4 4 0 0 0 5 5L21 13l-8 8-3-3 1.7-1.3a4 4 0 0 0-5-5L3 8l5-5 3 3z" ${st}/>`),
+  spark: S(`<path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8" ${st}/>`),
+  tag: S(`<path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z" ${st}/><circle cx="7.5" cy="7.5" r="1.5" fill="currentColor"/>`),
+  image: S(`<rect x="3" y="4" width="18" height="16" rx="2" ${st}/><circle cx="9" cy="10" r="2" ${st}/><path d="M21 16l-5-5-9 9" ${st}/>`),
   code: S(`<path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14" ${st}/>`),
   chip: S(`<rect x="6" y="6" width="12" height="12" rx="2" ${st}/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4" ${st}/>`),
   wifi: S(`<path d="M2 9a15 15 0 0 1 20 0M5.5 12.5a10 10 0 0 1 13 0M9 16a5 5 0 0 1 6 0" ${st}/><circle cx="12" cy="19.5" r="1.3" fill="currentColor"/>`),
   book: S(`<path d="M4 19.5V5.5A2.5 2.5 0 0 1 6.5 3H20v14H6.5A2.5 2.5 0 0 0 4 19.5zm0 0A2.5 2.5 0 0 0 6.5 22H20v-5" ${st}/>`),
   link: S(`<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" ${st}/>`),
-  bag: S(`<path d="M5 8h14l-1 13H6zM9 8V6a3 3 0 0 1 6 0v2" ${st}/>`),
   video: S(`<rect x="2.5" y="5" width="14" height="14" rx="3" ${st}/><path d="M16.5 10l5-3v10l-5-3" ${st}/>`),
   whatsapp: S(`<path d="M12 2.5a9.4 9.4 0 0 0-8.1 14.2L2.7 21.3l4.7-1.2A9.4 9.4 0 1 0 12 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.6 7.6c.2-.4.5-.4.8-.4h.6c.2 0 .4.1.5.4l.8 1.9c.1.2 0 .5-.1.7l-.6.7c-.1.1-.2.3 0 .5.4.8 1 1.5 1.7 2 .5.4 1 .7 1.6.9.2.1.4 0 .5-.1l.8-.9c.2-.2.4-.2.6-.1l1.8.9c.2.1.4.3.3.5 0 .6-.3 1.4-.9 1.8-.6.4-1.5.6-2.6.2-1.6-.6-3-1.6-4.2-2.9-1-1.1-1.7-2.3-1.9-3.4-.2-1 .1-1.9.3-2.3z" fill="currentColor"/>`),
   instagram: S(`<rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/>`),
@@ -465,15 +477,18 @@ const FALLBACK = "data:image/svg+xml;utf8," + encodeURIComponent(
   "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><radialGradient id='g' cx='50%' cy='35%' r='75%'><stop offset='0' stop-color='#2b0d14'/><stop offset='1' stop-color='#141417'/></radialGradient></defs><rect width='100' height='100' fill='url(#g)'/><path d='M34 41h32l-3 28H37z' fill='none' stroke='#ff1f3d' stroke-opacity='.5' stroke-width='2.4' stroke-linejoin='round'/><path d='M43 41v-4a7 7 0 0 1 14 0v4' fill='none' stroke='#ff1f3d' stroke-opacity='.5' stroke-width='2.4'/></svg>");
 
 /* ---------- Data ---------- */
-const TYPE = { iot: "Produk IoT", ebook: "Ebook", link: "Link Produk" };   // jenis yang tampil di Jelajahi
-const ALIAS = { "": "link", rekomendasi: "link", affiliate: "link", afiliasi: "link", "link produk": "link", "produk iot": "iot", "e-book": "ebook", layanan: "jasa", "jasa iot": "jasa", "jasa web": "jasa", tutorial: "video", banner: "iklan", promo: "iklan" };
+// "Produk Saya" = barang yang kamu jual sendiri; "Link Affiliate" = link toko lain
+const OWN = ["iot", "ebook", "produk"];
+const ALIAS = { "": "link", rekomendasi: "link", affiliate: "link", afiliasi: "link", "link produk": "link", "link affiliate": "link",
+  "produk iot": "iot", "produk saya": "produk", "e-book": "ebook", layanan: "jasa", "jasa iot": "jasa", "jasa web": "jasa",
+  portfolio: "portofolio", proyek: "portofolio", "contoh hasil": "portofolio", tutorial: "video", banner: "iklan", promo: "iklan" };
 const OFF = ["nonaktif","non-aktif","tidak aktif","off","hapus","habis"];
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const num = v => Number(String(v || "").replace(/[^\d]/g, "")) || 0;
 const ribu = n => n.toLocaleString("id-ID");
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const state = { all: [], items: [], q: "", jenis: "Semua", cat: "Semua", plat: "Semua", sort: "baru", fav: false, shown: CONFIG.PER_PAGE, svcCat: "Semua" };
+const state = { all: [], page: "beranda", ptab: "saya", jtab: "", q: "", cat: "Semua", plat: "Semua", sort: "baru", fav: false, shown: CONFIG.PER_PAGE };
 const byId = new Map();
 
 function loadSet(k){ try { return new Set(JSON.parse(localStorage.getItem(k) || "[]")); } catch (e) { return new Set(); } }
@@ -508,27 +523,32 @@ function parseDate(s){
   if (m){ let d = +m[1], mo = +m[2]; if (mo > 12 && d <= 12) [d, mo] = [mo, d]; return new Date(+m[3], mo - 1, d); }
   const d = new Date(s); return isNaN(d) ? null : d;
 }
-function vidSrc(u){ u = (u || "").toLowerCase(); return u.includes("youtu") ? "YouTube" : u.includes("tiktok") ? "TikTok" : u.includes("instagram") ? "Instagram" : u.includes("facebook") ? "Facebook" : "Video"; }
+const vidSrc = u => { u = (u || "").toLowerCase(); return u.includes("youtu") ? "YouTube" : u.includes("tiktok") ? "TikTok" : u.includes("instagram") ? "Instagram" : u.includes("facebook") ? "Facebook" : "Video"; };
+// Jenis jasa dari kolom kategori: "Web", "Jasa Web", "Website" → web; "IoT", "Jasa IoT" → iot
+const jasaKey = k => { k = (k || "").toLowerCase().replace(/^jasa\s+/, "").trim(); return /web/.test(k) ? "web" : /iot/.test(k) ? "iot" : k || "lainnya"; };
+const jasaName = k => ({ web: "Jasa Web", iot: "Jasa IoT" })[k] || ("Jasa " + k.replace(/\b\w/g, c => c.toUpperCase()));
 
 function normalize(rows){
   const today = new Date(); today.setHours(0,0,0,0);
   return rows.map((o, i) => {
     const raw = (o.tipe || "").toLowerCase().trim();
     const tipe = ALIAS[raw] !== undefined ? ALIAS[raw] : raw;
-    const link = o.link_affiliate || o.link || "";
+    const link = o.link || o.link_affiliate || "";
     const yt = ytId(link) ? `https://i.ytimg.com/vi/${ytId(link)}/hqdefault.jpg` : "";
     return {
       tipe, id: o.id || `${tipe}-${i + 1}`, nama: o.nama || "", link,
       img: driveImg(o.gambar, 600) || yt, imgL: driveImg(o.gambar, 1400) || yt,
-      harga: num(o.harga), kategori: o.kategori || (TYPE[tipe] || "Lainnya"),
+      harga: num(o.harga), kategori: o.kategori || (tipe === "iot" ? "Produk IoT" : tipe === "ebook" ? "Ebook" : "Lainnya"),
       platform: o.platform || (tipe === "link" ? "Lainnya" : tipe === "video" ? vidSrc(link) : ""),
       badge: o.badge || "", status: (o.status || "aktif").toLowerCase(),
       tgl: parseDate(o.tanggal_tambah), sampai: parseDate(o.berlaku_sampai),
-      desk: o.deskripsi || "", klik: num(o.klik), urut: i
+      desk: o.deskripsi || "", klik: num(o.klik)
     };
   }).filter(p => p.nama && !OFF.includes(p.status) && (!p.sampai || p.sampai >= today) && ((p.tipe !== "link" && p.tipe !== "video") || p.link));
 }
 
+const isOwn = p => OWN.includes(p.tipe);
+const isShop = p => isOwn(p) || p.tipe === "link";
 const isNew = p => p.tgl && (Date.now() - p.tgl.getTime()) / 864e5 <= CONFIG.NEW_DAYS;
 const hasBadge = (p, w) => p.badge.toLowerCase().includes(w);
 const byNew = (a, b) => (b.tgl ? b.tgl.getTime() : 0) - (a.tgl ? a.tgl.getTime() : 0);
@@ -536,15 +556,14 @@ const laris = p => (hasBadge(p, "laris") ? 1e6 : 0) + p.klik;
 const waNum = () => { let n = String(CONFIG.WHATSAPP || "").replace(/\D/g, ""); if (n.startsWith("0")) n = "62" + n.slice(1); return n; };
 const wa = t => waNum() ? `https://wa.me/${waNum()}?text=${encodeURIComponent(t)}` : "";
 const shopKey = p => { if (p.tipe !== "link") return "own"; const s = p.platform.toLowerCase(); return ["shopee","tiktok","tokopedia","lazada"].find(k => s.includes(k)) || "lain"; };
-const srcLabel = p => p.tipe === "link" ? p.platform : TYPE[p.tipe] || p.kategori;
+const srcLabel = p => p.tipe === "link" ? p.platform : p.kategori;
 function buyHref(p){
   if (p.link && !/^#/.test(p.link)) return p.link;
-  const what = { ebook: "ebook", jasa: "jasa", iot: "produk" }[p.tipe] || "produk";
+  const what = { ebook: "ebook", jasa: "jasa", portofolio: "jasa seperti" }[p.tipe] || "produk";
   return wa(`Halo, saya tertarik dengan ${what} "${p.nama}". Boleh minta info?`);
 }
 function buyLabel(p){
   if (p.tipe === "link") return "Beli di " + p.platform;
-  if (p.tipe === "jasa") return "Pesan jasa";
   if (p.tipe === "ebook") return "Beli ebook";
   return p.link ? "Beli sekarang" : "Pesan";
 }
@@ -554,41 +573,46 @@ let tt; function toast(m){ const t = $("toast"); t.textContent = m; t.classList.
 
 /* ---------- Kartu ---------- */
 function card(p, i, rank){
-  const on = favs.has(p.id);
-  const cls = p.tipe === "ebook" ? " book" : p.tipe === "video" ? " vid" : "";
-  if (p.tipe === "video") return `<a class="card vid rv" href="${esc(p.link)}" target="_blank" rel="noopener" style="transition-delay:${(i % 6) * 50}ms">
+  if (p.tipe === "video") return `<a class="card vid rv" href="${esc(p.link)}" target="_blank" rel="noopener">
       <div class="ph">${img(p.img, p.nama)}<span class="play">${ICON.play}</span><span class="lab">${esc(p.platform)}</span></div>
       <div class="bd"><p class="nm">${esc(p.nama)}</p></div></a>`;
+  const on = favs.has(p.id);
   const lab = isNew(p) ? '<span class="lab new">Baru</span>' : p.badge && !rank ? `<span class="lab">${esc(p.badge)}</span>` : "";
-  return `<article class="card${cls} rv" data-open="${esc(p.id)}" tabindex="0" style="transition-delay:${(i % 6) * 50}ms">
+  return `<article class="card${p.tipe === "ebook" ? " book" : ""} rv" data-open="${esc(p.id)}" tabindex="0">
     <div class="ph">${img(p.img, p.nama)}${rank ? `<span class="rk">${rank}</span>` : ""}${lab}
       <button class="heart${on ? " on" : ""}" data-fav="${esc(p.id)}" type="button" aria-pressed="${on}" aria-label="Simpan ke favorit">${ICON.heart}</button></div>
     <div class="bd"><p class="nm">${esc(p.nama)}</p>${p.harga ? `<span class="pr"><small>Rp</small>${ribu(p.harga)}</span>` : ""}<span class="src s-${shopKey(p)}"><i></i>${esc(srcLabel(p))}</span></div>
   </article>`;
 }
-function svcCard(p, i){
-  const pts = p.desk.split(/\s*[;\n|]\s*/).filter(Boolean).slice(0, 3), h = buyHref(p), iot = /iot/i.test(p.kategori);
-  return `<article class="svc rv${p.badge ? " hot" : ""}" style="transition-delay:${(i % 3) * 60}ms">
-    <div class="tp"><span class="ic">${iot ? ICON.wifi : ICON.code}</span><span class="cat">${esc(p.kategori)}</span>${p.badge ? `<span class="bdg">${esc(p.badge)}</span>` : ""}</div>
+function svcCard(p){
+  const pts = p.desk.split(/\s*[;\n|]\s*/).filter(Boolean).slice(0, 4), h = buyHref(p);
+  return `<article class="svc rv${p.badge ? " hot" : ""}">
+    <div class="tp"><span class="ic">${jasaKey(p.kategori) === "iot" ? ICON.wifi : ICON.code}</span>${p.badge ? `<span class="bdg">${esc(p.badge)}</span>` : ""}</div>
     <h3>${esc(p.nama)}</h3>
     ${pts.length ? `<ul>${pts.map(x => `<li>${ICON.check}<span>${esc(x)}</span></li>`).join("")}</ul>` : ""}
     <div class="ft"><div>${p.harga ? `<div class="from">Mulai</div><div class="amt">Rp ${ribu(p.harga)}</div>` : `<div class="from">Harga</div><div class="amt">Tanya dulu</div>`}</div>
     ${h ? `<a class="btn btn-red btn-sm" data-klik="${esc(p.id)}" href="${esc(h)}" target="_blank" rel="noopener">${p.link ? "" : ICON.whatsapp}Pesan</a>` : ""}</div>
   </article>`;
 }
+function pfCard(p){
+  return `<article class="pf rv" data-open="${esc(p.id)}" tabindex="0"><div class="ph">${img(p.img, p.nama)}</div><div class="bd"><h3>${esc(p.nama)}</h3></div></article>`;
+}
+function fill(id, list, fn){
+  const box = $(id); box.innerHTML = list.map((p, i) => fn(p, i)).join(""); reveal(box);
+  const sec = box.closest("section"); if (sec && sec.parentElement.id === "pg-beranda") sec.hidden = !list.length;
+}
 
 /* ---------- Banner iklan ---------- */
-let bIdx = 0, bTimer, bSlides = [];
-function renderBanner(ads){
-  const b = $("banner");
-  bSlides = ads; b.hidden = !ads.length; if (!ads.length) return;
-  b.innerHTML = ads.map((a, i) => `
-    <div class="slide${a.img ? " hasimg" : ""}" data-ad="${i}" role="group" aria-label="${i + 1} dari ${ads.length}">
+let bIdx = 0, bTimer, ads = [];
+function renderBanner(list){
+  const b = $("banner"); ads = list; b.hidden = !list.length; if (!list.length) return;
+  b.innerHTML = list.map((a, i) => `
+    <div class="slide${a.img ? " hasimg" : ""}" data-ad="${i}" role="group" aria-label="${i + 1} dari ${list.length}">
       <div class="bg"></div>${a.img ? img(a.imgL, a.nama, i === 0) : ""}
       <div class="tx">${a.badge ? `<span class="lbl">${esc(a.badge)}</span>` : ""}<h2>${esc(a.nama)}</h2>${a.desk ? `<p>${esc(a.desk)}</p>` : ""}
-      <span class="go">${esc(a.tombol || "Lihat")} ${ICON.right}</span>${a.harga ? `<span class="pr">Rp ${ribu(a.harga)}</span>` : ""}</div>
+      <span class="go">Lihat ${ICON.right}</span>${a.harga ? `<span class="pr">Rp ${ribu(a.harga)}</span>` : ""}</div>
     </div>`).join("") +
-    (ads.length > 1 ? `<div class="dots">${ads.map((_, i) => `<button class="dot" data-dot="${i}" type="button" aria-label="Iklan ${i + 1}"><i></i></button>`).join("")}</div>
+    (list.length > 1 ? `<div class="dots">${list.map((_, i) => `<button class="dot" data-dot="${i}" type="button" aria-label="Iklan ${i + 1}"><i></i></button>`).join("")}</div>
     <button class="bnav l" data-step="-1" type="button" aria-label="Sebelumnya">${ICON.left}</button><button class="bnav r" data-step="1" type="button" aria-label="Berikutnya">${ICON.right}</button>` : "");
   b.style.setProperty("--dur", CONFIG.BANNER_DETIK + "s");
   goSlide(0);
@@ -599,40 +623,41 @@ function renderBanner(ads){
   b.onpointerup = e => { if (sx === null) return; const dx = e.clientX - sx; sx = null; if (Math.abs(dx) > 40){ b.dataset.swiped = "1"; goSlide(bIdx + (dx < 0 ? 1 : -1)); } };
 }
 function goSlide(i){
-  const n = bSlides.length; if (!n) return;
+  const n = ads.length; if (!n) return;
   bIdx = (i + n) % n;
   $("banner").querySelectorAll(".slide").forEach((s, k) => s.classList.toggle("on", k === bIdx));
   $("banner").querySelectorAll(".dot").forEach((d, k) => { d.classList.remove("on"); d.classList.toggle("done", k < bIdx); void d.offsetWidth; if (k === bIdx) d.classList.add("on"); });
   clearTimeout(bTimer);
-  if (n > 1 && !reduce && !$("banner").classList.contains("paused")) bTimer = setTimeout(() => goSlide(bIdx + 1), CONFIG.BANNER_DETIK * 1000);
+  if (n > 1 && !reduce && state.page === "beranda" && !$("banner").classList.contains("paused")) bTimer = setTimeout(() => goSlide(bIdx + 1), CONFIG.BANNER_DETIK * 1000);
 }
 function openAd(a){
   const t = (a.link || "").trim();
-  if (!t) { const w = wa(`Halo, saya tertarik dengan promo "${a.nama}".`); if (w) window.open(w, "_blank", "noopener"); return; }
-  if (t.startsWith("#")) { const el = document.querySelector(t); if (el) el.scrollIntoView({ behavior: "smooth" }); return; }
+  if (!t){ const w = wa(`Halo, saya tertarik dengan promo "${a.nama}".`); if (w) window.open(w, "_blank", "noopener"); return; }
+  if (t.startsWith("#")){ location.hash = t; return; }
   if (byId.has(t)) return openQV(t);
   window.open(t, "_blank", "noopener");
 }
 
-/* ---------- Jelajahi ---------- */
+/* ---------- Halaman Produk ---------- */
+function pool(){ return state.all.filter(p => state.ptab === "link" ? p.tipe === "link" : isOwn(p)); }
 function filtered(){
   const w = state.q.toLowerCase().split(/\s+/).filter(Boolean);
-  return state.items.filter(p =>
-    (state.jenis === "Semua" || p.tipe === state.jenis) &&
+  return pool().filter(p =>
     (state.cat === "Semua" || p.kategori === state.cat) &&
     (state.plat === "Semua" || p.platform === state.plat) &&
     (!state.fav || favs.has(p.id)) &&
-    (!w.length || w.every(x => (p.nama + " " + p.kategori + " " + p.platform + " " + p.desk + " " + p.badge + " " + (TYPE[p.tipe] || "") + " " + p.tipe).toLowerCase().includes(x)))
+    (!w.length || w.every(x => (p.nama + " " + p.kategori + " " + p.platform + " " + p.desk + " " + p.badge).toLowerCase().includes(x)))
   ).sort((a, b) => { const s = state.sort;
     return s === "murah" ? (a.harga || 1e15) - (b.harga || 1e15) : s === "mahal" ? b.harga - a.harga : s === "laris" ? laris(b) - laris(a) : byNew(a, b); });
 }
-function render(){
+function renderProduk(){
   const list = filtered(), g = $("grid");
-  $("count").innerHTML = `<b>${list.length}</b> ${state.fav ? "favorit" : "item"}${state.q ? ` untuk “${esc(state.q)}”` : ""}`;
+  $("count").innerHTML = `<b>${list.length}</b> produk${state.q ? ` untuk “${esc(state.q)}”` : ""}`;
   if (!list.length){
+    const other = state.q && state.all.some(p => (state.ptab === "link" ? isOwn(p) : p.tipe === "link") && (p.nama + " " + p.kategori).toLowerCase().includes(state.q.toLowerCase()));
     g.innerHTML = state.fav
-      ? `<div class="empty"><b>Belum ada favorit</b>Ketuk ♡ di produk untuk menyimpannya.<br><button class="btn btn-red" data-act="all" type="button">Lihat semua</button></div>`
-      : `<div class="empty"><b>Tidak ditemukan</b>Coba kata lain.<br><button class="btn btn-red" data-act="reset" type="button">Hapus filter</button></div>`;
+      ? `<div class="empty"><b>Belum ada favorit</b>Ketuk ♡ di produk untuk menyimpannya.</div>`
+      : `<div class="empty"><b>Tidak ditemukan</b>${other ? `Ada hasil di <b style="display:inline;font-size:inherit">${state.ptab === "link" ? "Produk Saya" : "Link Affiliate"}</b>.<br><button class="btn btn-red" data-ptab="${state.ptab === "link" ? "saya" : "link"}" type="button">Lihat di sana</button>` : `Coba kata lain.<br><button class="btn btn-red" data-act="reset" type="button">Hapus filter</button>`}</div>`;
     $("loadmore").hidden = true; return;
   }
   g.innerHTML = list.slice(0, state.shown).map((p, i) => card(p, i)).join("");
@@ -640,86 +665,71 @@ function render(){
   reveal(g);
 }
 function buildFilters(){
-  const pool = state.items.filter(p => state.jenis === "Semua" || p.tipe === state.jenis);
-  const tally = k => [...pool.reduce((m, p) => m.set(p[k], (m.get(p[k]) || 0) + 1), new Map())];
+  const ps = pool();
+  const tally = k => [...ps.reduce((m, p) => m.set(p[k], (m.get(p[k]) || 0) + 1), new Map())];
   const cats = tally("kategori").sort((a, b) => b[1] - a[1]).map(c => c[0]);
   if (!cats.includes(state.cat)) state.cat = "Semua";
-  $("cats").innerHTML = cats.length > 1 ? ["Semua", ...cats].map(v => `<button class="chip${v === state.cat ? " on" : ""}" data-cat="${esc(v)}" type="button">${esc(v)}</button>`).join("") : "";
+  $("cats").innerHTML = `<button class="chip fav${state.fav ? " on" : ""}" data-favf type="button">${ICON.heart}Favorit</button>` +
+    (cats.length > 1 ? ["Semua", ...cats] : []).map(v => `<button class="chip${v === state.cat ? " on" : ""}" data-cat="${esc(v)}" type="button">${esc(v)}</button>`).join("");
   const shops = tally("platform").map(c => c[0]).filter(Boolean).sort();
   if (!shops.includes(state.plat)) state.plat = "Semua";
   $("plat").innerHTML = `<option value="Semua">Semua toko</option>` + shops.map(v => `<option${v === state.plat ? " selected" : ""}>${esc(v)}</option>`).join("");
   $("plat").hidden = shops.length < 2;
+  $("segProduk").querySelectorAll("[data-ptab]").forEach(b => { b.classList.toggle("on", b.dataset.ptab === state.ptab); b.setAttribute("aria-selected", b.dataset.ptab === state.ptab); });
 }
-function setJenis(v){
-  state.jenis = v; state.shown = CONFIG.PER_PAGE;
-  $("jenisTabs").querySelectorAll(".tab").forEach(b => b.classList.toggle("on", b.dataset.j === v));
-  buildFilters(); render();
-}
-function goToko(){ const y = $("toko").getBoundingClientRect().top + scrollY - $("top").offsetHeight - 4; scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" }); }
 
-/* ---------- Bagian beranda ---------- */
-function rail(id, list, fn){
-  const sec = $(id).closest("section");
-  sec.hidden = !list.length;
-  $(id).innerHTML = list.map((p, i) => fn(p, i)).join("");
-  reveal($(id));
-}
+/* ---------- Halaman Jasa ---------- */
 function renderJasa(){
-  const all = state.all.filter(p => p.tipe === "jasa");
-  const cats = [...new Set(all.map(p => p.kategori))];
-  $("svcTabs").innerHTML = cats.length > 1 ? ["Semua", ...cats].map(c => `<button class="tab${c === state.svcCat ? " on" : ""}" data-svc="${esc(c)}" type="button">${esc(c)}</button>`).join("") : "";
-  $("svcTabs").hidden = cats.length < 2;
-  rail("rSvc", all.filter(p => state.svcCat === "Semua" || p.kategori === state.svcCat), svcCard);
-  $("jasa").hidden = !all.length;
+  const jasa = state.all.filter(p => p.tipe === "jasa"), porto = state.all.filter(p => p.tipe === "portofolio");
+  const keys = [...new Set([...jasa, ...porto].map(p => jasaKey(p.kategori)))].sort((a, b) => ["web","iot"].indexOf(a) - ["web","iot"].indexOf(b));
+  if (!keys.length){ $("segJasa").hidden = true; $("svc").innerHTML = `<div class="none">Belum ada jasa.</div>`; $("porto").innerHTML = ""; return; }
+  if (!keys.includes(state.jtab)) state.jtab = keys[0];
+  $("segJasa").hidden = keys.length < 2;
+  $("segJasa").innerHTML = keys.map(k => `<button type="button" data-jtab="${k}" role="tab" class="${k === state.jtab ? "on" : ""}" aria-selected="${k === state.jtab}">${k === "iot" ? ICON.wifi : k === "web" ? ICON.code : ICON.tool}${esc(jasaName(k))}</button>`).join("");
+  const sv = jasa.filter(p => jasaKey(p.kategori) === state.jtab), pf = porto.filter(p => jasaKey(p.kategori) === state.jtab);
+  $("svc").innerHTML = sv.length ? sv.map(svcCard).join("") : `<div class="none">Paket belum tersedia. Tanyakan langsung lewat WhatsApp.</div>`;
+  $("porto").innerHTML = pf.length ? pf.map(pfCard).join("") : `<div class="none" style="grid-column:1/-1">Contoh hasil segera hadir.</div>`;
+  reveal($("pg-jasa"));
+  const w = wa(`Halo, saya mau konsultasi ${jasaName(state.jtab).toLowerCase()}.`);
+  $("ctaJasa").hidden = !w; if (w){ $("ctaJasaBtn").href = w; $("ctaJasaBtn").innerHTML = ICON.whatsapp + "Konsultasi gratis"; }
+}
+
+/* ---------- Beranda ---------- */
+function renderBeranda(){
+  const shop = state.all.filter(isShop);
+  renderBanner(state.all.filter(p => p.tipe === "iklan"));
+  const jasa = state.all.filter(p => p.tipe === "jasa" || p.tipe === "portofolio");
+  const hasJ = k => jasa.some(p => jasaKey(p.kategori) === k);
+  const q = [
+    ["Produk Saya", ICON.bag, state.all.some(isOwn), "#produk/saya"],
+    ["Link Affiliate", ICON.link, state.all.some(p => p.tipe === "link"), "#produk/link"],
+    ["Jasa Web", ICON.code, hasJ("web"), "#jasa/web"],
+    ["Jasa IoT", ICON.wifi, hasJ("iot"), "#jasa/iot"],
+    ["Produk IoT", ICON.chip, state.all.some(p => p.tipe === "iot"), "#produk/saya/iot"],
+    ["Ebook", ICON.book, state.all.some(p => p.tipe === "ebook"), "#produk/saya/ebook"],
+    ["Tutorial", ICON.video, state.all.some(p => p.tipe === "video"), "@secVid"],
+    ["Chat", ICON.whatsapp, !!waNum(), "@wa"]
+  ].filter(x => x[2]);
+  $("quick").innerHTML = q.map(([t, ic, , go]) => `<button class="q rv" data-go="${go}" type="button"><span class="ic">${ic}</span>${t}</button>`).join("");
+  reveal($("quick"));
+  fill("rTop", shop.filter(p => laris(p) > 0).sort((a, b) => laris(b) - laris(a)).slice(0, 10), (p, i) => card(p, i, i + 1));
+  fill("rRek", shop.filter(p => hasBadge(p, "rekomendasi") || hasBadge(p, "pilihan")), card);
+  fill("rNew", [...shop].filter(p => p.tgl).sort(byNew).slice(0, 10), card);
+  fill("rVid", state.all.filter(p => p.tipe === "video").slice(0, 12), card);
+  const ch = CONFIG.SOSMED.youtube || CONFIG.SOSMED.tiktok; if (ch){ $("vidAll").href = ch; $("vidAll").hidden = false; }
 }
 
 function setup(rows){
   state.all = normalize(rows);
   byId.clear(); state.all.forEach(p => byId.set(p.id, p));
-  const of = t => state.all.filter(p => p.tipe === t);
-  state.items = state.all.filter(p => TYPE[p.tipe]);
-  const ads = of("iklan"), iot = of("iot"), books = of("ebook"), vids = of("video"), links = of("link"), jasa = of("jasa");
-
-  renderBanner(ads);
-
-  // Ikon kategori
-  const q = [
-    ["iot", "Produk IoT", ICON.chip, iot.length, "#iot"],
-    ["jasaiot", "Jasa IoT", ICON.wifi, jasa.filter(p => /iot/i.test(p.kategori)).length, "svc:iot"],
-    ["jasaweb", "Jasa Web", ICON.code, jasa.filter(p => /web|website/i.test(p.kategori)).length, "svc:web"],
-    ["ebook", "Ebook", ICON.book, books.length, "#ebook"],
-    ["video", "Tutorial", ICON.video, vids.length, "#video"],
-    ["link", "Link Produk", ICON.link, links.length, "j:link"],
-    ["jasa", "Jasa Lain", ICON.tool, jasa.filter(p => !/iot|web/i.test(p.kategori)).length, "svc:Semua"],
-    ["wa", "Tanya", ICON.whatsapp, waNum() ? 1 : 0, "wa"]
-  ].filter(x => x[3] > 0);
-  $("quick").innerHTML = q.map(([k, t, ic, , go]) => `<button class="q rv" data-go="${go}" type="button"><span class="ic">${ic}</span>${t}</button>`).join("");
-  reveal($("quick"));
-
-  // Terlaris: badge "Terlaris" + jumlah klik
-  const top = state.items.filter(p => laris(p) > 0).sort((a, b) => laris(b) - laris(a)).slice(0, 10);
-  rail("rTop", top, (p, i) => card(p, i, i + 1));
-  // Rekomendasi: badge "Rekomendasi" atau "Pilihan"
-  rail("rRek", state.items.filter(p => hasBadge(p, "rekomendasi") || hasBadge(p, "pilihan")), card);
-  renderJasa();
-  rail("rIot", iot.sort((a, b) => laris(b) - laris(a) || byNew(a, b)).slice(0, 12), card);
-  rail("rBook", books.sort(byNew).slice(0, 12), card);
-  rail("rVid", vids.slice(0, 12), card);
-  const yt = CONFIG.SOSMED.youtube || CONFIG.SOSMED.tiktok;
-  if (yt){ $("vidAll").href = yt; $("vidAll").hidden = false; }
-
-  // Jelajahi
-  const types = Object.keys(TYPE).filter(t => state.items.some(p => p.tipe === t));
-  $("toko").hidden = !state.items.length;
-  $("jenisTabs").innerHTML = (types.length > 1 ? ["Semua", ...types] : []).map(t => `<button class="tab${t === state.jenis ? " on" : ""}" data-j="${t}" type="button">${t === "Semua" ? "Semua" : TYPE[t]}</button>`).join("");
-  $("jenisTabs").hidden = types.length < 2;
-
+  renderBeranda();
   document.querySelectorAll(".arrows").forEach(a => { a.innerHTML = `<button class="arw" data-rail="${a.dataset.for}" data-d="-1" type="button" aria-label="Geser kiri">${ICON.left}</button><button class="arw" data-rail="${a.dataset.for}" data-d="1" type="button" aria-label="Geser kanan">${ICON.right}</button>`; });
-  updateFav(); buildFilters(); render();
+  route();
 }
 
 async function load(){
   $("grid").innerHTML = Array(5).fill('<div class="card ghost"><div class="ph"></div><div class="ln"></div><div class="ln s"></div></div>').join("");
+  route();
   if (!CONFIG.CSV_URL){ setup(DEMO); return; }
   try {
     const res = await fetch(CONFIG.CSV_URL + (CONFIG.CSV_URL.includes("?") ? "&" : "?") + "t=" + Date.now());
@@ -727,27 +737,48 @@ async function load(){
     setup(parseCSV(await res.text()));
   } catch (e) {
     $("grid").innerHTML = `<div class="empty"><b>Gagal memuat</b>Periksa koneksi internet.<br><button class="btn btn-red" data-act="reload" type="button">Muat ulang</button></div>`;
-    $("count").textContent = "";
   }
 }
+
+/* ---------- Pindah halaman (#beranda, #produk/saya, #produk/link, #jasa/web, #jasa/iot) ---------- */
+function route(){
+  const parts = (location.hash || "#beranda").slice(1).split("/").map(decodeURIComponent);
+  let pg = ["beranda", "produk", "jasa"].includes(parts[0]) ? parts[0] : "beranda";
+  const changed = pg !== state.page;
+  state.page = pg;
+  if (pg === "produk"){
+    if (parts[1] === "link" || parts[1] === "saya"){ if (state.ptab !== parts[1]) { state.ptab = parts[1]; state.cat = "Semua"; state.plat = "Semua"; } }
+    if (parts[2]){ const c = state.all.find(p => isOwn(p) && p.tipe === parts[2]); state.cat = c ? c.kategori : "Semua"; }
+    state.shown = CONFIG.PER_PAGE;
+    buildFilters(); renderProduk();
+  }
+  if (pg === "jasa"){ if (parts[1]) state.jtab = parts[1].toLowerCase(); renderJasa(); }
+  document.querySelectorAll(".page").forEach(el => el.classList.toggle("on", el.id === "pg-" + pg));
+  document.querySelectorAll("[data-pg]").forEach(a => a.classList.toggle("on", a.dataset.pg === pg));
+  document.title = (pg === "beranda" ? "" : (pg === "produk" ? "Produk" : "Jasa") + " · ") + CONFIG.SITE_NAME;
+  if (pg === "beranda") goSlide(bIdx); else clearTimeout(bTimer);
+  if (changed || parts.length > 1) scrollTo({ top: 0, behavior: "auto" });
+}
+addEventListener("hashchange", route);
 
 /* ---------- Detail ---------- */
 function openQV(id){
   const p = byId.get(id); if (!p) return;
-  const on = favs.has(p.id), h = buyHref(p);
+  const on = favs.has(p.id), h = buyHref(p), pf = p.tipe === "portofolio";
   const share = "https://wa.me/?text=" + encodeURIComponent(p.nama + "\n" + (p.tipe === "link" ? p.link : location.href.split("#")[0]));
   $("qvIn").innerHTML = `
     <button class="qv-x" data-close type="button" aria-label="Tutup">✕</button>
     <div class="qv-ph">${img(p.imgL, p.nama, true)}</div>
     <div class="qv-b">
-      <span class="src s-${shopKey(p)}" style="margin:0"><i></i>${esc(srcLabel(p))} · ${esc(p.kategori)}</span>
+      <span class="src s-${shopKey(p)}" style="margin:0"><i></i>${esc(pf ? "Contoh hasil · " + jasaName(jasaKey(p.kategori)) : srcLabel(p))}</span>
       <h3>${esc(p.nama)}</h3>
       ${p.harga ? `<div class="qv-pr"><small>Rp</small>${ribu(p.harga)}</div>` : ""}
       ${p.desk ? `<p class="qv-d">${esc(p.desk)}</p>` : ""}
       <div class="qv-act">
-        ${h ? `<a class="btn btn-red" data-klik="${esc(p.id)}" href="${esc(h)}" target="_blank" rel="noopener${p.tipe === "link" ? " sponsored" : ""}">${p.link ? "" : ICON.whatsapp}${buyLabel(p)} ${p.link ? ICON.out : ""}</a>` : ""}
-        <button class="btn btn-ghost${on ? " on" : ""}" data-fav="${esc(p.id)}" type="button" aria-pressed="${on}" aria-label="Simpan ke favorit" style="color:${on ? "var(--red)" : "inherit"}">${ICON.heart}</button>
-        <a class="btn btn-ghost" href="${share}" target="_blank" rel="noopener" aria-label="Bagikan ke WhatsApp">${ICON.share}</a>
+        ${pf ? (p.link ? `<a class="btn btn-ghost" href="${esc(p.link)}" target="_blank" rel="noopener">Lihat hasil ${ICON.out}</a>` : "") + (wa("x") ? `<a class="btn btn-red" href="${esc(wa(`Halo, saya mau dibuatkan seperti "${p.nama}".`))}" target="_blank" rel="noopener">${ICON.whatsapp}Pesan yang serupa</a>` : "")
+        : `${h ? `<a class="btn btn-red" data-klik="${esc(p.id)}" href="${esc(h)}" target="_blank" rel="noopener${p.tipe === "link" ? " sponsored" : ""}">${p.link ? "" : ICON.whatsapp}${buyLabel(p)} ${p.link ? ICON.out : ""}</a>` : ""}
+        <button class="btn btn-ghost" data-fav="${esc(p.id)}" type="button" aria-pressed="${on}" aria-label="Simpan ke favorit" style="color:${on ? "var(--red)" : "inherit"}">${ICON.heart}</button>
+        <a class="btn btn-ghost" href="${share}" target="_blank" rel="noopener" aria-label="Bagikan ke WhatsApp">${ICON.share}</a>`}
       </div>
       ${p.tipe === "link" ? `<p class="note">Harga dan stok mengikuti toko.</p>` : ""}
       ${p.tipe === "link" && CONFIG.API_URL ? `<button class="report" data-report="${esc(p.id)}" type="button"${reported.has(p.id) ? " disabled" : ""}>${reported.has(p.id) ? "Sudah dilaporkan" : "Laporkan link rusak"}</button>` : ""}
@@ -757,17 +788,6 @@ function openQV(id){
 const closeQV = () => { const d = $("qv"); d.close ? d.close() : d.removeAttribute("open"); };
 $("qv").addEventListener("click", e => { if (e.target === $("qv") || e.target.closest("[data-close]")) closeQV(); });
 
-/* ---------- Favorit ---------- */
-function updateFav(){
-  $("favTop").innerHTML = ICON.heart + (favs.size ? `<span class="n">${favs.size}</span>` : "");
-  $("favTop").classList.toggle("on", state.fav);
-  const n = document.querySelector("#bnav .favn"); if (n) n.innerHTML = favs.size ? `<span class="n">${favs.size}</span>` : "";
-}
-function setFav(v){
-  state.fav = v; state.shown = CONFIG.PER_PAGE;
-  if (v){ state.jenis = "Semua"; state.cat = "Semua"; $("jenisTabs").querySelectorAll(".tab").forEach(b => b.classList.toggle("on", b.dataset.j === "Semua")); buildFilters(); }
-  updateFav(); render(); markNav(v ? "fav" : "");
-}
 function burst(x, y){
   if (reduce) return;
   for (let i = 0; i < 9; i++){
@@ -779,21 +799,6 @@ function burst(x, y){
   }
 }
 
-/* ---------- Navigasi bawah (HP) ---------- */
-function buildNav(){
-  const w = wa("Halo, saya mau tanya dulu.");
-  $("bnav").innerHTML = `
-    <a href="#" data-nav="home" class="on">${ICON.home}Beranda</a>
-    <a href="#toko" data-nav="toko" data-gotoko>${ICON.grid}Jelajahi</a>
-    ${w ? `<a class="wa" href="${esc(w)}" target="_blank" rel="noopener"><span class="c">${ICON.whatsapp}</span>Chat</a>` : `<a href="#jasa" data-nav="jasa">${ICON.tool}Jasa</a>`}
-    <a href="#jasa" data-nav="jasa2">${ICON.tool}Jasa</a>
-    <button type="button" data-nav="fav" data-favnav style="position:relative">${ICON.heart}<span class="favn"></span>Favorit</button>`;
-  if (!w) $("bnav").querySelector('[data-nav="jasa2"]').remove(), $("bnav").style.gridTemplateColumns = "repeat(4,1fr)";
-  const f = $("waFab");
-  if (w){ f.href = w; f.innerHTML = ICON.whatsapp + "Chat"; f.classList.add("ok"); }
-}
-function markNav(k){ $("bnav").querySelectorAll("[data-nav]").forEach(a => a.classList.toggle("on", a.dataset.nav === (k || "home"))); }
-
 /* ---------- Klik ---------- */
 document.addEventListener("click", e => {
   const t = e.target;
@@ -802,10 +807,10 @@ document.addEventListener("click", e => {
     e.preventDefault(); e.stopPropagation();
     const id = fav.dataset.fav; favs.has(id) ? favs.delete(id) : favs.add(id); saveSet("etalase_favorit_v1", favs);
     const on = favs.has(id);
-    document.querySelectorAll(`[data-fav="${CSS.escape(id)}"]`).forEach(el => { el.classList.toggle("on", on); el.setAttribute("aria-pressed", on); if (!el.classList.contains("heart")) el.style.color = on ? "var(--red)" : "inherit"; if (el.classList.contains("heart")){ el.classList.remove("pop"); void el.offsetWidth; if (on) el.classList.add("pop"); } });
+    document.querySelectorAll(`[data-fav="${CSS.escape(id)}"]`).forEach(el => { el.classList.toggle("on", on); el.setAttribute("aria-pressed", on); if (el.classList.contains("heart")){ el.classList.remove("pop"); void el.offsetWidth; if (on) el.classList.add("pop"); } else el.style.color = on ? "var(--red)" : "inherit"; });
     if (on){ const r = fav.getBoundingClientRect(); burst(r.left + r.width / 2, r.top + r.height / 2); }
-    toast(on ? "Disimpan ke favorit" : "Dihapus dari favorit"); updateFav();
-    if (state.fav) render();
+    toast(on ? "Disimpan ke favorit" : "Dihapus dari favorit");
+    if (state.fav && state.page === "produk") renderProduk();
     return;
   }
   const k = t.closest("[data-klik]");
@@ -818,73 +823,70 @@ document.addEventListener("click", e => {
     rep.disabled = true; rep.textContent = "Sudah dilaporkan"; toast("Laporan terkirim, terima kasih!"); return;
   }
   const ad = t.closest("[data-ad]");
-  if (ad && !t.closest(".dots,.bnav")){ const b = $("banner"); if (b.dataset.swiped){ delete b.dataset.swiped; return; } return openAd(bSlides[+ad.dataset.ad]); }
+  if (ad && !t.closest(".dots,.bnav")){ const b = $("banner"); if (b.dataset.swiped){ delete b.dataset.swiped; return; } return openAd(ads[+ad.dataset.ad]); }
   const dot = t.closest("[data-dot]"); if (dot) return goSlide(+dot.dataset.dot);
   const step = t.closest("[data-step]"); if (step) return goSlide(bIdx + +step.dataset.step);
   const open = t.closest("[data-open]"); if (open) return openQV(open.dataset.open);
   const go = t.closest("[data-go]");
   if (go){
     const v = go.dataset.go;
-    if (v === "wa"){ const w = wa("Halo, saya mau tanya dulu."); if (w) window.open(w, "_blank", "noopener"); return; }
-    if (v.startsWith("svc:")){
-      const key = v.slice(4).toLowerCase(), cats = [...new Set(state.all.filter(p => p.tipe === "jasa").map(p => p.kategori))];
-      state.svcCat = key === "semua" ? (cats.find(c => !/iot|web/i.test(c)) || "Semua") : (cats.find(c => c.toLowerCase().includes(key)) || "Semua");
-      renderJasa(); $("jasa").scrollIntoView({ behavior: reduce ? "auto" : "smooth" }); return;
-    }
-    if (v.startsWith("j:")){ setFav(false); setJenis(v.slice(2)); goToko(); return; }
-    const el = document.querySelector(v); if (el) el.scrollIntoView({ behavior: reduce ? "auto" : "smooth" }); return;
+    if (v === "@wa"){ const w = wa("Halo, saya mau tanya dulu."); if (w) window.open(w, "_blank", "noopener"); return; }
+    if (v.startsWith("@")){ const el = $(v.slice(1)); if (el) el.scrollIntoView({ behavior: reduce ? "auto" : "smooth" }); return; }
+    location.hash = v; return;
   }
-  const svc = t.closest("[data-svc]"); if (svc){ state.svcCat = svc.dataset.svc; renderJasa(); return; }
-  const jen = t.closest("[data-jenis]"); if (jen){ setFav(false); setJenis(jen.dataset.jenis); goToko(); return; }
-  const tab = t.closest("[data-j]"); if (tab) return setJenis(tab.dataset.j);
-  const chip = t.closest("[data-cat]"); if (chip){ state.cat = chip.dataset.cat; state.shown = CONFIG.PER_PAGE; $("cats").querySelectorAll(".chip").forEach(c => c.classList.toggle("on", c === chip)); return render(); }
+  const pt = t.closest("[data-ptab]"); if (pt){ state.fav = false; location.hash = "#produk/" + pt.dataset.ptab; return; }
+  const jt = t.closest("[data-jtab]"); if (jt){ location.hash = "#jasa/" + jt.dataset.jtab; return; }
+  if (t.closest("[data-favf]")){ state.fav = !state.fav; state.shown = CONFIG.PER_PAGE; buildFilters(); renderProduk(); return; }
+  const chip = t.closest("[data-cat]"); if (chip){ state.cat = chip.dataset.cat; state.shown = CONFIG.PER_PAGE; buildFilters(); renderProduk(); return; }
   const ar = t.closest("[data-rail]"); if (ar){ const r = $(ar.dataset.rail); r.scrollBy({ left: +ar.dataset.d * r.clientWidth * .85, behavior: "smooth" }); return; }
   const act = t.closest("[data-act]");
-  if (act){ if (act.dataset.act === "reload") return location.reload(); if (act.dataset.act === "all") return setFav(false);
-    state.q = ""; $("q").value = ""; $("clear").hidden = true; state.plat = "Semua"; state.cat = "Semua"; return setJenis("Semua"); }
-  if (t.closest("[data-favnav]")){ setFav(!state.fav); goToko(); return; }
-  if (t.closest("[data-gotoko]")){ e.preventDefault(); if (state.fav) setFav(false); markNav("toko"); goToko(); return; }
-  const nav = t.closest('[data-nav="home"]'); if (nav){ e.preventDefault(); markNav("home"); scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); return; }
-  if (t.closest('.logo')){ e.preventDefault(); scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); }
+  if (act){ if (act.dataset.act === "reload") return location.reload();
+    state.q = ""; $("q").value = ""; $("clear").hidden = true; state.plat = "Semua"; state.cat = "Semua"; state.fav = false; buildFilters(); renderProduk(); }
 });
 document.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target.matches && e.target.matches("[data-open]")){ e.preventDefault(); openQV(e.target.dataset.open); } });
 
-/* ---------- Pencarian ---------- */
+/* ---------- Pencarian (selalu menampilkan hasil di halaman Produk) ---------- */
 let qt;
 $("q").addEventListener("input", e => {
   clearTimeout(qt); $("clear").hidden = !e.target.value;
   qt = setTimeout(() => {
-    const first = !state.q && e.target.value;
     state.q = e.target.value.trim(); state.shown = CONFIG.PER_PAGE;
-    if (state.fav) setFav(false); else render();
-    if (first) goToko();
-  }, 180);
+    if (state.q){
+      const w = state.q.toLowerCase(), hit = p => (p.nama + " " + p.kategori + " " + p.platform + " " + p.desk).toLowerCase().includes(w);
+      const inCur = state.all.some(p => (state.ptab === "link" ? p.tipe === "link" : isOwn(p)) && hit(p));
+      const inOther = state.all.some(p => (state.ptab === "link" ? isOwn(p) : p.tipe === "link") && hit(p));
+      if (!inCur && inOther) state.ptab = state.ptab === "link" ? "saya" : "link";
+      state.cat = "Semua";
+    }
+    if (state.page !== "produk" && state.q) location.hash = "#produk/" + state.ptab;
+    else { buildFilters(); renderProduk(); }
+  }, 200);
 });
-$("q").addEventListener("keydown", e => { if (e.key === "Enter"){ e.preventDefault(); goToko(); $("q").blur(); } });
-$("clear").onclick = () => { $("q").value = ""; $("clear").hidden = true; state.q = ""; render(); $("q").focus(); };
-$("sort").onchange = e => { state.sort = e.target.value; render(); };
-$("plat").onchange = e => { state.plat = e.target.value; state.shown = CONFIG.PER_PAGE; render(); };
-$("loadmore").onclick = () => { state.shown += CONFIG.PER_PAGE; render(); };
-$("favTop").onclick = () => { setFav(!state.fav); goToko(); };
+$("q").addEventListener("keydown", e => { if (e.key === "Enter"){ e.preventDefault(); $("q").blur(); } });
+$("clear").onclick = () => { $("q").value = ""; $("clear").hidden = true; state.q = ""; renderProduk(); $("q").focus(); };
+$("sort").onchange = e => { state.sort = e.target.value; renderProduk(); };
+$("plat").onchange = e => { state.plat = e.target.value; state.shown = CONFIG.PER_PAGE; renderProduk(); };
+$("loadmore").onclick = () => { state.shown += CONFIG.PER_PAGE; renderProduk(); };
 
 /* ---------- Animasi masuk ---------- */
 const io = "IntersectionObserver" in window ? new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting){ x.target.classList.add("in"); io.unobserve(x.target); } }), { rootMargin: "0px 0px -5% 0px" }) : null;
 function reveal(root){ root.querySelectorAll(".rv:not(.in)").forEach(el => io ? io.observe(el) : el.classList.add("in")); }
 
-/* ---------- Scroll ---------- */
-let tk = false;
-addEventListener("scroll", () => { if (tk) return; tk = true; requestAnimationFrame(() => { $("top").classList.toggle("lifted", scrollY > 4); tk = false; }); }, { passive: true });
-const setTopH = () => document.documentElement.style.setProperty("--toph", $("top").offsetHeight + "px");
-addEventListener("resize", setTopH);
-
 /* ---------- Mulai ---------- */
-document.title = CONFIG.SITE_NAME;
 $("siteName").textContent = CONFIG.SITE_NAME; $("footName").textContent = CONFIG.SITE_NAME; $("year").textContent = new Date().getFullYear();
-document.querySelectorAll(".mk[data-i]").forEach(m => m.innerHTML = ICON[m.dataset.i]);
+document.querySelectorAll("[data-i]").forEach(m => m.outerHTML = m.classList.contains("mk") ? `<span class="mk">${ICON[m.dataset.i]}</span>` : ICON[m.dataset.i]);
 $("socs").innerHTML = Object.entries(CONFIG.SOSMED).filter(([, u]) => u).map(([k, u]) => `<a class="soc" href="${esc(u)}" target="_blank" rel="noopener" aria-label="${k}">${ICON[k]}</a>`).join("") +
   (waNum() ? `<a class="soc" href="${esc(wa("Halo!"))}" target="_blank" rel="noopener" aria-label="WhatsApp">${ICON.whatsapp}</a>` : "");
 $("socs").hidden = !$("socs").innerHTML;
-buildNav(); setTopH(); updateFav(); load();
+const chatW = wa("Halo, saya mau tanya dulu.");
+if (chatW){ $("chatTop").href = chatW; $("chatTop").innerHTML = ICON.whatsapp + "Chat"; $("chatTop").classList.add("ok"); }
+$("bnav").innerHTML = `
+  <a href="#beranda" data-pg="beranda">${ICON.home}Beranda</a>
+  <a href="#produk" data-pg="produk">${ICON.bag}Produk</a>
+  <a href="#jasa" data-pg="jasa">${ICON.tool}Jasa</a>
+  ${chatW ? `<a href="${esc(chatW)}" target="_blank" rel="noopener">${ICON.whatsapp}Chat</a>` : ""}`;
+if (!chatW) $("bnav").style.gridTemplateColumns = "repeat(3,1fr)";
+load();
 </script>
 </body>
 </html>
