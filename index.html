@@ -16,6 +16,7 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" defer></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -358,6 +359,44 @@ dialog.qv[open] .qv-in{animation:qvIn .4s var(--ease)}
 .opt.on .ok svg{opacity:1;color:#fff}
 .opt + .opt{margin-top:2px}
 
+/* ---------- Bayar QRIS ---------- */
+dialog.pay{width:min(440px,calc(100% - 24px))}
+dialog.pay .qv-in{display:block;padding:20px 18px 18px}
+@media (max-width:759px){dialog.pay{width:100%}dialog.pay .qv-in{padding:10px 16px calc(18px + env(safe-area-inset-bottom))}}
+.pay-h{display:flex;align-items:center;gap:10px;margin:2px 44px 14px 0}
+.pay-h .ic{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--red),#ff5a3c);color:#fff;flex:none}
+.pay-h .ic svg{width:20px;height:20px}
+.pay-h b{display:block;font-family:var(--display);font-size:18px;line-height:1.1}
+.pay-h small{display:block;font-size:12px;color:var(--mut)}
+.pay-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--s2)}
+.pay-item .nm3{font-weight:600;font-size:14px;line-height:1.3;min-width:0}
+.pay-item .nm3 small{display:block;color:var(--dim);font-size:11.5px;font-weight:500}
+.qty{display:flex;align-items:center;gap:2px;background:var(--s1);border:1px solid var(--line);border-radius:10px;padding:2px;flex:none}
+.qty button{width:30px;height:30px;border:0;border-radius:8px;background:var(--s3);font-size:18px;font-weight:700;cursor:pointer;line-height:1}
+.qty span{min-width:26px;text-align:center;font-weight:700}
+.amt-in{display:flex;align-items:center;gap:6px;background:var(--s1);border:1px solid var(--line);border-radius:10px;padding:0 10px;flex:none}
+.amt-in:focus-within{border-color:var(--red)}
+.amt-in span{color:var(--mut);font-weight:700;font-size:13px}
+.amt-in input{width:110px;border:0;background:none;font-size:15px;font-weight:700;padding:9px 0;outline:none;text-align:right}
+.qrbox{position:relative;margin:14px auto 0;width:min(280px,100%);background:#fff;color:#111;border-radius:20px;padding:12px 12px 10px;text-align:center;box-shadow:0 20px 50px -20px var(--glow);border:3px solid transparent;background:linear-gradient(#fff,#fff) padding-box,conic-gradient(from var(--ang,0deg),var(--red),var(--amber),var(--violet),var(--cyan),var(--red)) border-box;animation:qrspin 4s linear infinite}
+@property --ang{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes qrspin{to{--ang:360deg}}
+.qrbox .brand-q{font-family:var(--display);font-weight:800;font-size:15px;letter-spacing:.06em;display:flex;align-items:center;justify-content:center;gap:6px;color:#111}
+.qrbox .brand-q i{width:8px;height:8px;border-radius:50%;background:var(--red)}
+.qrbox svg{display:block;width:100%;height:auto;margin:8px 0 4px}
+.qrbox .mer{font-size:12px;font-weight:700;color:#333}
+.qrbox .tot{font-family:var(--display);font-weight:800;font-size:24px;color:#111;margin-top:2px}
+.qrbox .tot small{font-size:13px;margin-right:2px}
+.qrbox .code{font-size:11px;color:#777;margin-top:2px}
+.pay-steps{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:6px;font-size:12.5px;color:var(--mut)}
+.pay-steps li{display:flex;gap:8px;align-items:flex-start}
+.pay-steps b{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:var(--s3);color:var(--txt);font-size:11px}
+.pay-act{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.pay-act .btn-red{grid-column:1/-1}
+.pay-note{font-size:11.5px;color:var(--dim);text-align:center;margin:10px 0 0}
+.btn-qris{background:linear-gradient(135deg,#ffffff,#e9e9ee);color:#111}
+.btn-qris svg{color:var(--red)}
+
 /* ---------- Efek ---------- */
 .rv{opacity:0;translate:0 16px}
 .rv.in{opacity:1;translate:0 0;transition:opacity .55s var(--ease),translate .55s var(--ease)}
@@ -463,6 +502,7 @@ dialog.qv[open] .qv-in{animation:qvIn .4s var(--ease)}
 <div class="dd-back" id="ddBack" hidden></div>
 <div class="dd-pop" id="ddPop" role="listbox" hidden></div>
 <dialog class="qv" id="qv" aria-label="Detail"><div class="qv-in" id="qvIn"></div></dialog>
+<dialog class="qv pay" id="pay" aria-label="Bayar dengan QRIS"><div class="qv-in" id="payIn"></div></dialog>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -479,6 +519,10 @@ const CONFIG = {
   },
 
   CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vT-Tf2OZ1uEnQf4JQofaY8LCWAO1NmDIWo-nr2InN9vZrCaJW0KLkeUps8ckJZYitdBxCzW66fvB-GQ/pub?gid=880899455&single=true&output=csv",
+  // QRIS statis milikmu (teks panjang berawalan 000201...). Kosongkan kalau belum ada.
+  QRIS: "00020101021126570011ID.DANA.WWW011893600915303273460902090327346090303UMI51440014ID.CO.QRIS.WWW0215ID10265355972190303UMI5204481453033605802ID5911FTI PROJECT6013Kab. Tabalong61057151563048D9E",
+  QRIS_PRODUK: true,     // tombol "Bayar QRIS" di Produk Saya (IoT, ebook) yang tidak punya link pembayaran sendiri
+  QRIS_JASA: true,       // tombol "QRIS" di paket jasa (nominal bisa diubah, misalnya untuk DP)
   API_URL: "https://script.google.com/macros/s/AKfycbx9k2qVOURsMnlfizJtJQa3220mWDuNdqCumMGdKur8fc3ij4UqzOjDqNVNeZTX20I0KA/exec",   // hitung klik & laporan link rusak
   BANNER_DETIK: 5,
   // Banner yang tampil kalau di Sheets belum ada baris tipe "iklan"
@@ -540,6 +584,8 @@ const ICON = {
   up: S(`<path d="M12 19V5M6 11l6-6 6 6" ${st}/>`),
   down: S(`<path d="M12 5v14M6 13l6 6 6-6" ${st}/>`),
   store: S(`<path d="M4 9l1.5-5h13L20 9M4 9h16v11H4zM9 20v-6h6v6" ${st}/>`),
+  qr: S(`<rect x="3" y="3" width="7" height="7" rx="1.5" ${st}/><rect x="14" y="3" width="7" height="7" rx="1.5" ${st}/><rect x="3" y="14" width="7" height="7" rx="1.5" ${st}/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 17h4v4h-4" ${st}/>`),
+  dl: S(`<path d="M12 4v11M7 10l5 5 5-5M5 20h14" ${st}/>`),
   tag: S(`<path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z" ${st}/><circle cx="7.5" cy="7.5" r="1.5" fill="currentColor"/>`),
   image: S(`<rect x="3" y="4" width="18" height="16" rx="2" ${st}/><circle cx="9" cy="10" r="2" ${st}/><path d="M21 16l-5-5-9 9" ${st}/>`),
   code: S(`<path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14" ${st}/>`),
@@ -672,7 +718,8 @@ function svcCard(p){
     <h3>${esc(p.nama)}</h3>
     ${pts.length ? `<ul>${pts.map(x => `<li>${ICON.check}<span>${esc(x)}</span></li>`).join("")}</ul>` : ""}
     <div class="ft"><div>${p.harga ? `<div class="from">Mulai</div><div class="amt">Rp ${ribu(p.harga)}</div>` : `<div class="from">Harga</div><div class="amt">Tanya dulu</div>`}</div>
-    ${h ? `<a class="btn btn-red btn-sm" data-klik="${esc(p.id)}" href="${esc(h)}" target="_blank" rel="noopener">${p.link ? "" : ICON.whatsapp}Pesan</a>` : ""}</div>
+    <div style="display:flex;gap:6px">${qrisOn("jasa") ? `<button class="btn btn-qris btn-sm" data-pay="${esc(p.id)}" type="button" aria-label="Bayar ${esc(p.nama)} dengan QRIS">${ICON.qr}QRIS</button>` : ""}
+    ${h ? `<a class="btn btn-red btn-sm" data-klik="${esc(p.id)}" href="${esc(h)}" target="_blank" rel="noopener">${p.link ? "" : ICON.whatsapp}Pesan</a>` : ""}</div></div>
   </article>`;
 }
 function pfCard(p){
@@ -902,6 +949,106 @@ function route(){
 }
 addEventListener("hashchange", route);
 
+/* ---------- QRIS: ubah QRIS statis jadi QRIS dengan nominal ---------- */
+function crc16(s){
+  let c = 0xFFFF;
+  for (let i = 0; i < s.length; i++){ c ^= s.charCodeAt(i) << 8; for (let j = 0; j < 8; j++) c = (c & 0x8000) ? ((c << 1) ^ 0x1021) & 0xFFFF : (c << 1) & 0xFFFF; }
+  return c.toString(16).toUpperCase().padStart(4, "0");
+}
+function tlv(s){
+  const out = []; let i = 0;
+  while (i + 4 <= s.length){ const id = s.substr(i, 2), n = parseInt(s.substr(i + 2, 2), 10); if (isNaN(n)) return null; out.push([id, s.substr(i + 4, n)]); i += 4 + n; }
+  return i === s.length ? out : null;
+}
+function qrisValid(s){
+  s = (s || "").trim();
+  if (!/^000201/.test(s) || s.length < 30) return false;
+  const k = s.lastIndexOf("6304"); if (k < 0 || k !== s.length - 8) return false;
+  return crc16(s.slice(0, k + 4)) === s.slice(-4).toUpperCase();
+}
+function qrisNominal(s, amount){
+  s = s.trim();
+  const parts = tlv(s.slice(0, s.lastIndexOf("6304"))); if (!parts) return "";
+  const out = [];
+  let put = false;
+  parts.forEach(([id, v]) => {
+    if (id === "54") return;                               // buang nominal lama
+    if (id === "01") v = "12";                             // 12 = QRIS dinamis (sekali pakai)
+    if (!put && id > "54"){ const a = String(Math.round(amount)); out.push(["54", a]); put = true; }
+    out.push([id, v]);
+  });
+  if (!put) out.push(["54", String(Math.round(amount))]);
+  const body = out.map(([id, v]) => id + String(v.length).padStart(2, "0") + v).join("") + "6304";
+  return body + crc16(body);
+}
+const qrisMerchant = () => { const t = tlv((CONFIG.QRIS || "").trim().slice(0, (CONFIG.QRIS || "").trim().lastIndexOf("6304"))) || []; const m = t.find(x => x[0] === "59"); return m ? m[1] : ""; };
+const qrisOn = kind => qrisValid(CONFIG.QRIS) && (kind === "jasa" ? CONFIG.QRIS_JASA : CONFIG.QRIS_PRODUK);
+const canPay = p => isOwn(p) && p.harga > 0 && !(p.link && !/^#/.test(p.link)) && qrisOn("produk");
+const pay = { p: null, qty: 1, amt: 0, code: "" };
+function openPay(id){
+  const p = byId.get(id); if (!p) return;
+  const isJasa = p.tipe === "jasa", d = new Date();
+  pay.p = p; pay.qty = 1; pay.amt = p.harga || 0;
+  pay.code = "AW" + String(d.getDate()).padStart(2, "0") + String(d.getMonth() + 1).padStart(2, "0") + "-" + Math.random().toString(36).slice(2, 6).toUpperCase();
+  $("payIn").innerHTML = `
+    <button class="qv-x" data-closepay type="button" aria-label="Tutup">✕</button>
+    <div class="pay-h"><span class="ic">${ICON.qr}</span><div><b>Bayar dengan QRIS</b><small>Semua e-wallet & m-banking</small></div></div>
+    <div class="pay-item">
+      <div class="nm3">${esc(p.nama)}<small>${isJasa ? "Masukkan nominal (misalnya DP)" : "Rp " + ribu(p.harga) + " / item"}</small></div>
+      ${isJasa ? `<label class="amt-in"><span>Rp</span><input id="payAmt" inputmode="numeric" value="${ribu(pay.amt)}" aria-label="Nominal"></label>`
+               : `<div class="qty"><button type="button" data-qty="-1" aria-label="Kurangi">−</button><span id="payQty">1</span><button type="button" data-qty="1" aria-label="Tambah">+</button></div>`}
+    </div>
+    <div class="qrbox" id="qrbox"></div>
+    <ol class="pay-steps">
+      <li><b>1</b>Scan QR dengan aplikasi e-wallet atau m-banking. Nominal sudah terisi otomatis.</li>
+      <li><b>2</b>Buka web ini di HP? Simpan gambar QR, lalu di aplikasi pembayaran pilih scan dari galeri.</li>
+      <li><b>3</b>Setelah bayar, kirim bukti lewat WhatsApp supaya pesanan langsung diproses.</li>
+    </ol>
+    <div class="pay-act">
+      <button class="btn btn-ghost" data-saveqr type="button">${ICON.dl}Simpan QR</button>
+      <button class="btn btn-ghost" data-copycode type="button">Salin kode</button>
+      ${waNum() ? `<a class="btn btn-red" id="paidBtn" target="_blank" rel="noopener">${ICON.whatsapp}Saya sudah bayar</a>` : ""}
+    </div>
+    <p class="pay-note">Pembayaran dicek manual. Pastikan nama penerima: <b>${esc(qrisMerchant() || "sesuai QRIS")}</b>.</p>`;
+  drawQR();
+  const dlg = $("pay"); dlg.showModal ? dlg.showModal() : dlg.setAttribute("open", "");
+  const inp = $("payAmt");
+  if (inp) inp.addEventListener("input", () => { const n = num(inp.value); pay.amt = n; inp.value = n ? ribu(n) : ""; clearTimeout(inp.t); inp.t = setTimeout(drawQR, 250); });
+}
+function payTotal(){ return pay.p && pay.p.tipe === "jasa" ? pay.amt : pay.amt * pay.qty; }
+function drawQR(){
+  const box = $("qrbox"), total = payTotal();
+  if (!total){ box.innerHTML = `<div class="brand-q"><i></i>QRIS</div><p style="color:#555;font-size:13px;margin:40px 0">Isi nominal dulu</p>`; return; }
+  if (typeof qrcode !== "function"){ box.innerHTML = `<p style="color:#555;font-size:13px;margin:40px 0">Memuat QR…</p>`; setTimeout(drawQR, 400); return; }
+  const str = qrisNominal(CONFIG.QRIS, total), q = qrcode(0, "M"); q.addData(str); q.make(); pay.str = str; pay.q = q;
+  box.innerHTML = `<div class="brand-q"><i></i>QRIS</div>${q.createSvgTag({ cellSize: 4, margin: 2, scalable: true })}
+    <div class="mer">${esc(qrisMerchant())}</div><div class="tot"><small>Rp</small>${ribu(total)}</div><div class="code">Kode pesanan ${pay.code}</div>`;
+  const b = $("paidBtn");
+  if (b) b.href = wa(`Halo, saya sudah bayar lewat QRIS.\n\nKode: ${pay.code}\nPesanan: ${pay.p.nama}${pay.p.tipe === "jasa" ? "" : " x" + pay.qty}\nTotal: Rp ${ribu(total)}\n\nBerikut bukti pembayarannya:`);
+}
+function saveQR(){
+  if (!pay.q) return;
+  const q = pay.q, n = q.getModuleCount(), cell = 10, pad = 40, size = n * cell, W = size + pad * 2, H = size + pad * 2 + 120;
+  const c = document.createElement("canvas"); c.width = W; c.height = H; const x = c.getContext("2d");
+  x.fillStyle = "#fff"; x.fillRect(0, 0, W, H);
+  x.fillStyle = "#111"; x.font = "800 30px system-ui, sans-serif"; x.textAlign = "center"; x.fillText("QRIS", W / 2, 34);
+  for (let r = 0; r < n; r++) for (let k = 0; k < n; k++) if (q.isDark(r, k)) x.fillRect(pad + k * cell, pad + 10 + r * cell, cell, cell);
+  x.font = "700 22px system-ui, sans-serif"; x.fillText(qrisMerchant(), W / 2, size + pad + 50);
+  x.font = "800 34px system-ui, sans-serif"; x.fillText("Rp " + ribu(payTotal()), W / 2, size + pad + 92);
+  x.fillStyle = "#777"; x.font = "500 18px system-ui, sans-serif"; x.fillText("Kode " + pay.code, W / 2, size + pad + 120);
+  const a = document.createElement("a"); a.download = `QRIS-${pay.code}.png`; a.href = c.toDataURL("image/png"); document.body.appendChild(a); a.click(); a.remove();
+  toast("Gambar QR disimpan");
+}
+const closePay = () => { const d = $("pay"); d.close ? d.close() : d.removeAttribute("open"); };
+$("pay").addEventListener("click", e => {
+  const t = e.target;
+  if (t === $("pay") || t.closest("[data-closepay]")) return closePay();
+  const qb = t.closest("[data-qty]"); if (qb){ pay.qty = Math.min(99, Math.max(1, pay.qty + +qb.dataset.qty)); $("payQty").textContent = pay.qty; drawQR(); return; }
+  if (t.closest("[data-saveqr]")) return saveQR();
+  if (t.closest("[data-copycode]")){ try { navigator.clipboard.writeText(pay.code); toast("Kode pesanan disalin"); } catch (er) { toast("Kode: " + pay.code); } return; }
+  if (t.closest("#paidBtn")) kirim({ aksi: "klik", id: pay.p.id });
+});
+
 /* ---------- Detail ---------- */
 function openQV(id){
   const p = byId.get(id); if (!p) return;
@@ -917,6 +1064,8 @@ function openQV(id){
       ${p.desk ? `<p class="qv-d">${esc(p.desk)}</p>` : ""}
       <div class="qv-act">
         ${pf ? (p.link ? `<a class="btn btn-ghost" href="${esc(p.link)}" target="_blank" rel="noopener">Lihat hasil ${ICON.out}</a>` : "") + (wa("x") ? `<a class="btn btn-red" href="${esc(wa(`Halo, saya mau dibuatkan seperti "${p.nama}".`))}" target="_blank" rel="noopener">${ICON.whatsapp}Pesan yang serupa</a>` : "")
+        : canPay(p) ? `<button class="btn btn-red" data-pay="${esc(p.id)}" type="button">${ICON.qr}Bayar QRIS</button>${h ? `<a class="btn btn-ghost" data-klik="${esc(p.id)}" href="${esc(h)}" target="_blank" rel="noopener" aria-label="Tanya lewat WhatsApp">${ICON.whatsapp}</a>` : ""}
+        <button class="btn btn-ghost" data-fav="${esc(p.id)}" type="button" aria-pressed="${on}" aria-label="Simpan ke favorit" style="color:${on ? "var(--red)" : "inherit"}">${ICON.heart}</button>`
         : `${h ? `<a class="btn btn-red" data-klik="${esc(p.id)}" href="${esc(h)}" target="_blank" rel="noopener${p.tipe === "link" ? " sponsored" : ""}">${p.link ? "" : ICON.whatsapp}${buyLabel(p)} ${p.link ? ICON.out : ""}</a>` : ""}
         <button class="btn btn-ghost" data-fav="${esc(p.id)}" type="button" aria-pressed="${on}" aria-label="Simpan ke favorit" style="color:${on ? "var(--red)" : "inherit"}">${ICON.heart}</button>
         <a class="btn btn-ghost" href="${share}" target="_blank" rel="noopener" aria-label="Bagikan ke WhatsApp">${ICON.share}</a>`}
@@ -967,6 +1116,7 @@ document.addEventListener("click", e => {
   if (ad && !t.closest(".dots,.bnav")){ const b = $("banner"); if (b.dataset.swiped){ delete b.dataset.swiped; return; } return openAd(ads[+ad.dataset.ad]); }
   const dot = t.closest("[data-dot]"); if (dot) return goSlide(+dot.dataset.dot);
   const step = t.closest("[data-step]"); if (step) return goSlide(bIdx + +step.dataset.step);
+  const pb = t.closest("[data-pay]"); if (pb){ e.preventDefault(); e.stopPropagation(); const d = $("qv"); if (d.open) closeQV(); return openPay(pb.dataset.pay); }
   const open = t.closest("[data-open]"); if (open) return openQV(open.dataset.open);
   const go = t.closest("[data-go]");
   if (go){
