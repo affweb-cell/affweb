@@ -219,6 +219,13 @@ select{appearance:none;-webkit-appearance:none;border:1px solid var(--line);back
 .svc .ic svg{width:22px;height:22px}
 .svc .bdg{margin-left:auto;font-size:10.5px;font-weight:700;background:var(--red);color:#fff;padding:4px 9px;border-radius:999px}
 .svc h3{font-family:var(--display);font-weight:800;font-size:19px;line-height:1.15;margin:0}
+.svc.has-th{padding-top:12px}
+.svc .th{position:relative;display:block;aspect-ratio:16/10;border-radius:12px;overflow:hidden;background:var(--s3);margin-bottom:4px;border:1px solid var(--line)}
+.svc .th img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .8s var(--ease),opacity .35s}
+.svc:hover .th img{transform:scale(1.04)}
+.svc .th .demo{position:absolute;right:8px;bottom:8px;display:inline-flex;align-items:center;gap:5px;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);font-size:12px;font-weight:700;padding:6px 10px;border-radius:9px;color:#fff}
+.svc .th .demo svg{width:13px;height:13px}
+.pf .ph img,.qv-ph img{object-position:top}
 .svc ul{list-style:none;margin:0;padding:0;display:grid;gap:5px}
 .svc li{display:flex;gap:8px;font-size:13px;color:var(--mut)}
 .svc li svg{width:15px;height:15px;color:var(--red);margin-top:2px}
@@ -634,7 +641,8 @@ function parseCSV(t){
   }
   if (f || row.length){ row.push(f); rows.push(row); }
   const head = (rows.shift() || []).map(h => h.trim().toLowerCase().replace(/\s+/g, "_"));
-  return rows.filter(r => r.some(v => v.trim())).map(r => Object.fromEntries(head.map((h, i) => [h, (r[i] || "").trim()])));
+  // Kalau ada judul kolom kembar (misalnya "link affiliate" dan "link_affiliate"), pakai yang terisi
+  return rows.filter(r => r.some(v => v.trim())).map(r => { const o = {}; head.forEach((h, i) => { const v = (r[i] || "").trim(); if (v || !(h in o)) o[h] = v || o[h] || ""; }); return o; });
 }
 function driveImg(u, size){
   if (!u) return "";
@@ -650,6 +658,14 @@ function parseDate(s){
   if (m){ let d = +m[1], mo = +m[2]; if (mo > 12 && d <= 12) [d, mo] = [mo, d]; return new Date(+m[3], mo - 1, d); }
   const d = new Date(s); return isNaN(d) ? null : d;
 }
+// Link web biasa (bukan marketplace, video, sosmed, atau WA) → tampilannya diambil otomatis
+const isWebUrl = u => /^https?:\/\//i.test(u || "") && !/(shopee|tokopedia|tiktok|lazada|blibli|bukalapak|amazon|youtu|instagram|facebook|fb\.|wa\.me|whatsapp|drive\.google|lynk\.id)/i.test(u);
+const shot = (u, w) => `https://s.wordpress.com/mshots/v1/${encodeURIComponent(u)}?w=${w}&h=${Math.round(w * .625)}`;
+// Nama otomatis dari link kalau kolom nama kosong, contoh: .../kellweb/ → "Kellweb"
+function nameFromUrl(u){
+  try { const x = new URL(u), seg = x.pathname.split("/").filter(Boolean).pop() || x.hostname.split(".")[0];
+    return decodeURIComponent(seg).replace(/[-_]+/g, " ").replace(/\.\w+$/, "").replace(/\b\w/g, c => c.toUpperCase()); } catch (e) { return ""; }
+}
 const vidSrc = u => { u = (u || "").toLowerCase(); return u.includes("youtu") ? "YouTube" : u.includes("tiktok") ? "TikTok" : u.includes("instagram") ? "Instagram" : u.includes("facebook") ? "Facebook" : "Video"; };
 // Jenis jasa dari kolom kategori: "Web", "Jasa Web", "Website" → web; "IoT", "Jasa IoT" → iot
 const jasaKey = k => { k = (k || "").toLowerCase().replace(/^jasa\s+/, "").trim(); return /web/.test(k) ? "web" : /iot/.test(k) ? "iot" : k || "lainnya"; };
@@ -662,9 +678,10 @@ function normalize(rows){
     const tipe = ALIAS[raw] !== undefined ? ALIAS[raw] : raw;
     const link = o.link || o.link_affiliate || "";
     const yt = ytId(link) ? `https://i.ytimg.com/vi/${ytId(link)}/hqdefault.jpg` : "";
+    const web = !o.gambar && isWebUrl(link);
     return {
-      tipe, id: o.id || `${tipe}-${i + 1}`, nama: o.nama || "", link,
-      img: driveImg(o.gambar, 600) || yt, imgL: driveImg(o.gambar, 1400) || yt,
+      tipe, id: o.id || `${tipe}-${i + 1}`, nama: o.nama || (web ? nameFromUrl(link) : ""), link, web: isWebUrl(link),
+      img: driveImg(o.gambar, 600) || yt || (web ? shot(link, 800) : ""), imgL: driveImg(o.gambar, 1400) || yt || (web ? shot(link, 1400) : ""),
       harga: num(o.harga), kategori: o.kategori || (tipe === "iot" ? "Produk IoT" : tipe === "ebook" ? "Ebook" : "Lainnya"),
       platform: o.platform || (tipe === "link" ? "Lainnya" : tipe === "video" ? vidSrc(link) : ""),
       badge: o.badge || "", status: (o.status || "aktif").toLowerCase(),
@@ -685,7 +702,7 @@ const wa = t => waNum() ? `https://wa.me/${waNum()}?text=${encodeURIComponent(t)
 const shopKey = p => { if (p.tipe !== "link") return "own"; const s = p.platform.toLowerCase(); return ["shopee","tiktok","tokopedia","lazada"].find(k => s.includes(k)) || "lain"; };
 const srcLabel = p => p.tipe === "link" ? p.platform : p.kategori;
 function buyHref(p){
-  if (p.link && !/^#/.test(p.link)) return p.link;
+  if (p.link && !/^#/.test(p.link) && !(p.tipe === "jasa" && p.web)) return p.link;
   const what = { ebook: "ebook", jasa: "jasa", portofolio: "jasa seperti" }[p.tipe] || "produk";
   return wa(`Halo, saya tertarik dengan ${what} "${p.nama}". Boleh minta info?`);
 }
@@ -694,7 +711,15 @@ function buyLabel(p){
   if (p.tipe === "ebook") return "Beli ebook";
   return p.link ? "Beli sekarang" : "Pesan";
 }
-const img = (src, alt, eager) => `<img src="${esc(src || FALLBACK)}" alt="${esc(alt)}" ${eager ? "" : 'loading="lazy"'} decoding="async" referrerpolicy="no-referrer" class="ld" onload="this.classList.remove('ld')" onerror="this.onerror=null;this.classList.remove('ld');this.src=FALLBACK">`;
+const img = (src, alt, eager) => `<img src="${esc(src || FALLBACK)}" alt="${esc(alt)}" ${eager ? "" : 'loading="lazy"'} decoding="async" referrerpolicy="no-referrer" class="ld" onload="imgOk(this)" onerror="this.onerror=null;this.classList.remove('ld');this.src=FALLBACK">`;
+// Tangkapan layar web dibuat pertama kali dalam beberapa detik. Selama itu, coba lagi otomatis.
+function imgOk(el){
+  const s = el.currentSrc || el.src;
+  if (s.includes("/mshots/") && el.naturalWidth === 400 && el.naturalHeight === 300){
+    const n = +(el.dataset.r || 0); if (n < 5){ el.dataset.r = n + 1; setTimeout(() => { el.src = s.replace(/&r=\d+$/, "") + "&r=" + (n + 1); }, 3000); return; }
+  }
+  el.classList.remove("ld");
+}
 function kirim(d){ if (!CONFIG.API_URL) return; try { fetch(CONFIG.API_URL, { method: "POST", mode: "no-cors", keepalive: true, headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(d) }).catch(() => {}); } catch (e) {} }
 let tt; function toast(m){ const t = $("toast"); t.textContent = m; t.classList.add("show"); clearTimeout(tt); tt = setTimeout(() => t.classList.remove("show"), 2200); }
 
@@ -713,13 +738,14 @@ function card(p, i, rank){
 }
 function svcCard(p){
   const pts = p.desk.split(/\s*[;\n|]\s*/).filter(Boolean).slice(0, 4), h = buyHref(p);
-  return `<article class="svc rv${p.badge ? " hot" : ""}">
+  return `<article class="svc rv${p.badge ? " hot" : ""}${p.img ? " has-th" : ""}">
+    ${p.img ? `<${p.web ? `a href="${esc(p.link)}" target="_blank" rel="noopener"` : "div"} class="th">${img(p.img, p.nama)}${p.web ? `<span class="demo">${ICON.out}Lihat demo</span>` : ""}</${p.web ? "a" : "div"}>` : ""}
     <div class="tp"><span class="ic">${jasaKey(p.kategori) === "iot" ? ICON.wifi : ICON.code}</span>${p.badge ? `<span class="bdg">${esc(p.badge)}</span>` : ""}</div>
     <h3>${esc(p.nama)}</h3>
     ${pts.length ? `<ul>${pts.map(x => `<li>${ICON.check}<span>${esc(x)}</span></li>`).join("")}</ul>` : ""}
     <div class="ft"><div>${p.harga ? `<div class="from">Mulai</div><div class="amt">Rp ${ribu(p.harga)}</div>` : `<div class="from">Harga</div><div class="amt">Tanya dulu</div>`}</div>
     <div style="display:flex;gap:6px">${qrisOn("jasa") ? `<button class="btn btn-qris btn-sm" data-pay="${esc(p.id)}" type="button" aria-label="Bayar ${esc(p.nama)} dengan QRIS">${ICON.qr}QRIS</button>` : ""}
-    ${h ? `<a class="btn btn-red btn-sm" data-klik="${esc(p.id)}" href="${esc(h)}" target="_blank" rel="noopener">${p.link ? "" : ICON.whatsapp}Pesan</a>` : ""}</div></div>
+    ${h ? `<a class="btn btn-red btn-sm" data-klik="${esc(p.id)}" href="${esc(h)}" target="_blank" rel="noopener">${p.link && !p.web ? "" : ICON.whatsapp}Pesan</a>` : ""}</div></div>
   </article>`;
 }
 function pfCard(p){
@@ -885,6 +911,7 @@ function renderJasa(){
 function renderBeranda(){
   const shop = state.all.filter(isShop);
   const iklan = state.all.filter(p => p.tipe === "iklan");
+  iklan.forEach(a => { if (!a.img && byId.has(a.link)){ const t = byId.get(a.link); a.img = t.img; a.imgL = t.imgL; } });
   renderBanner(iklan.length ? iklan : (CONFIG.BANNER_BAWAAN || []).map(b => ({ nama: b.judul, desk: b.teks || "", badge: b.label || "", link: b.link || "", img: "", imgL: "", harga: 0 })));
   const jasa = state.all.filter(p => p.tipe === "jasa" || p.tipe === "portofolio");
   const hasJ = k => jasa.some(p => jasaKey(p.kategori) === k);
@@ -1060,10 +1087,13 @@ function openQV(id){
     <div class="qv-b">
       <span class="src s-${shopKey(p)}" style="margin:0"><i></i>${esc(pf ? "Contoh hasil · " + jasaName(jasaKey(p.kategori)) : srcLabel(p))}</span>
       <h3>${esc(p.nama)}</h3>
-      ${p.harga ? `<div class="qv-pr"><small>Rp</small>${ribu(p.harga)}</div>` : ""}
-      ${p.desk ? `<p class="qv-d">${esc(p.desk)}</p>` : ""}
+      ${p.harga ? `<div class="qv-pr">${p.tipe === "jasa" ? '<small style="color:var(--mut);font-family:var(--body);font-weight:600">Mulai </small>' : ""}<small>Rp</small>${ribu(p.harga)}</div>` : ""}
+      ${p.desk ? `<p class="qv-d">${esc(p.tipe === "jasa" ? p.desk.split(/\s*[;|]\s*/).filter(Boolean).map(x => "• " + x).join("\n") : p.desk)}</p>` : ""}
       <div class="qv-act">
-        ${pf ? (p.link ? `<a class="btn btn-ghost" href="${esc(p.link)}" target="_blank" rel="noopener">Lihat hasil ${ICON.out}</a>` : "") + (wa("x") ? `<a class="btn btn-red" href="${esc(wa(`Halo, saya mau dibuatkan seperti "${p.nama}".`))}" target="_blank" rel="noopener">${ICON.whatsapp}Pesan yang serupa</a>` : "")
+        ${p.tipe === "jasa" ? (qrisOn("jasa") && p.harga ? `<button class="btn btn-red" data-pay="${esc(p.id)}" type="button">${ICON.qr}Bayar QRIS</button>` : "") +
+          (h ? `<a class="btn ${qrisOn("jasa") && p.harga ? "btn-ghost" : "btn-red"}" data-klik="${esc(p.id)}" href="${esc(h)}" target="_blank" rel="noopener">${ICON.whatsapp}Pesan</a>` : "") +
+          (p.web ? `<a class="btn btn-ghost" href="${esc(p.link)}" target="_blank" rel="noopener">Demo ${ICON.out}</a>` : "")
+        : pf ? (p.link ? `<a class="btn btn-ghost" href="${esc(p.link)}" target="_blank" rel="noopener">Lihat hasil ${ICON.out}</a>` : "") + (wa("x") ? `<a class="btn btn-red" href="${esc(wa(`Halo, saya mau dibuatkan seperti "${p.nama}".`))}" target="_blank" rel="noopener">${ICON.whatsapp}Pesan yang serupa</a>` : "")
         : canPay(p) ? `<button class="btn btn-red" data-pay="${esc(p.id)}" type="button">${ICON.qr}Bayar QRIS</button>${h ? `<a class="btn btn-ghost" data-klik="${esc(p.id)}" href="${esc(h)}" target="_blank" rel="noopener" aria-label="Tanya lewat WhatsApp">${ICON.whatsapp}</a>` : ""}
         <button class="btn btn-ghost" data-fav="${esc(p.id)}" type="button" aria-pressed="${on}" aria-label="Simpan ke favorit" style="color:${on ? "var(--red)" : "inherit"}">${ICON.heart}</button>`
         : `${h ? `<a class="btn btn-red" data-klik="${esc(p.id)}" href="${esc(h)}" target="_blank" rel="noopener${p.tipe === "link" ? " sponsored" : ""}">${p.link ? "" : ICON.whatsapp}${buyLabel(p)} ${p.link ? ICON.out : ""}</a>` : ""}
